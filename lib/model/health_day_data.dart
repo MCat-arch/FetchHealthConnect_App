@@ -1,15 +1,31 @@
 class HealthDayData {
-  String id;
-  String title;
+  // String id;
+  // String title;
   String kategori;
-  String content;
   String time;
+  int? hr;
+  int? steps;
 
   HealthDayData(
-    this.content,
-    this.id,
+    // this.id,
     this.kategori,
     this.time,
-    this.title,
+    this.hr,
+    this.steps,
   );
+
+  Map<String, dynamic> toJson() => {
+    'kategori': kategori,
+    'time': time,
+    'hr': hr,
+    'steps': steps,
+  };
+  factory HealthDayData.fromJson(Map<String, dynamic> json) {
+    return HealthDayData(
+      json['kategori'],
+      json['time'],
+      json['hr'],
+      json['steps'],
+    );
+  }
 }

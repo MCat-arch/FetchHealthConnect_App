@@ -1,11 +1,26 @@
 import 'package:app_aura/model/health_day_data.dart';
-import 'package:flutter/material.dart';
 
-class HealthData extends ChangeNotifier {
+class HealthData {
   String id;
   String date;
   int panicCount;
-  List<HealthDayData> dateData;
+  List<HealthDayData> details;
 
-  HealthData(this.id, this.date,this.panicCount, this.dateData);
+  HealthData(this.id, this.date, this.panicCount, this.details);
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'date': date,
+        'panicCount': panicCount,
+        'details': details.map((e) => e.toJson()).toList(),
+      };
+
+  factory HealthData.fromJson(Map<String, dynamic> json) => HealthData(
+        json['id'],
+        json['date'],
+        json['panicCount'],
+        (json['details'] as List<dynamic>)
+            .map((e) => HealthDayData.fromJson(e))
+            .toList(),
+      );
 }

@@ -9,7 +9,7 @@ class ManualInputForm extends StatefulWidget {
 
 class _ManualInputFormState extends State<ManualInputForm> {
   final _formKey = GlobalKey<FormState>();
-  String? panicStatus; // 'Iya' atau 'Tidak'
+  String? panicStatus; 
   TimeOfDay? startTime;
   TimeOfDay? endTime;
   DateTime? selectedDate;

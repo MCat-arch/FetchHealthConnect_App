@@ -2,8 +2,9 @@ import 'package:app_aura/model/health_day_data.dart';
 import 'package:flutter/material.dart';
 
 class DateDetail extends StatefulWidget {
-  const DateDetail({super.key, required this.detailData});
-  final List<HealthDayData> detailData;
+  const DateDetail({super.key, required this.data});
+
+  final List<HealthDayData>? data;
 
   @override
   State<DateDetail> createState() => _DateDetailState();
@@ -11,34 +12,43 @@ class DateDetail extends StatefulWidget {
 
 class _DateDetailState extends State<DateDetail> {
   @override
+  @override
   Widget build(BuildContext context) {
+    if (widget.data == null || widget.data!.isEmpty) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Detail Kesehatan')),
+        body: const Center(child: Text('Tidak ada data detail')),
+      );
+    }
     return Scaffold(
-      appBar: AppBar(title: Text("Detail Kesehatan")),
+      appBar: AppBar(title: const Text('Detail Kesehatan')),
       body: ListView.builder(
-        itemCount: widget.detailData.length,
+        itemCount: widget.data!.length,
         itemBuilder: (context, index) {
-          final data = widget.detailData[index];
-          return Container(
+          final dataDetail = widget.data![index];
+          return Card(
             child: ListTile(
-              title: Column(
+              title: Text(
+                'Detail Data',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  const SizedBox(height: 4),
+                  Text('heart rate : ${dataDetail.hr.toString()}'),
+                  SizedBox(height: 2),
+                  Text('steps : ${dataDetail.steps.toString()}'),
                   Text(
-                    data.title,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 4),
-                  Text('${data.content}'),
-                  Text(
-                    data.kategori,
+                    dataDetail.kategori,
                     style: TextStyle(
                       color:
-                          data.kategori.toLowerCase() == 'panic'
+                          dataDetail.kategori.toLowerCase() == 'panic'
                               ? Colors.red
                               : Colors.black,
                     ),
                   ),
-                  Text('${data.time}'),
+                  Text(dataDetail.time),
                 ],
               ),
             ),

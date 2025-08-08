@@ -1,7 +1,9 @@
 import 'package:app_aura/model/health_data.dart';
 import 'package:app_aura/model/health_day_data.dart';
+import 'package:app_aura/providers/health_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:app_aura/data/dummy.dart';
+import 'package:provider/provider.dart';
 
 class BoxStats extends StatefulWidget {
   const BoxStats({super.key});
@@ -11,19 +13,21 @@ class BoxStats extends StatefulWidget {
 }
 
 class _BoxStatsState extends State<BoxStats> {
-  int totalData = dummyHealthData.fold(
-    0,
-    (sum, items) => sum + items.dateData.length,
-  );
-  int totalPanicData = dummyHealthData.fold(
-    0,
-    (sum, items) =>
-        sum +
-        items.dateData.where((d) => d.kategori.toLowerCase() == 'panic').length,
-  );
-  final data = dummyHealthData;
+  
+  // int totalData = dummyHealthData.fold(
+  //   0,
+  //   (sum, items) => sum + items.dateData.length,
+  // );
+  // int totalPanicData = dummyHealthData.fold(
+  //   0,
+  //   (sum, items) =>
+  //       sum +
+  //       items.dateData.where((d) => d.kategori.toLowerCase() == 'panic').length,
+  // );
+  // final data = dummyHealthData;
   @override
   Widget build(BuildContext context) {
+    final data = context.watch<HealthProvider>().dailyData;
     return Container(
       padding: EdgeInsets.all(16),
       margin: EdgeInsets.all(16),
@@ -33,7 +37,7 @@ class _BoxStatsState extends State<BoxStats> {
       ),
       child: Row(
         children: [
-          Image.asset('stats.png', height: 60, width: 60),
+          // Image.asset('stats.png', height: 60, width: 60),
           SizedBox(width: 10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,8 +47,8 @@ class _BoxStatsState extends State<BoxStats> {
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
               ),
               SizedBox(height: 8),
-              Text('- Data collected : ${totalData}'),
-              Text('- Panic detected : $totalPanicData'),
+              Text('- Data collected : ${data.length}'),
+              Text('- Panic detected : ${data.map((d)=> d.panicCount)}'),
             ],
           ),
         ],

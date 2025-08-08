@@ -1,39 +1,52 @@
-import 'package:app_aura/components/date_detail.dart';
-import 'package:app_aura/model/health_day_data.dart';
-import 'package:flutter/material.dart';
-import 'package:app_aura/data/dummy.dart';
+// lib/components/data_date.dart
 
-class DataDate extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:app_aura/model/health_data.dart';
+import 'package:app_aura/components/date_detail.dart';
+import 'package:app_aura/providers/health_provider.dart';
+
+class DataDate extends StatefulWidget {
   const DataDate({super.key});
 
   @override
+  State<DataDate> createState() => _DataDateState();
+}
+
+class _DataDateState extends State<DataDate> {
+  @override
   Widget build(BuildContext context) {
+    // Ambil list HealthData dari provider
+    final dailyList = context.watch<HealthProvider>().dailyData;
+
+    if (dailyList.isEmpty) {
+      return const Center(child: Text('Belum ada data kesehatan'));
+    }
+
     return ListView.builder(
-      itemCount: dummyHealthData.length,
+      itemCount: dailyList.length,
       itemBuilder: (context, index) {
-        String date = dummyHealthData[index].date;
-        List<String> content =
-            dummyHealthData[index].dateData.map((d) => d.kategori).toList();
-        List<HealthDayData> data = dummyHealthData[index].dateData;
+        final dayData = dailyList[index]; // HealthData
         return GestureDetector(
-          key: ValueKey('item-$index'),
+          key: ValueKey('day-${dayData.date}'),
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => DateDetail(detailData: data)),
+              MaterialPageRoute(
+                builder: (_) => DateDetail(data: dayData.details),
+              ),
             );
           },
           child: ListTile(
-            title: Column(
-              children: [
-                Text(
-                  '$date' ?? '',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 10),
-                Text('$content' ?? ''),
-              ],
+            title: Text(
+              dayData.date,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
             ),
+            subtitle: Text('Panic count: ${dayData.panicCount}'),
+            trailing: const Icon(Icons.arrow_forward_ios, size: 16),
           ),
         );
       },
