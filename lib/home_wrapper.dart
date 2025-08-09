@@ -76,7 +76,8 @@ class _HomeWrapperState extends State<HomeWrapper> {
       try {
         await NotificationService().requestPermission();
         await NotificationService().initNotification();
-        // await HealthService.ensurePermission();
+        await HealthService.requestRuntimePermissions();
+        
 
         setState(() => _initialized = true);
       } catch (e) {

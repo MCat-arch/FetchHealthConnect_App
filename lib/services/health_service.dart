@@ -24,47 +24,114 @@ class HealthService {
     }
   }
 
+  // static Future<List<HealthData>> fetchData() async {
+  //   final now = DateTime.now();
+  //   final yesterday = now.subtract(const Duration(days: 3));
+  //   final types = [HealthDataType.HEART_RATE, HealthDataType.STEPS];
+  //   final start = DateTime(
+  //     yesterday.year,
+  //     yesterday.month,
+  //     yesterday.day,
+  //     0,
+  //     0,
+  //     0,
+  //   );
+  //   final end = DateTime(
+  //     yesterday.year,
+  //     yesterday.month,
+  //     yesterday.day,
+  //     23,
+  //     59,
+  //     59,
+  //   );
+
+  //   await requestRuntimePermissions();
+  //   await ensurePermissions();
+
+  //   final raw = await _health.getHealthDataFromTypes(
+  //     startTime: yesterday,
+  //     endTime: now,
+  //     types: types,
+  //   );
+
+  //   print('=== DEBUG: Total data points fetched: ${raw.length} ===');
+  //   for (var p in raw) {
+  //     print(
+  //       '[${p.type}] value=${p.value} time=${p.dateFrom.toLocal().toIso8601String()}',
+  //     );
+  //   }
+
+  //   final List<HealthDayData> dayDetails = [];
+  //   int panicCount = 0;
+
+  //   for (var p in raw) {
+  //     int? hr;
+  //     int? steps;
+  //     String kategori = '';
+
+  //     if (p.type == HealthDataType.HEART_RATE) {
+  //       hr = _parseToInt(p.value);
+  //       kategori = _mapCategory(hr);
+  //       // if (hr != null && hr > _panicThreshold) {
+  //       //   panicCount++;
+  //       //   NotificationService().showNotification();
+  //       // }
+  //       dayDetails.add(
+  //         HealthDayData(
+  //           kategori,
+  //           p.dateFrom.toLocal().toIso8601String(),
+  //           hr,
+  //           null,
+  //         ),
+  //       );
+  //     } else if (p.type == HealthDataType.STEPS) {
+  //       steps = _parseToInt(p.value);
+  //       // kategori dikosongkan untuk steps
+  //       dayDetails.add(
+  //         HealthDayData(
+  //           '',
+  //           p.dateFrom.toLocal().toIso8601String(),
+  //           null,
+  //           steps,
+  //         ),
+  //       );
+  //     }
+  //   }
+
+  //   print('=== DEBUG: Total HealthDayData created: ${dayDetails.length} ===');
+  //   for (var d in dayDetails) {
+  //     print(
+  //       'HealthDayData: kategori=${d.kategori}, time=${d.time}, hr=${d.hr}, steps=${d.steps}',
+  //     );
+  //   }
+  //   final dateString =
+  //       '${yesterday.year}-${yesterday.month.toString().padLeft(2, '0')}-${yesterday.day.toString().padLeft(2, '0')}';
+  //   return [HealthData(_uuid.v4(), dateString, panicCount, dayDetails)];
+  // }
+
+  //with data categorized per date
   static Future<List<HealthData>> fetchData() async {
     final now = DateTime.now();
-    final yesterday = now.subtract(const Duration(days: 1));
+    final start = now.subtract(
+      const Duration(days: 7),
+    ); // ambil 7 hari terakhir
     final types = [HealthDataType.HEART_RATE, HealthDataType.STEPS];
-    final start = DateTime(
-      yesterday.year,
-      yesterday.month,
-      yesterday.day,
-      0,
-      0,
-      0,
-    );
-    final end = DateTime(
-      yesterday.year,
-      yesterday.month,
-      yesterday.day,
-      23,
-      59,
-      59,
-    );
 
     await requestRuntimePermissions();
     await ensurePermissions();
 
     final raw = await _health.getHealthDataFromTypes(
       startTime: start,
-      endTime: end,
+      endTime: now,
       types: types,
     );
 
-    print('=== DEBUG: Total data points fetched: ${raw.length} ===');
-    for (var p in raw) {
-      print(
-        '[${p.type}] value=${p.value} time=${p.dateFrom.toLocal().toIso8601String()}',
-      );
-    }
-
-    final List<HealthDayData> dayDetails = [];
-    int panicCount = 0;
+    // Kelompokkan berdasarkan tanggal
+    final Map<String, List<HealthDayData>> grouped = {};
 
     for (var p in raw) {
+      final dateKey =
+          "${p.dateFrom.year}-${p.dateFrom.month.toString().padLeft(2, '0')}-${p.dateFrom.day.toString().padLeft(2, '0')}";
       int? hr;
       int? steps;
       String kategori = '';
@@ -72,41 +139,41 @@ class HealthService {
       if (p.type == HealthDataType.HEART_RATE) {
         hr = _parseToInt(p.value);
         kategori = _mapCategory(hr);
-        if (hr != null && hr > _panicThreshold) {
-          panicCount++;
-          NotificationService().showNotification();
-        }
-        dayDetails.add(
-          HealthDayData(
-            kategori,
-            p.dateFrom.toLocal().toIso8601String(),
-            hr,
-            null,
-          ),
-        );
-      } else if (p.type == HealthDataType.STEPS) {
-        steps = _parseToInt(p.value);
-        // kategori dikosongkan untuk steps
-        dayDetails.add(
-          HealthDayData(
-            '',
-            p.dateFrom.toLocal().toIso8601String(),
-            null,
-            steps,
-          ),
-        );
       }
-    }
+      if (p.type == HealthDataType.STEPS) {
+        steps = _parseToInt(p.value);
+      }
 
-    print('=== DEBUG: Total HealthDayData created: ${dayDetails.length} ===');
-    for (var d in dayDetails) {
-      print(
-        'HealthDayData: kategori=${d.kategori}, time=${d.time}, hr=${d.hr}, steps=${d.steps}',
+      grouped.putIfAbsent(dateKey, () => []);
+      grouped[dateKey]!.add(
+        HealthDayData(
+          kategori,
+          p.dateFrom.toLocal().toIso8601String(),
+          hr,
+          steps,
+        ),
       );
     }
-    final dateString =
-        '${yesterday.year}-${yesterday.month.toString().padLeft(2, '0')}-${yesterday.day.toString().padLeft(2, '0')}';
-    return [HealthData(_uuid.v4(), dateString, panicCount, dayDetails)];
+
+    // Buat list HealthData per tanggal
+    final List<HealthData> result = [];
+    grouped.forEach((date, details) {
+      final panicCount =
+          details.where((d) => d.hr != null && d.hr! > _panicThreshold).length;
+      result.add(HealthData(_uuid.v4(), date, panicCount, details));
+    });
+
+    // Urutkan dari tanggal terbaru
+    result.sort((a, b) => b.date.compareTo(a.date));
+
+    print('=== DEBUG: HealthData per tanggal ===');
+    for (var hd in result) {
+      print(
+        'Tanggal: ${hd.date}, Panic: ${hd.panicCount}, Detail: ${hd.details.length}',
+      );
+    }
+
+    return result;
   }
 
   static String _mapCategory(int? hr) {

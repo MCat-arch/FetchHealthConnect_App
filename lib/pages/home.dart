@@ -14,6 +14,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
+// ...existing code...
 class _HomeState extends State<Home> {
   bool _isLoading = false;
   String? _error;
@@ -24,8 +25,6 @@ class _HomeState extends State<Home> {
       _error = null;
     });
     try {
-      // Sekaligus minta permission dan fetch data
-      // final data = await HealthService.fetchData();
       await Provider.of<HealthProvider>(context, listen: false).loadFromLocal();
       ScaffoldMessenger.of(
         context,
@@ -50,7 +49,6 @@ class _HomeState extends State<Home> {
       _error = null;
     });
     try {
-      await HealthService.requestRuntimePermissions();
       await HealthService.ensurePermissions();
       ScaffoldMessenger.of(
         context,
@@ -68,16 +66,6 @@ class _HomeState extends State<Home> {
       });
     }
   }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // Bisa otomatis fetch di awal, atau hapus jika ingin manual lewat tombol
-  //   _fetchAndSaveHealthData();
-  //   // Future.microtask(
-  //   //   () => Provider.of<HealthProvider>(context, listen: false).loadFromLocal(),
-  //   // );
-  // }
 
   @override
   Widget build(BuildContext context) {
