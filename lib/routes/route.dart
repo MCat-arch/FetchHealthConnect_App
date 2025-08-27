@@ -1,6 +1,6 @@
 import 'package:aura/home_wrapper.dart';
 import 'package:aura/pages/home.dart';
-import 'package:aura/pages/manual_label.dart';
+import 'package:aura/pages/manual_input_form.dart';
 import 'package:aura/utils/init.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

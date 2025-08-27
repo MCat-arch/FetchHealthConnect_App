@@ -42,10 +42,13 @@ class HealthService {
 
     DateTime start;
     if (localData.isNotEmpty) {
-      final latestDateStr = localData.first.date;
-      start = DateTime.parse(latestDateStr).subtract(const Duration(days: 1));
+      final latestDateStr = localData.first;
+      final latestDetail = latestDateStr.details.isNotEmpty
+          ? DateTime.parse(latestDateStr.details.last.time)
+          : DateTime.parse(latestDateStr.date);
+      start = latestDetail.subtract(const Duration(minutes: 5));
     } else {
-      start = now.subtract(const Duration(days: 7)); // ambil 7 hari terakhi
+      start = now.subtract(const Duration(days: 1)); // ambil 7 hari terakhi
     }
     final types = [HealthDataType.HEART_RATE, HealthDataType.STEPS];
 
@@ -91,15 +94,6 @@ class HealthService {
       );
     }
 
-    // // Buat list HealthData per tanggal
-    // final List<HealthData> result = [];
-    // grouped.forEach((date, details) {
-    //   final panicCount = details
-    //       .where((d) => d.hr != null && d.hr! > _panicThreshold)
-    //       .length;
-    //   result.add(HealthData(_uuid.v4(), date, panicCount, details));
-    // });
-
     final List<HealthData> fetchedList = grouped.entries.map((entry) {
       final panicCount = entry.value
           .where((d) => d.hr != null && d.hr! > _panicThreshold)
@@ -112,8 +106,32 @@ class HealthService {
 
     final Map<String, HealthData> mergedMap = {
       for (var data in localData) data.date: data,
-      for (var data in fetchedList) data.date: data,
+      // for (var data in fetchedList) data.date: data,
     };
+
+    for (var fetched in fetchedList) {
+      if (!mergedMap.containsKey(fetched.date)) {
+        mergedMap[fetched.date] = fetched;
+      } else {
+        final existing = mergedMap[fetched.date]!;
+        final existingTimes = existing.details.map((d) => d.time).toSet();
+
+        final newDetails = [
+          ...existing.details,
+          ...fetched.details.where((d) => existingTimes.contains(d.time)),
+        ]..sort((a, b) => a.time.compareTo(b.time));
+
+        final panicCount = newDetails
+            .where((d) => d.hr != null && d.hr! > _panicThreshold)
+            .length;
+        mergedMap[fetched.date] = HealthData(
+          existing.id,
+          fetched.date,
+          panicCount,
+          newDetails,
+        );
+      }
+    }
 
     final mergedList = mergedMap.values.toList()
       ..sort((a, b) => b.date.compareTo(a.date));
@@ -160,116 +178,3 @@ class HealthService {
     return null;
   }
 }
-
-// // lib/services/health_service.dart
-// import 'package:aura/model/health_data.dart';
-// import 'package:aura/model/health_day_data.dart';
-// import 'package:aura/services/notification_service.dart';
-// import 'package:health/health.dart';
-// import 'package:permission_handler/permission_handler.dart';
-// import 'package:uuid/uuid.dart';
-
-// class HealthService {
-//   static final Health _health = Health();
-//   static const int _panicThreshold = 85;
-//   static const _uuid = Uuid();
-
-//   /// Request runtime permissions (Android 10+/13+)
-//   static Future<void> requestRuntimePermissions() async {
-//     await Permission.activityRecognition.request();
-//     await Permission.sensors.request();
-//   }
-
-//   /// Request Health Connect permissions
-//   static Future<void> ensurePermissions() async {
-//     final types = [HealthDataType.HEART_RATE, HealthDataType.STEPS];
-//     final has = await _health.hasPermissions(types);
-//     if (has != true) {
-//       final granted = await _health.requestAuthorization(types);
-//       if (!granted) throw Exception('Health Connect permissions not granted');
-//     }
-//   }
-
-//   /// Fetch and process health data
-//   static Future<List<HealthData>> fetchData() async {
-//     final now = DateTime.now();
-//     final yesterday = now.subtract(const Duration(days: 1));
-//     final types = [HealthDataType.HEART_RATE, HealthDataType.STEPS];
-//     // Set waktu mulai dan akhir untuk hari kemarin
-//     final start = DateTime(
-//       yesterday.year,
-//       yesterday.month,
-//       yesterday.day,
-//       0,
-//       0,
-//       0,
-//     );
-//     final end = DateTime(
-//       yesterday.year,
-//       yesterday.month,
-//       yesterday.day,
-//       23,
-//       59,
-//       59,
-//     );
-//     // 1. Request runtime permissions
-//     await requestRuntimePermissions();
-
-//     // 2. Request Health Connect permissions
-//     await ensurePermissions();
-
-//     // 3. Fetch data
-//     final raw = await _health.getHealthDataFromTypes(
-//       startTime: start,
-//       endTime: end,
-//       types: types,
-//     );
-
-//     // Gabungkan data berdasarkan waktu (timestamp)
-//     final Map<String, HealthDayData> dataMap = {};
-
-//     for (var p in raw) {
-//       final timeKey = p.dateFrom.toLocal().toIso8601String();
-//       final existing = dataMap[timeKey];
-
-//       int hr = existing!.hr;
-//       int? steps = existing?.steps;
-
-//       if (p.type == HealthDataType.HEART_RATE) {
-//         hr = _parseToInt(p.value)!;
-//       } else if (p.type == HealthDataType.STEPS) {
-//         steps = _parseToInt(p.value);
-//       }
-
-//       dataMap[timeKey] = HealthDayData(_mapCategory(hr), timeKey, hr, steps);
-//     }
-
-//     final dayDetails = dataMap.values.toList();
-//     int panicCount =
-//         dayDetails.where((d) => d.hr != null && d.hr! > _panicThreshold).length;
-//     for (var d in dayDetails) {
-//       if (d.hr != null && d.hr! > _panicThreshold) {
-//         NotificationService().showNotification();
-//       }
-//     }
-
-//     final dateString =
-//         '${yesterday.year}-${yesterday.month.toString().padLeft(2, '0')}-${yesterday.day.toString().padLeft(2, '0')}';
-//     return [HealthData(_uuid.v4(), dateString, panicCount, dayDetails)];
-//   }
-
-//   static String _mapCategory(int hr) {
-//     // if (hr == null) return 'No HR';
-//     if (hr > _panicThreshold) return 'panic';
-//     if (hr < 60) return 'low';
-//     return 'normal';
-//   }
-
-//   static int? _parseToInt(dynamic value) {
-//     if (value == null) return null;
-//     if (value is int) return value;
-//     if (value is double) return value.round();
-//     if (value is String) return int.tryParse(value);
-//     return null;
-//   }
-// }

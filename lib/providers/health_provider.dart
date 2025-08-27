@@ -1,9 +1,11 @@
 // providers/health_provider.dart
 import 'dart:convert';
+import 'package:aura/model/health_day_data.dart';
 import 'package:aura/services/health_service.dart';
 import 'package:aura/utils/storage_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uuid/uuid.dart';
 import '../model/health_data.dart';
 
 class HealthProvider extends ChangeNotifier {
@@ -22,6 +24,51 @@ class HealthProvider extends ChangeNotifier {
   //   saveToLocal();
   //   notifyListeners();
   // }
+
+  Future<void> addManualLabel(String kategori, {int? hr, int? steps}) async {
+    final now = DateTime.now();
+    final todayDate =
+        "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
+
+    HealthData? existing = _dailyData.firstWhere(
+      (d) => d.date == todayDate,
+      orElse: () => HealthData(const Uuid().v4(), todayDate, 0, []),
+    );
+
+    final newDetail = HealthDayData(
+      kategori,
+      now.toIso8601String(),
+      hr ?? 0,
+      steps ?? 0,
+    );
+
+    // tambah ke existing
+    final updatedDetails = [...existing.details, newDetail];
+
+    final panicCount = updatedDetails
+        .where((d) => d.kategori == 'panic')
+        .length;
+
+    final updated = HealthData(
+      existing.id,
+      existing.date,
+      panicCount,
+      updatedDetails,
+    );
+
+    final idx = _dailyData.indexWhere((d) => d.date == todayDate);
+    if (idx >= 0) {
+      _dailyData[idx] = updated;
+    } else {
+      _dailyData.add(updated);
+    }
+
+    // urutkan & simpan
+    _dailyData.sort((a, b) => b.date.compareTo(a.date));
+    await StorageHelper.saveData(_dailyData);
+
+    notifyListeners();
+  }
 
   Future<void> loadFromLocal() async {
     await HealthService.ensurePermissions();

@@ -59,7 +59,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const ManualInputForm()),
+            MaterialPageRoute(builder: (context) => const ManualLabelPage()),
           );
         },
         child: const Icon(Icons.add),

@@ -1,5 +1,4 @@
 import 'package:aura/pages/home.dart';
-import 'package:aura/pages/manual_label.dart';
 import 'package:aura/providers/health_provider.dart';
 import 'package:aura/services/notification_service.dart';
 import 'package:aura/workmanager/workmanager_sync_health.dart';

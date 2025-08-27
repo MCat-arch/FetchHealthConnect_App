@@ -1,157 +1,74 @@
+import 'package:aura/model/health_data.dart';
+import 'package:aura/providers/health_provider.dart';
+import 'package:aura/routes/route.dart' as route;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
-class ManualInputForm extends StatefulWidget {
-  const ManualInputForm({super.key});
+class ManualLabelPage extends StatelessWidget {
+  const ManualLabelPage({super.key});
 
-  @override
-  State<ManualInputForm> createState() => _ManualInputFormState();
-}
+  Future<void> _saveData(BuildContext context, String kategori) async {
+    final now = DateTime.now();
+    final todayDate =
+        "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
 
-class _ManualInputFormState extends State<ManualInputForm> {
-  final _formKey = GlobalKey<FormState>();
-  String? panicStatus; 
-  TimeOfDay? startTime;
-  TimeOfDay? endTime;
-  DateTime? selectedDate;
-  TextEditingController contentController = TextEditingController();
+    // Ambil data terakhir dari provider (bukan storage langsung)
+    final provider = context.read<HealthProvider>();
+    final dailyData = provider.dailyData;
+
+    int? hrValue;
+    int? stepsValue;
+
+    final todayData = dailyData.firstWhere(
+      (d) => d.date == todayDate,
+      orElse: () => HealthData(const Uuid().v4(), todayDate, 0, []),
+    );
+
+    hrValue = todayData.details.where((d) => d.hr != null).lastOrNull?.hr ?? 0;
+    stepsValue =
+        todayData.details.where((d) => d.steps != null).lastOrNull?.steps ?? 0;
+
+    provider.addManualLabel(kategori, hr: hrValue, steps: stepsValue);
+
+    print(
+      '[ManualLabelPage] Saved via Provider: $kategori, HR=$hrValue, Steps=$stepsValue',
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Manual Input')),
+      appBar: AppBar(title: const Text('Manual Label')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              // Title
-              Text(
-                'Manual Data Fill by User',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(height: 16),
-
-              // Dropdown Panic
-              DropdownButtonFormField<String>(
-                decoration: InputDecoration(labelText: 'Apakah mengalami Panic Attack?'),
-                value: panicStatus,
-                items: ['Iya', 'Tidak'].map((value) {
-                  return DropdownMenuItem(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (val) {
-                  setState(() {
-                    panicStatus = val;
-                  });
-                },
-                validator: (val) => val == null ? 'Wajib dipilih' : null,
-              ),
-              SizedBox(height: 16),
-
-              // Date Picker
-              ListTile(
-                title: Text(selectedDate == null
-                    ? 'Pilih Tanggal'
-                    : 'Tanggal: ${selectedDate!.toLocal().toString().split(' ')[0]}'),
-                trailing: Icon(Icons.calendar_today),
-                onTap: () async {
-                  final picked = await showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2020),
-                    lastDate: DateTime(2030),
-                  );
-                  if (picked != null) {
-                    setState(() {
-                      selectedDate = picked;
-                    });
-                  }
-                },
-              ),
-              SizedBox(height: 16),
-
-              // Start Time Picker
-              ListTile(
-                title: Text(startTime == null
-                    ? 'Pilih Waktu Mulai'
-                    : 'Waktu Mulai: ${startTime!.format(context)}'),
-                trailing: Icon(Icons.access_time),
-                onTap: () async {
-                  final picked = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  );
-                  if (picked != null) {
-                    setState(() {
-                      startTime = picked;
-                    });
-                  }
-                },
-              ),
-              SizedBox(height: 16),
-
-              // End Time Picker
-              ListTile(
-                title: Text(endTime == null
-                    ? 'Pilih Waktu Selesai'
-                    : 'Waktu Selesai: ${endTime!.format(context)}'),
-                trailing: Icon(Icons.access_time),
-                onTap: () async {
-                  final picked = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay.now(),
-                  );
-                  if (picked != null) {
-                    setState(() {
-                      endTime = picked;
-                    });
-                  }
-                },
-              ),
-              SizedBox(height: 16),
-
-              // Optional Content Input
-              TextFormField(
-                controller: contentController,
-                decoration: InputDecoration(
-                  labelText: 'Konten (Opsional)',
-                  border: OutlineInputBorder(),
-                ),
-                maxLines: 3,
-              ),
-              SizedBox(height: 24),
-
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate() &&
-                      selectedDate != null &&
-                      startTime != null &&
-                      endTime != null) {
-                    // Simpan data
-                    final id = DateTime.now().millisecondsSinceEpoch.toString();
-                    final title = "manual data fill by user";
-
-                    // contoh print
-                    print('ID: $id');
-                    print('Title: $title');
-                    print('Kategori: ${panicStatus == "Iya" ? "Panic" : "Kesehatan"}');
-                    print('Tanggal: $selectedDate');
-                    print('Jam mulai: ${startTime!.format(context)}');
-                    print('Jam selesai: ${endTime!.format(context)}');
-                    print('Konten: ${contentController.text}');
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Lengkapi semua field yang wajib')),
-                    );
-                  }
-                },
-                child: Text('Simpan Data'),
-              )
-            ],
-          ),
+        child: Column(
+          children: [
+            const Text('Apakah kamu sedang mengalami panic attack?'),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () async {
+                await _saveData(context, 'panic');
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Label disimpan sebagai Panic')),
+                );
+                route.router.go('/home');
+              },
+              child: const Text('Ya, saya panic'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await _saveData(context, 'no_panic');
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Label disimpan sebagai Tidak Panic'),
+                  ),
+                );
+                route.router.go('/home');
+              },
+              child: const Text('Tidak, saya baik-baik saja'),
+            ),
+          ],
         ),
       ),
     );
