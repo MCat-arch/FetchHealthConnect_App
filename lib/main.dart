@@ -1,3 +1,4 @@
+import 'package:aura/firebase_options.dart';
 import 'package:aura/pages/home.dart';
 import 'package:aura/providers/health_provider.dart';
 import 'package:aura/services/notification_service.dart';
@@ -7,12 +8,15 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:aura/routes/route.dart' as route;
 import 'package:workmanager/workmanager.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Setup Workmanager
   await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   // Register background task every 15 minutes (minimum for Android)
   await Workmanager().registerPeriodicTask(
     'health_data_syncs',

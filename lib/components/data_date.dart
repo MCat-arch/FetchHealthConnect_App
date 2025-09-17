@@ -25,7 +25,7 @@ class _DataDateState extends State<DataDate>
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (firstLoad) {
         setState(() => loading = true);
-        await context.read<HealthProvider>().loadLocalOnly();
+        await context.read<HealthProvider>().loadData(forceRefresh: false);
         setState(() {
           loading = false;
           firstLoad = false;
@@ -36,7 +36,7 @@ class _DataDateState extends State<DataDate>
 
   Future<void> refreshAll() async {
     setState(() => loading = true);
-    await context.read<HealthProvider>().fetchAndSave();
+    await context.read<HealthProvider>().loadData(forceRefresh: true);
     setState(() => loading = false);
   }
 
