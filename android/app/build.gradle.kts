@@ -1,6 +1,6 @@
 plugins {
     id("com.android.application")
-    // START: FlutterFire Configuration
+        // START: FlutterFire Configuration
     id("com.google.gms.google-services")
     // END: FlutterFire Configuration
     id("kotlin-android")
@@ -15,7 +15,7 @@ dependencies {
 }
 
 android {
-    namespace = "com-example-aura"
+    namespace = "com.example.aura"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.0.12077973"
 

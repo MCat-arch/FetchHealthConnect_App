@@ -1,142 +1,73 @@
 // providers/health_provider.dart
-import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:aura/model/health_data.dart';
 import 'package:aura/model/health_day_data.dart';
 import 'package:aura/services/health_service.dart';
 import 'package:aura/utils/storage_helper.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uuid/uuid.dart';
-import '../model/health_data.dart';
 
 class HealthProvider extends ChangeNotifier {
-  List<HealthData> _dailyData = [];
+  /// ✅ Stream semua healthData (summary harian)
+  Stream<List<HealthData>> get healthDataStream =>
+      StorageHelper.streamAllHealthData();
 
+  /// ✅ Cache data terakhir untuk penggunaan cepat di UI
+  List<HealthData> _dailyData = [];
   List<HealthData> get dailyData => _dailyData;
+
+  /// ✅ Loading state (untuk menampilkan spinner di UI)
   bool isLoading = false;
 
-  Future<void> loadData({bool forceRefresh = false}) async {
+  bool _initialized = false;
+
+  Future<void> intialize() async {
+    if (_initialized) return;
+
     isLoading = true;
     notifyListeners();
 
-    final grouped = await HealthService.getHealthData(
-      forceRefresh: forceRefresh,
-    );
-    _dailyData = grouped.entries.map((entry) {
-      final panicCount = entry.value.where((d) => d.kategori == 'panic').length;
-      return HealthData(
-        const Uuid().v4(), // atau gunakan date sebagai id jika unik
-        entry.key, // dateKey
-        panicCount,
-        entry.value,
-      );
-    }).toList()..sort((a, b) => b.date.compareTo(a.date));
+    try {
+      // initialFetch: fetch 24 jam terakhir, dedupe, simpan ke Firestore
+      await HealthService.intitalFetch();
+    } catch (e, st) {
+      // optionally log atau tampilkan error
+      print('[HealthProvider] initialFetch failed: $e\n$st');
+    } finally {
+      // mulai listen ke Firestore stream (UI akan auto update)
+      listenToHealthData();
+    }
+  }
+
+  /// ✅ Start listen Firestore stream dan simpan data ke memory
+  void listenToHealthData() {
+    isLoading = true;
+    notifyListeners();
+
+    StorageHelper.streamAllHealthData().listen((data) {
+      _dailyData = data;
+      isLoading = false;
+      notifyListeners();
+    });
+  }
+
+  /// ✅ Stream data detail per hari
+  Stream<List<HealthDayData>> streamHealthDayData(String date) {
+    return StorageHelper.streamHealthDayData(date);
+  }
+
+  /// ✅ Trigger background fetch manual (misal: pull to refresh)
+  Future<void> fetchLatestData() async {
+    isLoading = true;
+    notifyListeners();
+
+    await HealthService.backgroundFetch();
+
     isLoading = false;
     notifyListeners();
   }
 
+  /// ✅ Tambah data manual
   Future<void> addManualLabel(String kategori, {int? hr, int? steps}) async {
     await HealthService.addManualLabel(kategori, hr: hr, steps: steps);
-    await loadData(forceRefresh: false);
+    // Tidak perlu reload manual karena Firestore stream otomatis update
   }
-
-  // Future<void> addManualLabel(String kategori, {int? hr, int? steps}) async {
-  //   final now = DateTime.now();
-  //   final todayDate =
-  //       "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
-
-  //   HealthData? existing = _dailyData.firstWhere(
-  //     (d) => d.date == todayDate,
-  //     orElse: () => HealthData(const Uuid().v4(), todayDate, 0, []),
-  //   );
-
-  //   final newDetail = HealthDayData(
-  //     kategori,
-  //     now.toIso8601String(),
-  //     hr ?? 0,
-  //     steps ?? 0,
-  //   );
-
-  //   // tambah ke existing
-  //   final updatedDetails = [...existing.details, newDetail];
-
-  //   final panicCount = updatedDetails
-  //       .where((d) => d.kategori == 'panic')
-  //       .length;
-
-  //   final updated = HealthData(
-  //     existing.id,
-  //     existing.date,
-  //     panicCount,
-  //     updatedDetails,
-  //   );
-
-  //   final idx = _dailyData.indexWhere((d) => d.date == todayDate);
-  //   if (idx >= 0) {
-  //     _dailyData[idx] = updated;
-  //   } else {
-  //     _dailyData.add(updated);
-  //   }
-
-  //   // urutkan & simpan
-  //   _dailyData.sort((a, b) => b.date.compareTo(a.date));
-  //   await StorageHelper.saveData(_dailyData);
-
-  //   notifyListeners();
 }
-
-//   Future<void> loadFromLocal() async {
-//     await HealthService.ensurePermissions();
-//     final cached = await StorageHelper.loadFromLocal();
-//     if (cached != null) {
-//       _dailyData = cached;
-//     }
-//     final fetched = await HealthService.fetchHealthDataRaw(start, end);
-//     for (var data in fetched) {
-//       final isExisting = _dailyData.indexWhere((d) => d.id == data.id);
-//       if (isExisting >= 0) {
-//         _dailyData[isExisting] = data;
-//       } else {
-//         _dailyData.add(data);
-//       }
-//     }
-//     await StorageHelper.saveData(_dailyData);
-//     notifyListeners();
-//   }
-
-//   /// Load hanya dari SharedPreferences, tanpa fetch online
-//   Future<void> loadLocalOnly() async {
-//     final cached = await StorageHelper.loadFromLocal();
-//     if (cached != null) {
-//       _dailyData = cached;
-//       notifyListeners();
-//     }
-//   }
-
-//   /// Fetch online lalu simpan ke SharedPreferences
-//   Future<void> fetchAndSave() async {
-//     // await HealthService.ensurePermissions();
-//     final fetched = await HealthService.fetchData(true);
-
-//     // Gabungkan dengan data lama
-//     for (var data in fetched) {
-//       final index = _dailyData.indexWhere((d) => d.date == data.date);
-//       if (index >= 0) {
-//         _dailyData[index] = data;
-//       } else {
-//         _dailyData.add(data);
-//       }
-//     }
-
-//     _dailyData.sort((a, b) => b.date.compareTo(a.date));
-
-//     // Simpan ke local
-//     await StorageHelper.saveData(_dailyData);
-//     notifyListeners();
-//   }
-// }
-
-//   // Future<void> saveToLocal() async {
-//   //   final prefs = await SharedPreferences.getInstance();
-//   //   final jsonString = jsonEncode(_dailyData.map((e) => e.toJson()).toList());
-//   //   await prefs.setString('daily_health_data', jsonString);
-//   // }

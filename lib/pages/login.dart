@@ -1,13 +1,10 @@
-
 import 'package:aura/pages/sign_up.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatefulWidget {
-  static route() => MaterialPageRoute(
-        builder: (context) => const LoginPage(),
-      );
+  static route() => MaterialPageRoute(builder: (context) => const LoginPage());
   const LoginPage({super.key});
 
   @override
@@ -28,11 +25,11 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> loginUserWithEmailAndPassword() async {
     try {
-      final userCredential =
-          await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
+      final userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: passwordController.text.trim(),
+          );
       print(userCredential);
     } on FirebaseAuthException catch (e) {
       print(e.message);
@@ -52,24 +49,17 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               const Text(
                 'Sign In.',
-                style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 30),
               TextFormField(
                 controller: emailController,
-                decoration: const InputDecoration(
-                  hintText: 'Email',
-                ),
+                decoration: const InputDecoration(hintText: 'Email'),
               ),
               const SizedBox(height: 15),
               TextFormField(
                 controller: passwordController,
-                decoration: const InputDecoration(
-                  hintText: 'Password',
-                ),
+                decoration: const InputDecoration(hintText: 'Password'),
                 obscureText: true,
               ),
               const SizedBox(height: 20),
@@ -77,18 +67,12 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () async {
                   await loginUserWithEmailAndPassword();
                 },
-                child: const Text(
-                  'SIGN IN',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                  ),
-                ),
+                child: const Text('SIGN IN', style: TextStyle(fontSize: 16)),
               ),
               const SizedBox(height: 20),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context, SignUpPage.route());
+                  context.go('/signup');
                 },
                 child: RichText(
                   text: TextSpan(
@@ -97,10 +81,8 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       TextSpan(
                         text: 'Sign Up',
-                        style:
-                            Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                        style: Theme.of(context).textTheme.titleMedium
+                            ?.copyWith(fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),

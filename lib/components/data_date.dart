@@ -1,86 +1,75 @@
+import 'package:aura/components/date_detail.dart';
+import 'package:aura/model/health_data.dart';
+import 'package:aura/providers/health_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:aura/model/health_data.dart';
-import 'package:aura/components/date_detail.dart';
-import 'package:aura/providers/health_provider.dart';
 
-class DataDate extends StatefulWidget {
+class DataDate extends StatelessWidget {
   const DataDate({super.key});
 
   @override
-  State<DataDate> createState() => _DataDateState();
-}
-
-class _DataDateState extends State<DataDate>
-    with AutomaticKeepAliveClientMixin {
-  bool loading = false;
-  bool firstLoad = true;
-
-  @override
-  bool get wantKeepAlive => true;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (firstLoad) {
-        setState(() => loading = true);
-        await context.read<HealthProvider>().loadData(forceRefresh: false);
-        setState(() {
-          loading = false;
-          firstLoad = false;
-        });
-      }
-    });
-  }
-
-  Future<void> refreshAll() async {
-    setState(() => loading = true);
-    await context.read<HealthProvider>().loadData(forceRefresh: true);
-    setState(() => loading = false);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
-    final dailyList = context.watch<HealthProvider>().dailyData;
+    final healthProvider = context.read<HealthProvider>();
+
+    // Pastikan provider mulai listen saat widget dibangun pertama kali
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      healthProvider.intialize();
+    });
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Data Kesehatan'),
+        title: const Text('Data Kesehatan Harian'),
         actions: [
-          IconButton(icon: const Icon(Icons.refresh), onPressed: refreshAll),
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            tooltip: "Refresh Data",
+            onPressed: () => healthProvider.fetchLatestData(),
+          ),
         ],
       ),
-      body: loading
-          ? const Center(child: CircularProgressIndicator())
-          : dailyList.isEmpty
-          ? const Center(child: Text('Belum ada data kesehatan'))
-          : ListView.builder(
-              itemCount: dailyList.length,
-              itemBuilder: (context, index) {
-                final dayData = dailyList[index];
-                return ListTile(
+      body: StreamBuilder<List<HealthData>>(
+        stream: healthProvider.healthDataStream,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting ||
+              healthProvider.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (snapshot.hasError) {
+            return Center(child: Text('Terjadi kesalahan: ${snapshot.error}'));
+          }
+
+          final dailyData = snapshot.data ?? [];
+          if (dailyData.isEmpty) {
+            return const Center(child: Text('Belum ada data kesehatan'));
+          }
+
+          return ListView.builder(
+            itemCount: dailyData.length,
+            itemBuilder: (context, index) {
+              final data = dailyData[index];
+              return Card(
+                child: ListTile(
                   title: Text(
-                    dayData.date,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+                    data.date,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  subtitle: Text('Panic count: ${dayData.panicCount}'),
-                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                  subtitle: Text('Panic Count: ${data.panicCount}'),
+                  trailing: const Icon(Icons.chevron_right),
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => DateDetail(data: dayData.details),
+                        builder: (_) => DateDetail(date: data.date),
                       ),
                     );
                   },
-                );
-              },
-            ),
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

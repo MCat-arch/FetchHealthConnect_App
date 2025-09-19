@@ -6,21 +6,28 @@ class HealthData {
   int panicCount;
   List<HealthDayData> details;
 
-  HealthData(this.id, this.date, this.panicCount, this.details);
+  HealthData({
+    required this.id,
+    required this.date,
+    this.panicCount = 0,
+    required this.details,
+  });
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'date': date,
-        'panicCount': panicCount,
-        'details': details.map((e) => e.toJson()).toList(),
-      };
+    'id': id,
+    'date': date,
+    'panicCount': panicCount,
+  };
 
-  factory HealthData.fromJson(Map<String, dynamic> json) => HealthData(
-        json['id'],
-        json['date'],
-        json['panicCount'],
-        (json['details'] as List<dynamic>)
-            .map((e) => HealthDayData.fromJson(e))
-            .toList(),
-      );
+  factory HealthData.fromJson(
+    Map<String, dynamic> json, {
+    List<HealthDayData>? details,
+  }) {
+    return HealthData(
+      id: json['id'],
+      date: json['date'],
+      panicCount: json['panicCount'] ?? 0,
+      details: details ?? [],
+    );
+  }
 }
