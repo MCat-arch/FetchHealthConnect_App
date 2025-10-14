@@ -11,12 +11,14 @@ plugins {
 dependencies {
     // Tambahkan ini
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    
 
 }
 
 android {
     namespace = "com.example.aura"
-    compileSdk = flutter.compileSdkVersion
+    // compileSdk = flutter.compileSdkVersion
+    compileSdk = 36
     ndkVersion = "27.0.12077973"
 
     compileOptions {
@@ -36,7 +38,8 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 26
-        targetSdk = flutter.targetSdkVersion
+        // targetSdk = flutter.targetSdkVersion
+        targetSdk = 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
