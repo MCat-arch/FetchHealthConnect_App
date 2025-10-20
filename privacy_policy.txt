@@ -1,0 +1,125 @@
+Privacy Policy for Aura Research App
+
+Effective Date: October 20, 2025
+
+1. Introduction
+
+Aura is a mobile application developed for academic research purposes by the campus research team.
+This research aims to analyze physiological data from Huawei wearable devices to detect potential panic attacks among high school students.
+The app is not intended for medical diagnosis or commercial use.
+
+Your privacy and data security are of utmost importance to us.
+This Privacy Policy explains how we collect, use, and protect your data.
+
+2. Data Collection and Usage
+
+Aura integrates with Huawei Health Kit to read physiological data from Huawei smartbands or smartwatches.
+No manual data entry is required.
+
+The app may access and read the following data categories (read-only):
+
+A. Activity Data
+
+1. Distance, ascent, and altitude
+
+2. Medium- and high-intensity activity duration
+
+3. Active hours
+
+4. Daily activity summary
+
+Purpose: To distinguish whether an increased heart rate is due to physical activity or psychological factors.
+
+B. Health Data
+
+1. Heart rate
+
+2. Stress
+
+3. Sleep
+
+4. Blood pressure
+
+5. SpO₂ (blood oxygen level)
+
+6. Body temperature
+
+7. Heart health metrics
+
+8. Emotion indicators
+
+Purpose: To analyze physiological changes that may indicate signs of panic attacks.
+
+3. Data Storage and Processing
+
+All collected data are stored locally and/or on secured research servers managed by the research institution.
+
+Data are used solely for statistical and academic analysis using unsupervised learning methods.
+
+Personal identifiers (such as name, email, or device ID) are anonymized or replaced with random research IDs.
+
+No data will be shared, sold, or used outside of the approved research scope.
+
+4. Data Sharing
+
+We do not share personal or physiological data with any third parties, except:
+
+Authorized members of the research team; and
+
+When required by institutional review boards (IRB) or ethical committees for academic validation.
+
+Huawei Health Kit acts as a data provider under user authorization.
+Aura does not modify, upload, or write data back to Huawei Health.
+
+5. Data Security
+
+We employ appropriate technical and organizational measures to protect collected data, including:
+
+Secure API calls using Huawei Health Kit SDK
+
+Local data encryption during processing
+
+Restricted access to research personnel only
+
+6. Research Ethics and Consent
+
+Participation in this study is voluntary.
+Before using the app, users (or their guardians) will be informed about:
+
+The purpose of data collection
+
+The type of data accessed
+
+Their rights to withdraw at any time
+
+By connecting the Huawei wearable device and authorizing data access, you agree to participate in the research as described.
+
+7. User Rights
+
+You have the right to:
+
+Request information about what data is collected
+
+Request deletion of your personal data (subject to research regulations)
+
+Withdraw consent at any time
+
+To exercise these rights, please contact us via the email below.
+
+8. Contact Information
+
+If you have any questions about this Privacy Policy or your data usage, contact:
+
+📧 khoerunnisa.23340@mhs.unesa.ac.id
+🏫 Research Group: Universitas Negeri Surabaya
+Members of research :
+- Wilda Nur Qomara     
+- Arwa Wad’hah Nadaa    
+- Rahmania Risalatul Lailiyah   
+- Khoerunnisa Utami    
+- Sheylania Cheysa Aulia Wijaksono 
+📍 Indonesia
+
+9. Changes to This Policy
+
+We may update this Privacy Policy as research progresses or to meet regulatory requirements. Updates will be communicated through the app or the project website.
