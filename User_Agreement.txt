@@ -1,0 +1,81 @@
+User Agreement for Aura Research App
+
+Effective Date: October 20, 2025
+
+1. Purpose
+
+The Aura application is a research tool developed for academic study on panic attack detection among high school students using physiological signals collected from Huawei wearable devices.
+
+This app is not a medical device and should not be used for diagnosis, treatment, or monitoring of medical conditions.
+
+2. User Responsibilities
+
+By using this app, you agree to:
+
+- Connect your Huawei smartband/smartwatch and authorize access to your health data through Huawei Health Kit.
+
+- Provide accurate device connection and account information.
+
+- Use the app solely for participation in the research project.
+
+You understand that this app may collect sensitive physiological data for research analysis.
+
+3. Data Access and Consent
+
+By authorizing Huawei Health Kit, you consent to the app reading (but not modifying) your physiological data, including:
+
+Heart rate, stress, sleep, blood oxygen, body temperature, blood pressure, emotion, and activity-related data.
+
+Data access will be limited to what is necessary for this research.
+
+4. Data Ownership
+
+You remain the owner of your health data.
+Aura only accesses this data for academic analysis under your authorization and does not claim ownership over any part of it.
+
+5. Data Usage
+
+Collected data will be:
+
+Used only for the stated research purpose;
+
+Processed anonymously;
+
+Not sold, shared, or used for profit.
+
+The results may be published in academic journals or conferences, but no personally identifiable information will be included.
+
+6. Limitation of Liability
+
+Aura and its developers are not responsible for:
+
+Incorrect data readings from devices;
+
+Misinterpretation of physiological information;
+
+Any health decisions made based on the app’s displayed information.
+
+This app is for research and educational use only.
+
+7. Termination
+
+You may uninstall the app or withdraw consent at any time.
+Upon withdrawal, no new data will be collected, and existing data will be removed from analysis datasets upon request.
+
+8. Contact Information
+
+For questions, complaints, or consent withdrawal, contact:
+
+📧 khoerunnisa.23340@mhs.unesa.ac.id
+🏫 Research Group: Universitas Negeri Surabaya
+Members of research :
+- Wilda Nur Qomara     
+- Arwa Wad’hah Nadaa    
+- Rahmania Risalatul Lailiyah   
+- Khoerunnisa Utami    
+- Sheylania Cheysa Aulia Wijaksono 
+📍 Indonesia
+
+9. Governing Law
+
+This agreement is governed by the laws of Indonesia, and all disputes will be handled according to institutional research ethics and local regulations.
