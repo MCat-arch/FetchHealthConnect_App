@@ -11,8 +11,13 @@ class StorageHelper {
   static const String _permissionKey = 'healthPermissionsKey';
   static const String _groupedKey = 'health_grouped_data';
   static const String _lastUpdatedKey = 'health_data_last_update';
-
+  static const String _accessToken = "the_access_token";
   static const String _lastFetchKey = "last_fetch_time";
+
+  static Future getaAcessToken(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_accessToken, token);
+  }
 
   static Future<void> saveLastFetchTime(DateTime time) async {
     final prefs = await SharedPreferences.getInstance();

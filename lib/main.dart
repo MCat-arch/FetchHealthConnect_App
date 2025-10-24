@@ -51,4 +51,4 @@ class MainApp extends StatelessWidget {
 //threshold using armd
 // background and foreground service
 // manual validation data panic (notif and single page with button 'i feel panic')
-// connect to database
+// connect to database (done)

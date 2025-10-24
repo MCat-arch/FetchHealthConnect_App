@@ -27,7 +27,7 @@ class HealthProvider extends ChangeNotifier {
 
     try {
       // initialFetch: fetch 24 jam terakhir, dedupe, simpan ke Firestore
-      await HealthService.intitalFetch();
+      await HealthService.initialFetch();
     } catch (e, st) {
       // optionally log atau tampilkan error
       print('[HealthProvider] initialFetch failed: $e\n$st');
@@ -66,8 +66,8 @@ class HealthProvider extends ChangeNotifier {
   }
 
   /// ✅ Tambah data manual
-  Future<void> addManualLabel(String kategori, {int? hr, int? steps}) async {
-    await HealthService.addManualLabel(kategori, hr: hr, steps: steps);
-    // Tidak perlu reload manual karena Firestore stream otomatis update
-  }
+  // Future<void> addManualLabel(String kategori, {int? hr, int? steps}) async {
+  //   await HealthService.addManualLabel(kategori, hr: hr, steps: steps);
+  //   // Tidak perlu reload manual karena Firestore stream otomatis update
+  // }
 }

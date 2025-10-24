@@ -1,0 +1,1200 @@
+-- Merging decision tree log ---
+application
+INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:7:5-46:19
+INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml
+MERGED from [:cloud_firestore] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\cloud_firestore-5.6.12\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-13:19
+MERGED from [:cloud_firestore] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\cloud_firestore-5.6.12\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_auth] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-5.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_auth] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-5.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_core] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.15.2\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-13:19
+MERGED from [:firebase_core] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.15.2\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-13:19
+MERGED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:5-17:19
+MERGED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:5-17:19
+MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:28:5-143:19
+MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:28:5-143:19
+MERGED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:28:5-73:19
+MERGED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:28:5-73:19
+MERGED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:13:5-24:19
+MERGED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:13:5-24:19
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6b06dbb84c030ef87be4834a8c7fda75\transformed\jetified-firebase-auth-interop-20.0.0\AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6b06dbb84c030ef87be4834a8c7fda75\transformed\jetified-firebase-auth-interop-20.0.0\AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dde0a3916220dbf629e573e637a177cb\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:8:5-16:19
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dde0a3916220dbf629e573e637a177cb\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:8:5-16:19
+MERGED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:22:5-39:19
+MERGED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:22:5-39:19
+MERGED from [androidx.window:window:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a84e2cbdafed01f25c16c968dc193430\transformed\jetified-window-1.2.0\AndroidManifest.xml:22:5-29:19
+MERGED from [androidx.window:window:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a84e2cbdafed01f25c16c968dc193430\transformed\jetified-window-1.2.0\AndroidManifest.xml:22:5-29:19
+MERGED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:23:5-42:19
+MERGED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:23:5-42:19
+MERGED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:22:5-38:19
+MERGED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:22:5-38:19
+MERGED from [com.google.android.play:integrity:1.3.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\09767f35b6ae22460332fb589052258a\transformed\jetified-integrity-1.3.0\AndroidManifest.xml:5:5-6:19
+MERGED from [com.google.android.play:integrity:1.3.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\09767f35b6ae22460332fb589052258a\transformed\jetified-integrity-1.3.0\AndroidManifest.xml:5:5-6:19
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\cce9e0457e0b5ce57c13d10f7ac976e9\transformed\jetified-firebase-appcheck-interop-17.0.0\AndroidManifest.xml:23:5-20
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\cce9e0457e0b5ce57c13d10f7ac976e9\transformed\jetified-firebase-appcheck-interop-17.0.0\AndroidManifest.xml:23:5-20
+MERGED from [com.google.android.gms:play-services-fido:20.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\268a8f059961db62641a6d4498305c15\transformed\jetified-play-services-fido-20.1.0\AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.android.gms:play-services-fido:20.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\268a8f059961db62641a6d4498305c15\transformed\jetified-play-services-fido-20.1.0\AndroidManifest.xml:7:5-8:19
+MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bcf3acc9f52270489effbe784007bd92\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:19:5-23:19
+MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bcf3acc9f52270489effbe784007bd92\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:19:5-23:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0c3294df4b6815fdd94f417fcbf05d93\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:23:5-33:19
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0c3294df4b6815fdd94f417fcbf05d93\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:23:5-33:19
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\784e97a87a056e58b84ab6ad05dbd9b2\transformed\jetified-play-services-tasks-18.2.0\AndroidManifest.xml:4:5-20
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\784e97a87a056e58b84ab6ad05dbd9b2\transformed\jetified-play-services-tasks-18.2.0\AndroidManifest.xml:4:5-20
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1e2d7a5734a81ba569646496eb4c75be\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:5:5-7:19
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1e2d7a5734a81ba569646496eb4c75be\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:5:5-7:19
+MERGED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:28:5-89
+MERGED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:28:5-89
+MERGED from [androidx.room:room-runtime:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0ea271496713359809e3e1d120ee827a\transformed\room-runtime-2.5.0\AndroidManifest.xml:23:5-29:19
+MERGED from [androidx.room:room-runtime:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0ea271496713359809e3e1d120ee827a\transformed\room-runtime-2.5.0\AndroidManifest.xml:23:5-29:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:23:5-53:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\81311e685d52218c2a21b31a1a827871\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\81311e685d52218c2a21b31a1a827871\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:25:5-31:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d4ccc97b8b9d4395a654806f2781e189\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d4ccc97b8b9d4395a654806f2781e189\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:24:5-25:19
+MERGED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:15:5-27:19
+MERGED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:15:5-27:19
+MERGED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:9:5-37:19
+MERGED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:9:5-37:19
+MERGED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:12:5-23:19
+MERGED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:12:5-23:19
+MERGED from [com.huawei.hms:availableupdate:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa7897a4dc20b5739abadb9e48269f3c\transformed\jetified-availableupdate-6.12.0.300\AndroidManifest.xml:14:5-20:19
+MERGED from [com.huawei.hms:availableupdate:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa7897a4dc20b5739abadb9e48269f3c\transformed\jetified-availableupdate-6.12.0.300\AndroidManifest.xml:14:5-20:19
+MERGED from [com.huawei.agconnect:agconnect-core:1.9.1.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\468c1c4116069b4c733cd218c542e92c\transformed\jetified-agconnect-core-1.9.1.301\AndroidManifest.xml:10:5-19:19
+MERGED from [com.huawei.agconnect:agconnect-core:1.9.1.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\468c1c4116069b4c733cd218c542e92c\transformed\jetified-agconnect-core-1.9.1.301\AndroidManifest.xml:10:5-19:19
+MERGED from [com.huawei.hms:stats:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\699295f7b9389512fcdd998aa23d6714\transformed\jetified-stats-6.12.0.300\AndroidManifest.xml:14:5-20
+MERGED from [com.huawei.hms:stats:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\699295f7b9389512fcdd998aa23d6714\transformed\jetified-stats-6.12.0.300\AndroidManifest.xml:14:5-20
+MERGED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:9:5-27:19
+MERGED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:9:5-27:19
+MERGED from [com.huawei.hms:log:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\29e493058fc637a5f3d6ae7aa9270627\transformed\jetified-log-6.12.0.300\AndroidManifest.xml:9:5-20
+MERGED from [com.huawei.hms:log:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\29e493058fc637a5f3d6ae7aa9270627\transformed\jetified-log-6.12.0.300\AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.play:core-common:2.0.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a22f6e9befbe75d8ed11dcae274eda60\transformed\jetified-core-common-2.0.3\AndroidManifest.xml:11:5-19:19
+MERGED from [com.google.android.play:core-common:2.0.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a22f6e9befbe75d8ed11dcae274eda60\transformed\jetified-core-common-2.0.3\AndroidManifest.xml:11:5-19:19
+	android:extractNativeLibs
+		INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:28:18-86
+	android:name
+		INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml
+manifest
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:1:1-62:12
+MERGED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:1:1-62:12
+INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml:1:1-7:12
+MERGED from [:cloud_firestore] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\cloud_firestore-5.6.12\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:2:1-15:12
+MERGED from [:firebase_auth] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-5.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:2:1-15:12
+MERGED from [:firebase_core] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.15.2\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:2:1-15:12
+MERGED from [:flutter_local_notifications] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_local_notifications-19.4.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:2:1-10:12
+MERGED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:2:1-19:12
+MERGED from [:permission_handler_android] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\permission_handler_android-12.1.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:2:1-7:12
+MERGED from [:shared_preferences_android] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_android-2.4.11\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:2:1-7:12
+MERGED from [:workmanager] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\workmanager-0.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:17:1-145:12
+MERGED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:17:1-75:12
+MERGED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:2:1-26:12
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6b06dbb84c030ef87be4834a8c7fda75\transformed\jetified-firebase-auth-interop-20.0.0\AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dde0a3916220dbf629e573e637a177cb\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:2:1-18:12
+MERGED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:15:1-41:12
+MERGED from [androidx.media:media:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bf9cdc8246027d758a7a460781437e61\transformed\media-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.preference:preference:1.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e78b725b28783ed338ddd3e1110107c9\transformed\preference-1.2.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a3d1437c0e23341202c02f5566642896\transformed\recyclerview-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\06135e272ce92684d5e7398d74cacad8\transformed\legacy-support-core-ui-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d8b0d5a5c45a51ed834e24b95130e83d\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.window:window:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a84e2cbdafed01f25c16c968dc193430\transformed\jetified-window-1.2.0\AndroidManifest.xml:17:1-31:12
+MERGED from [androidx.window:window-java:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b6e1288fcded573740b2ff05a405bf7b\transformed\jetified-window-java-1.2.0\AndroidManifest.xml:17:1-21:12
+MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\ea9f79140e3869c6731da529bb7b6ab2\transformed\appcompat-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.browser:browser:1.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dbf47b67de4311498889192f39ffaf9e\transformed\browser-1.4.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.credentials:credentials:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\432f7981c83dfdbcf0fd91fb616c74b6\transformed\jetified-credentials-1.2.0-rc01\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:17:1-44:12
+MERGED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:17:1-40:12
+MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.2] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d885133e009a81160bec71d16987afbd\transformed\jetified-play-services-auth-api-phone-18.0.2\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\8a702ff7f7129cb56e0188c20c4a984d\transformed\jetified-recaptcha-18.6.1\AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.play:integrity:1.3.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\09767f35b6ae22460332fb589052258a\transformed\jetified-integrity-1.3.0\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\cce9e0457e0b5ce57c13d10f7ac976e9\transformed\jetified-firebase-appcheck-interop-17.0.0\AndroidManifest.xml:15:1-25:12
+MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\38e12754bfc7e18845b749f21f6a9c86\transformed\jetified-firebase-database-collection-18.0.1\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-fido:20.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\268a8f059961db62641a6d4498305c15\transformed\jetified-play-services-fido-20.1.0\AndroidManifest.xml:2:1-10:12
+MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\200823eb281e95e96d2a25b191d31313\transformed\jetified-play-services-auth-base-18.0.4\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bcf3acc9f52270489effbe784007bd92\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:16:1-24:12
+MERGED from [androidx.fragment:fragment-ktx:1.7.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d3e678db70d7be611ecd20b33b896496\transformed\jetified-fragment-ktx-1.7.1\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.fragment:fragment:1.7.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\60c861deb524eb74d50bd9e1e53029c5\transformed\fragment-1.7.1\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity-ktx:1.8.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\247eeefd19c9ddcd84d8534da2663347\transformed\jetified-activity-ktx-1.8.1\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.activity:activity:1.8.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7fd7f24b84f59175f81960bc1efde84f\transformed\jetified-activity-1.8.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5ab093a252cb1e1ef1259a001f00a818\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a575e33e0a8eeeea1c4ceb65c97525d6\transformed\loader-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2270bbf6cee0606a2349282b73f88eea\transformed\jetified-lifecycle-runtime-ktx-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9fdfdc08cc8d87fdf340ad336bdfd5ae\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\c6b0647cf23a1d5dc7fcfdf7ebe7175b\transformed\jetified-lifecycle-viewmodel-ktx-2.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9f081e726da8847c425a1fa8e43de448\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\33305eac697c2531bf82f40397e3d292\transformed\lifecycle-viewmodel-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\96ca10f6aab6ce83c931a8319202c2a6\transformed\lifecycle-livedata-core-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-service:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7d4e49110a4fa6100a04f36d7de7b145\transformed\jetified-lifecycle-service-2.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2ebf9c0b8b2a48bd75e2605a2412b88d\transformed\lifecycle-livedata-2.7.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\35fab0694f400bc7e507d9157adc5145\transformed\lifecycle-runtime-2.7.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0c3294df4b6815fdd94f417fcbf05d93\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:17:1-35:12
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa183f280a87d0b7c562d0fa6ee38821\transformed\jetified-savedstate-ktx-1.2.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\c060139df4abf28b399ce5e5ef9116ce\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.room:room-ktx:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b0fbfb90ff46451f2a8f93e2a514dd9\transformed\jetified-room-ktx-2.5.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.datastore:datastore-core-android:1.1.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\346e7b0c75344be743b178e586906a6b\transformed\jetified-datastore-core-release\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.datastore:datastore-preferences-android:1.1.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9ce89f834985fbe10d0491b2f0f50c66\transformed\jetified-datastore-preferences-release\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.datastore:datastore-android:1.1.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\184bb23eb4b07c404d814b83af3eae67\transformed\jetified-datastore-release\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\784e97a87a056e58b84ab6ad05dbd9b2\transformed\jetified-play-services-tasks-18.2.0\AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1e2d7a5734a81ba569646496eb4c75be\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9812bf23af22629a3e9c4fdf2322dcdf\transformed\viewpager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core-ktx:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\29a5cc98a7e6983d3646026d2c4f2dc2\transformed\jetified-core-ktx-1.13.1\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\64d372df1a5976517af284162ad4837a\transformed\jetified-appcompat-resources-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\f93141968571386c2f3c6026ce906720\transformed\drawerlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\52b4f5bc8ad7e5e4ddad6627d7ac0936\transformed\coordinatorlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dce8da694982f5d19cccc08b6d460242\transformed\customview-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.transition:transition:1.4.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\273f6b543a43f7b7b2110eb8b60de46a\transformed\transition-1.4.1\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e8cebedae81935573b5ee4c4995e85b9\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\08e0fc167212b2959e036d3863664d35\transformed\vectordrawable-1.1.0\AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\509d4819e2f5d5521c3c2c73fe2f149c\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9ebaa0f986be21d5cc049c50dbca993f\transformed\asynclayoutinflater-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:17:1-30:12
+MERGED from [androidx.room:room-runtime:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0ea271496713359809e3e1d120ee827a\transformed\room-runtime-2.5.0\AndroidManifest.xml:17:1-31:12
+MERGED from [androidx.sqlite:sqlite-framework:2.3.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\f815d61211b6ace48f165f915f02b4d4\transformed\sqlite-framework-2.3.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:17:1-55:12
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\81311e685d52218c2a21b31a1a827871\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:17:1-33:12
+MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\32d0c464410769195cbab8696b4c26fc\transformed\jetified-tracing-1.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6928e6cfc939f4d9afd7847913f39f65\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.firebase:firebase-components:18.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1d0c315f4f46d748a65af1dfd8868d7f\transformed\jetified-firebase-components-18.0.0\AndroidManifest.xml:15:1-20:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b9bbce94e55225eef40a144c3adf0210\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d4ccc97b8b9d4395a654806f2781e189\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:17:1-27:12
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fecabd468df27b34f5f073a753ecdb9\transformed\core-runtime-2.2.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\ea6e72ed291ff748264ea5e21645c905\transformed\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.sqlite:sqlite:2.3.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\34cdbd47243a11d40b7e0c8d155731ac\transformed\sqlite-2.3.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.window.extensions.core:core:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\64b02e2d5e06e91f2e4dbb7da16c6422\transformed\jetified-core-1.0.0\AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\10bf39c2d999e950445837bdf6eb8d04\transformed\documentfile-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1a81d447deb95d35ba98564e028127eb\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5275e5052df6f712f820382704a65d8a\transformed\jetified-annotation-experimental-1.4.0\AndroidManifest.xml:2:1-7:12
+MERGED from [com.google.android.libraries.identity.googleid:googleid:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b7585a9b05e4d7cba05a411d013b1ca5\transformed\jetified-googleid-1.1.0\AndroidManifest.xml:2:1-7:12
+MERGED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:2:1-29:12
+MERGED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:2:1-39:12
+MERGED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:2:1-25:12
+MERGED from [com.huawei.hms:availableupdate:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa7897a4dc20b5739abadb9e48269f3c\transformed\jetified-availableupdate-6.12.0.300\AndroidManifest.xml:2:1-22:12
+MERGED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:2:1-23:12
+MERGED from [com.huawei.agconnect:agconnect-core:1.9.1.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\468c1c4116069b4c733cd218c542e92c\transformed\jetified-agconnect-core-1.9.1.301\AndroidManifest.xml:2:1-21:12
+MERGED from [io.grpc:grpc-android:1.62.2] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d4926610f96d08817237ef8c850211d8\transformed\jetified-grpc-android-1.62.2\AndroidManifest.xml:2:1-9:12
+MERGED from [com.getkeepsafe.relinker:relinker:1.4.5] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\67668984c91f86cdcee2e31ccb832019\transformed\jetified-relinker-1.4.5\AndroidManifest.xml:2:1-7:12
+MERGED from [com.huawei.hms:baselegacyapi:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\140188c49b3f0fd055adc85b2a412bc9\transformed\jetified-baselegacyapi-6.12.0.300\AndroidManifest.xml:2:1-9:12
+MERGED from [com.huawei.hms:stats:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\699295f7b9389512fcdd998aa23d6714\transformed\jetified-stats-6.12.0.300\AndroidManifest.xml:2:1-16:12
+MERGED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:2:1-29:12
+MERGED from [com.huawei.hms:log:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\29e493058fc637a5f3d6ae7aa9270627\transformed\jetified-log-6.12.0.300\AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.firebase:protolite-well-known-types:18.0.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\32b15fb05bb3f8f3ec82f720fdee9dc8\transformed\jetified-protolite-well-known-types-18.0.1\AndroidManifest.xml:2:1-7:12
+MERGED from [com.huawei.hms:network-grs:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2e49249b958a91886559861b29ea4174\transformed\jetified-network-grs-6.0.11.300\AndroidManifest.xml:2:1-11:12
+MERGED from [com.huawei.hms:network-framework-compat:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\eae30855c0f251a74c9230db51709704\transformed\jetified-network-framework-compat-6.0.11.300\AndroidManifest.xml:2:1-11:12
+MERGED from [com.huawei.android.hms:security-base:1.2.0.307] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5b98bdc0677838c9fbe251f0eb1ea319\transformed\jetified-security-base-1.2.0.307\AndroidManifest.xml:2:1-9:12
+MERGED from [com.huawei.hms:hatool:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2ff85b51bff57863321eb8f630a9bc60\transformed\jetified-hatool-6.12.0.300\AndroidManifest.xml:2:1-9:12
+MERGED from [com.huawei.android.hms:security-ssl:1.2.0.307] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2bb9969ee7dfbbc23a82cdfa38ff97e6\transformed\jetified-security-ssl-1.2.0.307\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.play:core-common:2.0.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a22f6e9befbe75d8ed11dcae274eda60\transformed\jetified-core-common-2.0.3\AndroidManifest.xml:2:1-21:12
+MERGED from [com.huawei.hms:network-common:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\03976b59da4e103c6642c90dc2c47b53\transformed\jetified-network-common-6.0.11.300\AndroidManifest.xml:2:1-15:12
+MERGED from [com.huawei.android.hms:security-encrypt:1.2.0.307] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5193f16477d152916cb7916e14d06b01\transformed\jetified-security-encrypt-1.2.0.307\AndroidManifest.xml:2:1-11:12
+	package
+		INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml
+	android:versionCode
+		INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:1:11-69
+uses-permission#android.permission.health.READ_HEART_RATE
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:2:5-81
+	android:name
+		ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:2:22-78
+uses-permission#android.permission.health.READ_STEPS
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:3:5-76
+	android:name
+		ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:3:22-73
+uses-permission#android.permission.ACTIVITY_RECOGNITION
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:4:5-78
+	android:name
+		ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:4:22-76
+uses-permission#android.permission.BODY_SENSORS
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:5:5-70
+	android:name
+		ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:5:22-68
+uses-permission#android.permission.POST_NOTIFICATIONS
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:6:5-76
+MERGED from [:flutter_local_notifications] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_local_notifications-19.4.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:5-77
+MERGED from [:flutter_local_notifications] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_local_notifications-19.4.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:5-77
+MERGED from [:workmanager] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\workmanager-0.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-77
+MERGED from [:workmanager] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\workmanager-0.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-77
+	android:name
+		ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:6:22-74
+queries
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:52:5-61:15
+MERGED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:11:5-13:15
+MERGED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:11:5-13:15
+MERGED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:14:5-21:15
+MERGED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:14:5-21:15
+MERGED from [com.huawei.hms:network-common:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\03976b59da4e103c6642c90dc2c47b53\transformed\jetified-network-common-6.0.11.300\AndroidManifest.xml:11:5-13:15
+MERGED from [com.huawei.hms:network-common:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\03976b59da4e103c6642c90dc2c47b53\transformed\jetified-network-common-6.0.11.300\AndroidManifest.xml:11:5-13:15
+package#com.google.android.apps.healthdata
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:53:5-66
+	android:name
+		ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:53:14-63
+intent#action:name:androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:54:9-56:18
+action#androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:55:13-88
+	android:name
+		ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:55:21-85
+intent#action:name:android.intent.action.PROCESS_TEXT+data:mimeType:text/plain
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:57:9-60:18
+action#android.intent.action.PROCESS_TEXT
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:58:13-72
+	android:name
+		ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:58:21-70
+data
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:59:13-50
+	android:mimeType
+		ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\main\AndroidManifest.xml:59:19-48
+uses-permission#android.permission.INTERNET
+ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml:6:5-66
+MERGED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:25:5-67
+MERGED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:25:5-67
+MERGED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:11:5-67
+MERGED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:11:5-67
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\8a702ff7f7129cb56e0188c20c4a984d\transformed\jetified-recaptcha-18.6.1\AndroidManifest.xml:7:5-67
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\8a702ff7f7129cb56e0188c20c4a984d\transformed\jetified-recaptcha-18.6.1\AndroidManifest.xml:7:5-67
+MERGED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:10:5-67
+MERGED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:10:5-67
+MERGED from [com.huawei.hms:availableupdate:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa7897a4dc20b5739abadb9e48269f3c\transformed\jetified-availableupdate-6.12.0.300\AndroidManifest.xml:10:5-67
+MERGED from [com.huawei.hms:availableupdate:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa7897a4dc20b5739abadb9e48269f3c\transformed\jetified-availableupdate-6.12.0.300\AndroidManifest.xml:10:5-67
+MERGED from [com.huawei.hms:stats:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\699295f7b9389512fcdd998aa23d6714\transformed\jetified-stats-6.12.0.300\AndroidManifest.xml:10:5-67
+MERGED from [com.huawei.hms:stats:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\699295f7b9389512fcdd998aa23d6714\transformed\jetified-stats-6.12.0.300\AndroidManifest.xml:10:5-67
+	android:name
+		ADDED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml:6:22-64
+uses-sdk
+INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml
+INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml
+MERGED from [:cloud_firestore] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\cloud_firestore-5.6.12\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:cloud_firestore] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\cloud_firestore-5.6.12\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_auth] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-5.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_auth] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-5.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_core] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.15.2\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:firebase_core] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.15.2\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_local_notifications] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_local_notifications-19.4.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:flutter_local_notifications] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_local_notifications-19.4.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler_android] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\permission_handler_android-12.1.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:permission_handler_android] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\permission_handler_android-12.1.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_android-2.4.11\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences_android] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\shared_preferences_android-2.4.11\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:workmanager] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\workmanager-0.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [:workmanager] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\workmanager-0.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:5:5-44
+MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:21:5-44
+MERGED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:21:5-23:151
+MERGED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:21:5-23:151
+MERGED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:6:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6b06dbb84c030ef87be4834a8c7fda75\transformed\jetified-firebase-auth-interop-20.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-auth-interop:20.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6b06dbb84c030ef87be4834a8c7fda75\transformed\jetified-firebase-auth-interop-20.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dde0a3916220dbf629e573e637a177cb\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dde0a3916220dbf629e573e637a177cb\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:19:5-44
+MERGED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:19:5-44
+MERGED from [androidx.media:media:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bf9cdc8246027d758a7a460781437e61\transformed\media-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.media:media:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bf9cdc8246027d758a7a460781437e61\transformed\media-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.preference:preference:1.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e78b725b28783ed338ddd3e1110107c9\transformed\preference-1.2.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.preference:preference:1.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e78b725b28783ed338ddd3e1110107c9\transformed\preference-1.2.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a3d1437c0e23341202c02f5566642896\transformed\recyclerview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a3d1437c0e23341202c02f5566642896\transformed\recyclerview-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\06135e272ce92684d5e7398d74cacad8\transformed\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\06135e272ce92684d5e7398d74cacad8\transformed\legacy-support-core-ui-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d8b0d5a5c45a51ed834e24b95130e83d\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d8b0d5a5c45a51ed834e24b95130e83d\transformed\slidingpanelayout-1.2.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.window:window:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a84e2cbdafed01f25c16c968dc193430\transformed\jetified-window-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.window:window:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a84e2cbdafed01f25c16c968dc193430\transformed\jetified-window-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.window:window-java:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b6e1288fcded573740b2ff05a405bf7b\transformed\jetified-window-java-1.2.0\AndroidManifest.xml:19:5-44
+MERGED from [androidx.window:window-java:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b6e1288fcded573740b2ff05a405bf7b\transformed\jetified-window-java-1.2.0\AndroidManifest.xml:19:5-44
+MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\ea9f79140e3869c6731da529bb7b6ab2\transformed\appcompat-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\ea9f79140e3869c6731da529bb7b6ab2\transformed\appcompat-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dbf47b67de4311498889192f39ffaf9e\transformed\browser-1.4.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.browser:browser:1.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dbf47b67de4311498889192f39ffaf9e\transformed\browser-1.4.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.credentials:credentials:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\432f7981c83dfdbcf0fd91fb616c74b6\transformed\jetified-credentials-1.2.0-rc01\AndroidManifest.xml:5:5-44
+MERGED from [androidx.credentials:credentials:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\432f7981c83dfdbcf0fd91fb616c74b6\transformed\jetified-credentials-1.2.0-rc01\AndroidManifest.xml:5:5-44
+MERGED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:21:5-44
+MERGED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:21:5-44
+MERGED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.2] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d885133e009a81160bec71d16987afbd\transformed\jetified-play-services-auth-api-phone-18.0.2\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-api-phone:18.0.2] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d885133e009a81160bec71d16987afbd\transformed\jetified-play-services-auth-api-phone-18.0.2\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\8a702ff7f7129cb56e0188c20c4a984d\transformed\jetified-recaptcha-18.6.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\8a702ff7f7129cb56e0188c20c4a984d\transformed\jetified-recaptcha-18.6.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.play:integrity:1.3.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\09767f35b6ae22460332fb589052258a\transformed\jetified-integrity-1.3.0\AndroidManifest.xml:4:5-44
+MERGED from [com.google.android.play:integrity:1.3.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\09767f35b6ae22460332fb589052258a\transformed\jetified-integrity-1.3.0\AndroidManifest.xml:4:5-44
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\cce9e0457e0b5ce57c13d10f7ac976e9\transformed\jetified-firebase-appcheck-interop-17.0.0\AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.firebase:firebase-appcheck-interop:17.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\cce9e0457e0b5ce57c13d10f7ac976e9\transformed\jetified-firebase-appcheck-interop-17.0.0\AndroidManifest.xml:18:5-20:41
+MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\38e12754bfc7e18845b749f21f6a9c86\transformed\jetified-firebase-database-collection-18.0.1\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.firebase:firebase-database-collection:18.0.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\38e12754bfc7e18845b749f21f6a9c86\transformed\jetified-firebase-database-collection-18.0.1\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.gms:play-services-fido:20.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\268a8f059961db62641a6d4498305c15\transformed\jetified-play-services-fido-20.1.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-fido:20.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\268a8f059961db62641a6d4498305c15\transformed\jetified-play-services-fido-20.1.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\200823eb281e95e96d2a25b191d31313\transformed\jetified-play-services-auth-base-18.0.4\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-auth-base:18.0.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\200823eb281e95e96d2a25b191d31313\transformed\jetified-play-services-auth-base-18.0.4\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bcf3acc9f52270489effbe784007bd92\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:18:5-43
+MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bcf3acc9f52270489effbe784007bd92\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:18:5-43
+MERGED from [androidx.fragment:fragment-ktx:1.7.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d3e678db70d7be611ecd20b33b896496\transformed\jetified-fragment-ktx-1.7.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.7.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d3e678db70d7be611ecd20b33b896496\transformed\jetified-fragment-ktx-1.7.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment:1.7.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\60c861deb524eb74d50bd9e1e53029c5\transformed\fragment-1.7.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment:1.7.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\60c861deb524eb74d50bd9e1e53029c5\transformed\fragment-1.7.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.8.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\247eeefd19c9ddcd84d8534da2663347\transformed\jetified-activity-ktx-1.8.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity-ktx:1.8.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\247eeefd19c9ddcd84d8534da2663347\transformed\jetified-activity-ktx-1.8.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.activity:activity:1.8.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7fd7f24b84f59175f81960bc1efde84f\transformed\jetified-activity-1.8.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.8.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7fd7f24b84f59175f81960bc1efde84f\transformed\jetified-activity-1.8.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5ab093a252cb1e1ef1259a001f00a818\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5ab093a252cb1e1ef1259a001f00a818\transformed\legacy-support-core-utils-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a575e33e0a8eeeea1c4ceb65c97525d6\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a575e33e0a8eeeea1c4ceb65c97525d6\transformed\loader-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2270bbf6cee0606a2349282b73f88eea\transformed\jetified-lifecycle-runtime-ktx-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime-ktx:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2270bbf6cee0606a2349282b73f88eea\transformed\jetified-lifecycle-runtime-ktx-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9fdfdc08cc8d87fdf340ad336bdfd5ae\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core-ktx:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9fdfdc08cc8d87fdf340ad336bdfd5ae\transformed\jetified-lifecycle-livedata-core-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\c6b0647cf23a1d5dc7fcfdf7ebe7175b\transformed\jetified-lifecycle-viewmodel-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\c6b0647cf23a1d5dc7fcfdf7ebe7175b\transformed\jetified-lifecycle-viewmodel-ktx-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9f081e726da8847c425a1fa8e43de448\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel-savedstate:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9f081e726da8847c425a1fa8e43de448\transformed\jetified-lifecycle-viewmodel-savedstate-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\33305eac697c2531bf82f40397e3d292\transformed\lifecycle-viewmodel-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\33305eac697c2531bf82f40397e3d292\transformed\lifecycle-viewmodel-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\96ca10f6aab6ce83c931a8319202c2a6\transformed\lifecycle-livedata-core-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\96ca10f6aab6ce83c931a8319202c2a6\transformed\lifecycle-livedata-core-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7d4e49110a4fa6100a04f36d7de7b145\transformed\jetified-lifecycle-service-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-service:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7d4e49110a4fa6100a04f36d7de7b145\transformed\jetified-lifecycle-service-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2ebf9c0b8b2a48bd75e2605a2412b88d\transformed\lifecycle-livedata-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2ebf9c0b8b2a48bd75e2605a2412b88d\transformed\lifecycle-livedata-2.7.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\35fab0694f400bc7e507d9157adc5145\transformed\lifecycle-runtime-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\35fab0694f400bc7e507d9157adc5145\transformed\lifecycle-runtime-2.7.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0c3294df4b6815fdd94f417fcbf05d93\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0c3294df4b6815fdd94f417fcbf05d93\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa183f280a87d0b7c562d0fa6ee38821\transformed\jetified-savedstate-ktx-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate-ktx:1.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa183f280a87d0b7c562d0fa6ee38821\transformed\jetified-savedstate-ktx-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\c060139df4abf28b399ce5e5ef9116ce\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\c060139df4abf28b399ce5e5ef9116ce\transformed\jetified-savedstate-1.2.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.room:room-ktx:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b0fbfb90ff46451f2a8f93e2a514dd9\transformed\jetified-room-ktx-2.5.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.room:room-ktx:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b0fbfb90ff46451f2a8f93e2a514dd9\transformed\jetified-room-ktx-2.5.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.datastore:datastore-core-android:1.1.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\346e7b0c75344be743b178e586906a6b\transformed\jetified-datastore-core-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.datastore:datastore-core-android:1.1.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\346e7b0c75344be743b178e586906a6b\transformed\jetified-datastore-core-release\AndroidManifest.xml:5:5-44
+MERGED from [androidx.datastore:datastore-preferences-android:1.1.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9ce89f834985fbe10d0491b2f0f50c66\transformed\jetified-datastore-preferences-release\AndroidManifest.xml:20:5-44
+MERGED from [androidx.datastore:datastore-preferences-android:1.1.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9ce89f834985fbe10d0491b2f0f50c66\transformed\jetified-datastore-preferences-release\AndroidManifest.xml:20:5-44
+MERGED from [androidx.datastore:datastore-android:1.1.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\184bb23eb4b07c404d814b83af3eae67\transformed\jetified-datastore-release\AndroidManifest.xml:20:5-44
+MERGED from [androidx.datastore:datastore-android:1.1.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\184bb23eb4b07c404d814b83af3eae67\transformed\jetified-datastore-release\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\784e97a87a056e58b84ab6ad05dbd9b2\transformed\jetified-play-services-tasks-18.2.0\AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-tasks:18.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\784e97a87a056e58b84ab6ad05dbd9b2\transformed\jetified-play-services-tasks-18.2.0\AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1e2d7a5734a81ba569646496eb4c75be\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:3:5-44
+MERGED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1e2d7a5734a81ba569646496eb4c75be\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:3:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9812bf23af22629a3e9c4fdf2322dcdf\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9812bf23af22629a3e9c4fdf2322dcdf\transformed\viewpager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core-ktx:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\29a5cc98a7e6983d3646026d2c4f2dc2\transformed\jetified-core-ktx-1.13.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\29a5cc98a7e6983d3646026d2c4f2dc2\transformed\jetified-core-ktx-1.13.1\AndroidManifest.xml:5:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\64d372df1a5976517af284162ad4837a\transformed\jetified-appcompat-resources-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\64d372df1a5976517af284162ad4837a\transformed\jetified-appcompat-resources-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\f93141968571386c2f3c6026ce906720\transformed\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\f93141968571386c2f3c6026ce906720\transformed\drawerlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\52b4f5bc8ad7e5e4ddad6627d7ac0936\transformed\coordinatorlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\52b4f5bc8ad7e5e4ddad6627d7ac0936\transformed\coordinatorlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dce8da694982f5d19cccc08b6d460242\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.customview:customview:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dce8da694982f5d19cccc08b6d460242\transformed\customview-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.4.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\273f6b543a43f7b7b2110eb8b60de46a\transformed\transition-1.4.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.transition:transition:1.4.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\273f6b543a43f7b7b2110eb8b60de46a\transformed\transition-1.4.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e8cebedae81935573b5ee4c4995e85b9\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e8cebedae81935573b5ee4c4995e85b9\transformed\vectordrawable-animated-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\08e0fc167212b2959e036d3863664d35\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\08e0fc167212b2959e036d3863664d35\transformed\vectordrawable-1.1.0\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\509d4819e2f5d5521c3c2c73fe2f149c\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\509d4819e2f5d5521c3c2c73fe2f149c\transformed\swiperefreshlayout-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9ebaa0f986be21d5cc049c50dbca993f\transformed\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9ebaa0f986be21d5cc049c50dbca993f\transformed\asynclayoutinflater-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:20:5-44
+MERGED from [androidx.room:room-runtime:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0ea271496713359809e3e1d120ee827a\transformed\room-runtime-2.5.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.room:room-runtime:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0ea271496713359809e3e1d120ee827a\transformed\room-runtime-2.5.0\AndroidManifest.xml:21:5-44
+MERGED from [androidx.sqlite:sqlite-framework:2.3.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\f815d61211b6ace48f165f915f02b4d4\transformed\sqlite-framework-2.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite-framework:2.3.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\f815d61211b6ace48f165f915f02b4d4\transformed\sqlite-framework-2.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:21:5-44
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:21:5-44
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\81311e685d52218c2a21b31a1a827871\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\81311e685d52218c2a21b31a1a827871\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:21:5-23:41
+MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\32d0c464410769195cbab8696b4c26fc\transformed\jetified-tracing-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.tracing:tracing:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\32d0c464410769195cbab8696b4c26fc\transformed\jetified-tracing-1.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6928e6cfc939f4d9afd7847913f39f65\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6928e6cfc939f4d9afd7847913f39f65\transformed\localbroadcastmanager-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-components:18.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1d0c315f4f46d748a65af1dfd8868d7f\transformed\jetified-firebase-components-18.0.0\AndroidManifest.xml:18:5-44
+MERGED from [com.google.firebase:firebase-components:18.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1d0c315f4f46d748a65af1dfd8868d7f\transformed\jetified-firebase-components-18.0.0\AndroidManifest.xml:18:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b9bbce94e55225eef40a144c3adf0210\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b9bbce94e55225eef40a144c3adf0210\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d4ccc97b8b9d4395a654806f2781e189\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d4ccc97b8b9d4395a654806f2781e189\transformed\versionedparcelable-1.1.1\AndroidManifest.xml:20:5-22:41
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fecabd468df27b34f5f073a753ecdb9\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fecabd468df27b34f5f073a753ecdb9\transformed\core-runtime-2.2.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\ea6e72ed291ff748264ea5e21645c905\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\ea6e72ed291ff748264ea5e21645c905\transformed\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite:2.3.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\34cdbd47243a11d40b7e0c8d155731ac\transformed\sqlite-2.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.sqlite:sqlite:2.3.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\34cdbd47243a11d40b7e0c8d155731ac\transformed\sqlite-2.3.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.window.extensions.core:core:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\64b02e2d5e06e91f2e4dbb7da16c6422\transformed\jetified-core-1.0.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.window.extensions.core:core:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\64b02e2d5e06e91f2e4dbb7da16c6422\transformed\jetified-core-1.0.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\10bf39c2d999e950445837bdf6eb8d04\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\10bf39c2d999e950445837bdf6eb8d04\transformed\documentfile-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1a81d447deb95d35ba98564e028127eb\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1a81d447deb95d35ba98564e028127eb\transformed\print-1.0.0\AndroidManifest.xml:20:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5275e5052df6f712f820382704a65d8a\transformed\jetified-annotation-experimental-1.4.0\AndroidManifest.xml:5:5-44
+MERGED from [androidx.annotation:annotation-experimental:1.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5275e5052df6f712f820382704a65d8a\transformed\jetified-annotation-experimental-1.4.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.libraries.identity.googleid:googleid:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b7585a9b05e4d7cba05a411d013b1ca5\transformed\jetified-googleid-1.1.0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.libraries.identity.googleid:googleid:1.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b7585a9b05e4d7cba05a411d013b1ca5\transformed\jetified-googleid-1.1.0\AndroidManifest.xml:5:5-44
+MERGED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:7:5-9:41
+MERGED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:7:5-9:41
+MERGED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:availableupdate:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa7897a4dc20b5739abadb9e48269f3c\transformed\jetified-availableupdate-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:availableupdate:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa7897a4dc20b5739abadb9e48269f3c\transformed\jetified-availableupdate-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:6:5-9:61
+MERGED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:6:5-9:61
+MERGED from [com.huawei.agconnect:agconnect-core:1.9.1.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\468c1c4116069b4c733cd218c542e92c\transformed\jetified-agconnect-core-1.9.1.301\AndroidManifest.xml:6:5-8:41
+MERGED from [com.huawei.agconnect:agconnect-core:1.9.1.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\468c1c4116069b4c733cd218c542e92c\transformed\jetified-agconnect-core-1.9.1.301\AndroidManifest.xml:6:5-8:41
+MERGED from [io.grpc:grpc-android:1.62.2] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d4926610f96d08817237ef8c850211d8\transformed\jetified-grpc-android-1.62.2\AndroidManifest.xml:5:5-44
+MERGED from [io.grpc:grpc-android:1.62.2] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d4926610f96d08817237ef8c850211d8\transformed\jetified-grpc-android-1.62.2\AndroidManifest.xml:5:5-44
+MERGED from [com.getkeepsafe.relinker:relinker:1.4.5] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\67668984c91f86cdcee2e31ccb832019\transformed\jetified-relinker-1.4.5\AndroidManifest.xml:5:5-43
+MERGED from [com.getkeepsafe.relinker:relinker:1.4.5] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\67668984c91f86cdcee2e31ccb832019\transformed\jetified-relinker-1.4.5\AndroidManifest.xml:5:5-43
+MERGED from [com.huawei.hms:baselegacyapi:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\140188c49b3f0fd055adc85b2a412bc9\transformed\jetified-baselegacyapi-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:baselegacyapi:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\140188c49b3f0fd055adc85b2a412bc9\transformed\jetified-baselegacyapi-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:stats:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\699295f7b9389512fcdd998aa23d6714\transformed\jetified-stats-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:stats:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\699295f7b9389512fcdd998aa23d6714\transformed\jetified-stats-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:log:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\29e493058fc637a5f3d6ae7aa9270627\transformed\jetified-log-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:log:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\29e493058fc637a5f3d6ae7aa9270627\transformed\jetified-log-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.firebase:protolite-well-known-types:18.0.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\32b15fb05bb3f8f3ec82f720fdee9dc8\transformed\jetified-protolite-well-known-types-18.0.1\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:protolite-well-known-types:18.0.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\32b15fb05bb3f8f3ec82f720fdee9dc8\transformed\jetified-protolite-well-known-types-18.0.1\AndroidManifest.xml:5:5-44
+MERGED from [com.huawei.hms:network-grs:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2e49249b958a91886559861b29ea4174\transformed\jetified-network-grs-6.0.11.300\AndroidManifest.xml:7:5-9:41
+MERGED from [com.huawei.hms:network-grs:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2e49249b958a91886559861b29ea4174\transformed\jetified-network-grs-6.0.11.300\AndroidManifest.xml:7:5-9:41
+MERGED from [com.huawei.hms:network-framework-compat:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\eae30855c0f251a74c9230db51709704\transformed\jetified-network-framework-compat-6.0.11.300\AndroidManifest.xml:7:5-9:41
+MERGED from [com.huawei.hms:network-framework-compat:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\eae30855c0f251a74c9230db51709704\transformed\jetified-network-framework-compat-6.0.11.300\AndroidManifest.xml:7:5-9:41
+MERGED from [com.huawei.android.hms:security-base:1.2.0.307] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5b98bdc0677838c9fbe251f0eb1ea319\transformed\jetified-security-base-1.2.0.307\AndroidManifest.xml:7:5-43
+MERGED from [com.huawei.android.hms:security-base:1.2.0.307] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5b98bdc0677838c9fbe251f0eb1ea319\transformed\jetified-security-base-1.2.0.307\AndroidManifest.xml:7:5-43
+MERGED from [com.huawei.hms:hatool:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2ff85b51bff57863321eb8f630a9bc60\transformed\jetified-hatool-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.hms:hatool:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2ff85b51bff57863321eb8f630a9bc60\transformed\jetified-hatool-6.12.0.300\AndroidManifest.xml:5:5-7:41
+MERGED from [com.huawei.android.hms:security-ssl:1.2.0.307] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2bb9969ee7dfbbc23a82cdfa38ff97e6\transformed\jetified-security-ssl-1.2.0.307\AndroidManifest.xml:7:5-43
+MERGED from [com.huawei.android.hms:security-ssl:1.2.0.307] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2bb9969ee7dfbbc23a82cdfa38ff97e6\transformed\jetified-security-ssl-1.2.0.307\AndroidManifest.xml:7:5-43
+MERGED from [com.google.android.play:core-common:2.0.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a22f6e9befbe75d8ed11dcae274eda60\transformed\jetified-core-common-2.0.3\AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.play:core-common:2.0.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a22f6e9befbe75d8ed11dcae274eda60\transformed\jetified-core-common-2.0.3\AndroidManifest.xml:7:5-9:41
+MERGED from [com.huawei.hms:network-common:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\03976b59da4e103c6642c90dc2c47b53\transformed\jetified-network-common-6.0.11.300\AndroidManifest.xml:7:5-9:41
+MERGED from [com.huawei.hms:network-common:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\03976b59da4e103c6642c90dc2c47b53\transformed\jetified-network-common-6.0.11.300\AndroidManifest.xml:7:5-9:41
+MERGED from [com.huawei.android.hms:security-encrypt:1.2.0.307] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5193f16477d152916cb7916e14d06b01\transformed\jetified-security-encrypt-1.2.0.307\AndroidManifest.xml:7:5-9:41
+MERGED from [com.huawei.android.hms:security-encrypt:1.2.0.307] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5193f16477d152916cb7916e14d06b01\transformed\jetified-security-encrypt-1.2.0.307\AndroidManifest.xml:7:5-9:41
+	tools:overrideLibrary
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:23:9-148
+	android:targetSdkVersion
+		INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\download\AURA detect\ver2_aura\aura\android\app\src\debug\AndroidManifest.xml
+service#com.google.firebase.components.ComponentDiscoveryService
+ADDED from [:cloud_firestore] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\cloud_firestore-5.6.12\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_auth] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-5.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_auth] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-5.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_core] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.15.2\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-12:19
+MERGED from [:firebase_core] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.15.2\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:9-12:19
+MERGED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:66:9-72:19
+MERGED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:66:9-72:19
+MERGED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:14:9-23:19
+MERGED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:14:9-23:19
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dde0a3916220dbf629e573e637a177cb\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:9:9-15:19
+MERGED from [com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dde0a3916220dbf629e573e637a177cb\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:9:9-15:19
+MERGED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:30:9-38:19
+MERGED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:30:9-38:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:68:13-37
+	tools:targetApi
+		ADDED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:34:13-32
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:32:13-43
+	android:name
+		ADDED from [:cloud_firestore] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\cloud_firestore-5.6.12\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:8:18-89
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar
+ADDED from [:cloud_firestore] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\cloud_firestore-5.6.12\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-11:85
+	android:value
+		ADDED from [:cloud_firestore] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\cloud_firestore-5.6.12\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:17-82
+	android:name
+		ADDED from [:cloud_firestore] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\cloud_firestore-5.6.12\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:17-134
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.auth.FlutterFirebaseAuthRegistrar
+ADDED from [:firebase_auth] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-5.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-11:85
+	android:value
+		ADDED from [:firebase_auth] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-5.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:17-82
+	android:name
+		ADDED from [:firebase_auth] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_auth-5.7.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:17-124
+meta-data#com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar
+ADDED from [:firebase_core] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.15.2\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:9:13-11:85
+	android:value
+		ADDED from [:firebase_core] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.15.2\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:17-82
+	android:name
+		ADDED from [:firebase_core] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\firebase_core-3.15.2\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:17-124
+uses-permission#android.permission.VIBRATE
+ADDED from [:flutter_local_notifications] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_local_notifications-19.4.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-66
+	android:name
+		ADDED from [:flutter_local_notifications] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\flutter_local_notifications-19.4.0\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:22-63
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:5-79
+MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:24:5-79
+MERGED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:26:5-79
+MERGED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:26:5-79
+MERGED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:10:5-79
+MERGED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:10:5-79
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\8a702ff7f7129cb56e0188c20c4a984d\transformed\jetified-recaptcha-18.6.1\AndroidManifest.xml:8:5-79
+MERGED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\8a702ff7f7129cb56e0188c20c4a984d\transformed\jetified-recaptcha-18.6.1\AndroidManifest.xml:8:5-79
+MERGED from [com.huawei.hms:availableupdate:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa7897a4dc20b5739abadb9e48269f3c\transformed\jetified-availableupdate-6.12.0.300\AndroidManifest.xml:12:5-79
+MERGED from [com.huawei.hms:availableupdate:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa7897a4dc20b5739abadb9e48269f3c\transformed\jetified-availableupdate-6.12.0.300\AndroidManifest.xml:12:5-79
+MERGED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:12:5-79
+MERGED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:12:5-79
+MERGED from [io.grpc:grpc-android:1.62.2] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d4926610f96d08817237ef8c850211d8\transformed\jetified-grpc-android-1.62.2\AndroidManifest.xml:7:5-79
+MERGED from [io.grpc:grpc-android:1.62.2] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\d4926610f96d08817237ef8c850211d8\transformed\jetified-grpc-android-1.62.2\AndroidManifest.xml:7:5-79
+MERGED from [com.huawei.hms:stats:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\699295f7b9389512fcdd998aa23d6714\transformed\jetified-stats-6.12.0.300\AndroidManifest.xml:12:5-79
+MERGED from [com.huawei.hms:stats:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\699295f7b9389512fcdd998aa23d6714\transformed\jetified-stats-6.12.0.300\AndroidManifest.xml:12:5-79
+	android:name
+		ADDED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:7:22-76
+service#com.huawei.hms.flutter.health.modules.autorecorder.service.AutoRecorderBackgroundService
+ADDED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:10:9-16:19
+	android:exported
+		ADDED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:12:13-37
+	android:name
+		ADDED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:11:13-116
+intent-filter#action:name:HealthKitService
+ADDED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:13-15:29
+	android:priority
+		ADDED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:13:28-51
+action#HealthKitService
+ADDED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:17-59
+	android:name
+		ADDED from [:huawei_health] C:\Users\THINKPAD\AppData\Local\Pub\Cache\hosted\pub.dev\huawei_health-6.15.0+300\android\build\intermediates\merged_manifest\debug\processDebugManifest\AndroidManifest.xml:14:25-56
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:23:5-68
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:23:22-65
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:25:5-81
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:25:22-78
+uses-permission#android.permission.FOREGROUND_SERVICE
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:26:5-77
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:26:22-74
+provider#androidx.startup.InitializationProvider
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:29:9-37:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0c3294df4b6815fdd94f417fcbf05d93\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0c3294df4b6815fdd94f417fcbf05d93\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:24:9-32:20
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\81311e685d52218c2a21b31a1a827871\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\81311e685d52218c2a21b31a1a827871\transformed\jetified-startup-runtime-1.1.1\AndroidManifest.xml:26:9-30:34
+	tools:node
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:33:13-31
+	android:authorities
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:31:13-68
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:32:13-37
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:30:13-67
+meta-data#androidx.work.WorkManagerInitializer
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:34:13-36:52
+	android:value
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:36:17-49
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:35:17-68
+service#androidx.work.impl.background.systemalarm.SystemAlarmService
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:39:9-45:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:42:13-72
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:43:13-37
+	tools:ignore
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:44:13-60
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:45:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:41:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:40:13-88
+service#androidx.work.impl.background.systemjob.SystemJobService
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:46:9-52:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:49:13-70
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:50:13-36
+	android:permission
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:51:13-69
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:52:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:48:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:47:13-84
+service#androidx.work.impl.foreground.SystemForegroundService
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:53:9-59:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:56:13-77
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:57:13-37
+	tools:ignore
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:58:13-60
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:59:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:55:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:54:13-81
+receiver#androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:61:9-66:35
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:64:13-35
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:65:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:66:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:63:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:62:13-88
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:67:9-77:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:70:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:71:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:72:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:69:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:68:13-106
+intent-filter#action:name:android.intent.action.ACTION_POWER_CONNECTED+action:name:android.intent.action.ACTION_POWER_DISCONNECTED
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:73:13-76:29
+action#android.intent.action.ACTION_POWER_CONNECTED
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:74:17-87
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:74:25-84
+action#android.intent.action.ACTION_POWER_DISCONNECTED
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:75:17-90
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:75:25-87
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:78:9-88:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:81:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:82:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:83:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:80:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:79:13-104
+intent-filter#action:name:android.intent.action.BATTERY_LOW+action:name:android.intent.action.BATTERY_OKAY
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:84:13-87:29
+action#android.intent.action.BATTERY_OKAY
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:85:17-77
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:85:25-74
+action#android.intent.action.BATTERY_LOW
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:86:17-76
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:86:25-73
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:89:9-99:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:92:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:93:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:94:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:91:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:90:13-104
+intent-filter#action:name:android.intent.action.DEVICE_STORAGE_LOW+action:name:android.intent.action.DEVICE_STORAGE_OK
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:95:13-98:29
+action#android.intent.action.DEVICE_STORAGE_LOW
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:96:17-83
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:96:25-80
+action#android.intent.action.DEVICE_STORAGE_OK
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:97:17-82
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:97:25-79
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:100:9-109:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:103:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:104:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:105:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:102:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:101:13-103
+intent-filter#action:name:android.net.conn.CONNECTIVITY_CHANGE
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:106:13-108:29
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:107:17-79
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:107:25-76
+receiver#androidx.work.impl.background.systemalarm.RescheduleReceiver
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:110:9-121:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:113:13-36
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:114:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:115:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:112:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:111:13-88
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.intent.action.TIMEZONE_CHANGED+action:name:android.intent.action.TIME_SET
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:116:13-120:29
+action#android.intent.action.BOOT_COMPLETED
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:117:17-79
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:117:25-76
+action#android.intent.action.TIME_SET
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:118:17-73
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:118:25-70
+action#android.intent.action.TIMEZONE_CHANGED
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:119:17-81
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:119:25-78
+receiver#androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:122:9-131:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:125:13-72
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:126:13-37
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:127:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:124:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:123:13-99
+intent-filter#action:name:androidx.work.impl.background.systemalarm.UpdateProxies
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:128:13-130:29
+action#androidx.work.impl.background.systemalarm.UpdateProxies
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:129:17-98
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:129:25-95
+receiver#androidx.work.impl.diagnostics.DiagnosticsReceiver
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:132:9-142:20
+	android:enabled
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:135:13-35
+	android:exported
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:136:13-36
+	android:permission
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:137:13-57
+	tools:targetApi
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:138:13-32
+	android:directBootAware
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:134:13-44
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:133:13-78
+intent-filter#action:name:androidx.work.diagnostics.REQUEST_DIAGNOSTICS
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:139:13-141:29
+action#androidx.work.diagnostics.REQUEST_DIAGNOSTICS
+ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:140:17-88
+	android:name
+		ADDED from [androidx.work:work-runtime:2.9.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\5841f526393ab97314670a8597a27722\transformed\work-runtime-2.9.0\AndroidManifest.xml:140:25-85
+activity#com.google.firebase.auth.internal.GenericIdpActivity
+ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:29:9-46:20
+	android:excludeFromRecents
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:31:13-46
+	android:launchMode
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:33:13-44
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:32:13-36
+	android:theme
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:34:13-72
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:30:13-80
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:firebase.auth+data:path:/+data:scheme:genericidp
+ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:35:13-45:29
+action#android.intent.action.VIEW
+ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:36:17-69
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:36:25-66
+category#android.intent.category.DEFAULT
+ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:38:17-76
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:38:27-73
+category#android.intent.category.BROWSABLE
+ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:39:17-78
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:39:27-75
+activity#com.google.firebase.auth.internal.RecaptchaActivity
+ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:47:9-64:20
+	android:excludeFromRecents
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:49:13-46
+	android:launchMode
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:51:13-44
+	android:exported
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:50:13-36
+	android:theme
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:52:13-72
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:48:13-79
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:host:firebase.auth+data:path:/+data:scheme:recaptcha
+ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:53:13-63:29
+meta-data#com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar
+ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:69:13-71:85
+	android:value
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:71:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-auth:23.2.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\b289d9f8144497bff385a1d19c6d7bae\transformed\jetified-firebase-auth-23.2.1\AndroidManifest.xml:70:17-109
+meta-data#com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar
+ADDED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:17:13-19:85
+	android:value
+		ADDED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:19:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:18:17-122
+meta-data#com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar
+ADDED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:20:13-22:85
+	android:value
+		ADDED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:22:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-firestore:25.1.4] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\7b464f77254f7fe9c4e16b32d185da4d\transformed\jetified-firebase-firestore-25.1.4\AndroidManifest.xml:21:17-111
+meta-data#com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar
+ADDED from [com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dde0a3916220dbf629e573e637a177cb\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:12:13-14:85
+	android:value
+		ADDED from [com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dde0a3916220dbf629e573e637a177cb\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:14:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-common-ktx:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\dde0a3916220dbf629e573e637a177cb\transformed\jetified-firebase-common-ktx-21.0.0\AndroidManifest.xml:13:17-116
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:23:9-28:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:25:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:27:13-37
+	android:directBootAware
+		ADDED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:26:13-43
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:28:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:24:13-77
+meta-data#com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar
+ADDED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:35:13-37:85
+	android:value
+		ADDED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:37:17-82
+	android:name
+		ADDED from [com.google.firebase:firebase-common:21.0.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0064f7f63433ab465cbe66090d3633b9\transformed\jetified-firebase-common-21.0.0\AndroidManifest.xml:36:17-109
+uses-library#androidx.window.extensions
+ADDED from [androidx.window:window:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a84e2cbdafed01f25c16c968dc193430\transformed\jetified-window-1.2.0\AndroidManifest.xml:23:9-25:40
+	android:required
+		ADDED from [androidx.window:window:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a84e2cbdafed01f25c16c968dc193430\transformed\jetified-window-1.2.0\AndroidManifest.xml:25:13-37
+	android:name
+		ADDED from [androidx.window:window:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a84e2cbdafed01f25c16c968dc193430\transformed\jetified-window-1.2.0\AndroidManifest.xml:24:13-54
+uses-library#androidx.window.sidecar
+ADDED from [androidx.window:window:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a84e2cbdafed01f25c16c968dc193430\transformed\jetified-window-1.2.0\AndroidManifest.xml:26:9-28:40
+	android:required
+		ADDED from [androidx.window:window:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a84e2cbdafed01f25c16c968dc193430\transformed\jetified-window-1.2.0\AndroidManifest.xml:28:13-37
+	android:name
+		ADDED from [androidx.window:window:1.2.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a84e2cbdafed01f25c16c968dc193430\transformed\jetified-window-1.2.0\AndroidManifest.xml:27:13-51
+service#androidx.credentials.playservices.CredentialProviderMetadataHolder
+ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:24:9-32:19
+	android:enabled
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:26:13-35
+	android:exported
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:27:13-37
+	tools:ignore
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:28:13-60
+	android:name
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:25:13-94
+meta-data#androidx.credentials.CREDENTIAL_PROVIDER_KEY
+ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:29:13-31:104
+	android:value
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:31:17-101
+	android:name
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:30:17-76
+activity#androidx.credentials.playservices.HiddenActivity
+ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:34:9-41:20
+	android:fitsSystemWindows
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:39:13-45
+	android:enabled
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:38:13-37
+	android:configChanges
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:36:13-87
+	android:theme
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:40:13-48
+	android:name
+		ADDED from [androidx.credentials:credentials-play-services-auth:1.2.0-rc01] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\82f7472ebe82f9b3e36bdf1693a3014c\transformed\jetified-credentials-play-services-auth-1.2.0-rc01\AndroidManifest.xml:35:13-76
+activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
+ADDED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:23:9-27:75
+	android:excludeFromRecents
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:25:13-46
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:26:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:27:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:24:13-93
+service#com.google.android.gms.auth.api.signin.RevocationBoundService
+ADDED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:33:9-37:51
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:35:13-36
+	android:visibleToInstantApps
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:37:13-48
+	android:permission
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:36:13-107
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:20.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0157ab8c7e9dd9e9a56e226fa9d9a0a1\transformed\jetified-play-services-auth-20.7.0\AndroidManifest.xml:34:13-89
+uses-permission#com.google.android.providers.gsf.permission.READ_GSERVICES
+ADDED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\8a702ff7f7129cb56e0188c20c4a984d\transformed\jetified-recaptcha-18.6.1\AndroidManifest.xml:9:5-98
+	android:name
+		ADDED from [com.google.android.recaptcha:recaptcha:18.6.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\8a702ff7f7129cb56e0188c20c4a984d\transformed\jetified-recaptcha-18.6.1\AndroidManifest.xml:9:22-95
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bcf3acc9f52270489effbe784007bd92\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bcf3acc9f52270489effbe784007bd92\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bcf3acc9f52270489effbe784007bd92\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bcf3acc9f52270489effbe784007bd92\transformed\jetified-play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+meta-data#androidx.lifecycle.ProcessLifecycleInitializer
+ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0c3294df4b6815fdd94f417fcbf05d93\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0c3294df4b6815fdd94f417fcbf05d93\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0c3294df4b6815fdd94f417fcbf05d93\transformed\jetified-lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1e2d7a5734a81ba569646496eb4c75be\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:9-122
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1e2d7a5734a81ba569646496eb4c75be\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:66-119
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:18.4.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\1e2d7a5734a81ba569646496eb4c75be\transformed\jetified-play-services-basement-18.4.0\AndroidManifest.xml:6:20-65
+permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+permission#com.example.aura.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:22:5-24:47
+	android:protectionLevel
+		ADDED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:24:9-44
+	android:name
+		ADDED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:23:9-81
+uses-permission#${applicationId}.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+uses-permission#com.example.aura.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+ADDED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:26:5-97
+	android:name
+		ADDED from [androidx.core:core:1.13.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\2fc7bd9cfbb1c8d9ebd3672fabeabdfa\transformed\core-1.13.1\AndroidManifest.xml:26:22-94
+service#androidx.room.MultiInstanceInvalidationService
+ADDED from [androidx.room:room-runtime:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0ea271496713359809e3e1d120ee827a\transformed\room-runtime-2.5.0\AndroidManifest.xml:24:9-28:63
+	android:exported
+		ADDED from [androidx.room:room-runtime:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0ea271496713359809e3e1d120ee827a\transformed\room-runtime-2.5.0\AndroidManifest.xml:27:13-37
+	tools:ignore
+		ADDED from [androidx.room:room-runtime:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0ea271496713359809e3e1d120ee827a\transformed\room-runtime-2.5.0\AndroidManifest.xml:28:13-60
+	android:directBootAware
+		ADDED from [androidx.room:room-runtime:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0ea271496713359809e3e1d120ee827a\transformed\room-runtime-2.5.0\AndroidManifest.xml:26:13-43
+	android:name
+		ADDED from [androidx.room:room-runtime:2.5.0] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\0ea271496713359809e3e1d120ee827a\transformed\room-runtime-2.5.0\AndroidManifest.xml:25:13-74
+meta-data#androidx.profileinstaller.ProfileInstallerInitializer
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+	android:value
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+receiver#androidx.profileinstaller.ProfileInstallReceiver
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+	android:enabled
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+	android:exported
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+	android:permission
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
+	android:directBootAware
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+intent-filter#action:name:androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+action#androidx.profileinstaller.action.INSTALL_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
+intent-filter#action:name:androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+action#androidx.profileinstaller.action.SKIP_FILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
+intent-filter#action:name:androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+action#androidx.profileinstaller.action.SAVE_PROFILE
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+intent-filter#action:name:androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+action#androidx.profileinstaller.action.BENCHMARK_OPERATION
+ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+	android:name
+		ADDED from [androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\bb48ebb3dd1328cc991266d9aa95bc57\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+package#com.huawei.health
+ADDED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:12:9-53
+	android:name
+		ADDED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:12:18-50
+activity#com.huawei.hms.hihealth.activity.HealthKitMainActivity
+ADDED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:16:9-19:60
+	android:exported
+		ADDED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:18:13-37
+	android:theme
+		ADDED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:19:13-57
+	android:name
+		ADDED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:17:13-82
+meta-data#com.huawei.hms.client.service.name:health
+ADDED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:21:9-23:49
+	android:value
+		ADDED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:23:13-46
+	android:name
+		ADDED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:22:13-69
+meta-data#com.huawei.hms.min_api_level:hihealth-base:hihealth
+ADDED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:24:9-26:34
+	android:value
+		ADDED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:26:13-31
+	android:name
+		ADDED from [com.huawei.hms:health:6.11.0.303] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\e9272264e52c123493a416db3da9980b\transformed\jetified-health-6.11.0.303\AndroidManifest.xml:25:13-79
+activity#com.huawei.hms.hwid.internal.ui.activity.HwIdSignInHubActivity
+ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:10:9-16:20
+	android:excludeFromRecents
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:13:13-46
+	android:exported
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:14:13-37
+	android:configChanges
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:12:13-53
+	android:theme
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:15:13-72
+	android:name
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:11:13-90
+activity#com.huawei.hms.account.internal.ui.activity.AccountSignInHubActivity
+ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:17:9-22:20
+	android:excludeFromRecents
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:19:13-46
+	android:exported
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:20:13-37
+	android:theme
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:21:13-72
+	android:name
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:18:13-96
+meta-data#com.huawei.hms.client.service.name:hwid
+ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:25:9-27:46
+	android:value
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:27:13-43
+	android:name
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:26:13-67
+meta-data#com.huawei.hms.min_api_level:hwid:hwid
+ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:28:9-30:33
+	android:value
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:30:13-30
+	android:name
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:29:13-66
+meta-data#com.huawei.hms.min_api_level:hwid:account
+ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:34:9-36:34
+	android:value
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:36:13-31
+	android:name
+		ADDED from [com.huawei.hms:hwid:6.4.0.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\54dfb5dad23251d0bb83df58b9b695f8\transformed\jetified-hwid-6.4.0.301\AndroidManifest.xml:35:13-69
+meta-data#com.huawei.hms.client.service.name:base
+ADDED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:15:9-17:47
+	android:value
+		ADDED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:17:13-44
+	android:name
+		ADDED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:16:13-67
+meta-data#com.huawei.hms.min_api_level:base:hmscore
+ADDED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:20:9-22:33
+	android:value
+		ADDED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:22:13-30
+	android:name
+		ADDED from [com.huawei.hms:base:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\9c6665916a31355882bd8d30c8fdb0f6\transformed\jetified-base-6.12.0.300\AndroidManifest.xml:21:13-69
+meta-data#availableLoaded
+ADDED from [com.huawei.hms:availableupdate:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa7897a4dc20b5739abadb9e48269f3c\transformed\jetified-availableupdate-6.12.0.300\AndroidManifest.xml:17:9-19:35
+	android:value
+		ADDED from [com.huawei.hms:availableupdate:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa7897a4dc20b5739abadb9e48269f3c\transformed\jetified-availableupdate-6.12.0.300\AndroidManifest.xml:19:13-32
+	android:name
+		ADDED from [com.huawei.hms:availableupdate:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\fa7897a4dc20b5739abadb9e48269f3c\transformed\jetified-availableupdate-6.12.0.300\AndroidManifest.xml:18:13-43
+intent#action:name:com.huawei.hms.core.aidlservice
+ADDED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:15:9-17:18
+action#com.huawei.hms.core.aidlservice
+ADDED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:16:13-70
+	android:name
+		ADDED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:16:21-67
+intent#action:name:com.huawei.hms.core
+ADDED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:18:9-20:18
+action#com.huawei.hms.core
+ADDED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:19:13-58
+	android:name
+		ADDED from [com.huawei.hms:device:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\4992d10c1819fde5150dfefe36d65c28\transformed\jetified-device-6.12.0.300\AndroidManifest.xml:19:21-55
+provider#com.huawei.agconnect.core.provider.AGConnectInitializeProvider
+ADDED from [com.huawei.agconnect:agconnect-core:1.9.1.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\468c1c4116069b4c733cd218c542e92c\transformed\jetified-agconnect-core-1.9.1.301\AndroidManifest.xml:11:9-14:40
+	android:authorities
+		ADDED from [com.huawei.agconnect:agconnect-core:1.9.1.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\468c1c4116069b4c733cd218c542e92c\transformed\jetified-agconnect-core-1.9.1.301\AndroidManifest.xml:13:13-73
+	android:exported
+		ADDED from [com.huawei.agconnect:agconnect-core:1.9.1.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\468c1c4116069b4c733cd218c542e92c\transformed\jetified-agconnect-core-1.9.1.301\AndroidManifest.xml:14:13-37
+	android:name
+		ADDED from [com.huawei.agconnect:agconnect-core:1.9.1.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\468c1c4116069b4c733cd218c542e92c\transformed\jetified-agconnect-core-1.9.1.301\AndroidManifest.xml:12:13-90
+service#com.huawei.agconnect.core.ServiceDiscovery
+ADDED from [com.huawei.agconnect:agconnect-core:1.9.1.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\468c1c4116069b4c733cd218c542e92c\transformed\jetified-agconnect-core-1.9.1.301\AndroidManifest.xml:16:9-18:40
+	android:exported
+		ADDED from [com.huawei.agconnect:agconnect-core:1.9.1.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\468c1c4116069b4c733cd218c542e92c\transformed\jetified-agconnect-core-1.9.1.301\AndroidManifest.xml:18:13-37
+	android:name
+		ADDED from [com.huawei.agconnect:agconnect-core:1.9.1.301] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\468c1c4116069b4c733cd218c542e92c\transformed\jetified-agconnect-core-1.9.1.301\AndroidManifest.xml:17:13-70
+activity#com.huawei.hms.activity.BridgeActivity
+ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:10:9-21:20
+	android:screenOrientation
+		ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:16:13-47
+	android:excludeFromRecents
+		ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:13:13-46
+	android:hardwareAccelerated
+		ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:15:13-47
+	android:exported
+		ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:14:13-37
+	android:configChanges
+		ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:12:13-131
+	android:theme
+		ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:17:13-52
+	android:name
+		ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:11:13-66
+meta-data#hwc-theme
+ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:18:13-20:77
+	android:value
+		ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:20:17-74
+	android:name
+		ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:19:17-41
+activity#com.huawei.hms.activity.EnableServiceActivity
+ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:22:9-26:20
+	android:exported
+		ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:25:13-37
+	android:configChanges
+		ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:24:13-106
+	android:name
+		ADDED from [com.huawei.hms:ui:6.12.0.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\6d373ac073632e5341cf31f818476913\transformed\jetified-ui-6.12.0.300\AndroidManifest.xml:23:13-73
+activity#com.google.android.play.core.common.PlayCoreDialogWrapperActivity
+ADDED from [com.google.android.play:core-common:2.0.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a22f6e9befbe75d8ed11dcae274eda60\transformed\jetified-core-common-2.0.3\AndroidManifest.xml:14:9-18:65
+	android:stateNotNeeded
+		ADDED from [com.google.android.play:core-common:2.0.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a22f6e9befbe75d8ed11dcae274eda60\transformed\jetified-core-common-2.0.3\AndroidManifest.xml:17:13-42
+	android:exported
+		ADDED from [com.google.android.play:core-common:2.0.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a22f6e9befbe75d8ed11dcae274eda60\transformed\jetified-core-common-2.0.3\AndroidManifest.xml:16:13-37
+	android:theme
+		ADDED from [com.google.android.play:core-common:2.0.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a22f6e9befbe75d8ed11dcae274eda60\transformed\jetified-core-common-2.0.3\AndroidManifest.xml:18:13-62
+	android:name
+		ADDED from [com.google.android.play:core-common:2.0.3] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\a22f6e9befbe75d8ed11dcae274eda60\transformed\jetified-core-common-2.0.3\AndroidManifest.xml:15:13-93
+package#com.huawei.works
+ADDED from [com.huawei.hms:network-common:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\03976b59da4e103c6642c90dc2c47b53\transformed\jetified-network-common-6.0.11.300\AndroidManifest.xml:12:9-52
+	android:name
+		ADDED from [com.huawei.hms:network-common:6.0.11.300] C:\Users\THINKPAD\.gradle\caches\8.10.2\transforms\03976b59da4e103c6642c90dc2c47b53\transformed\jetified-network-common-6.0.11.300\AndroidManifest.xml:12:18-49

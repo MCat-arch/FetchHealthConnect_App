@@ -88,7 +88,7 @@ class ManualLabelPage extends StatelessWidget {
     final provider = context.read<HealthProvider>();
 
     // ✅ Tidak perlu ambil data lama, cukup kirim kategori
-    await provider.addManualLabel(kategori);
+    // await provider.addManualLabel(kategori);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

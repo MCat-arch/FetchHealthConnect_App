@@ -1,3 +1,4 @@
+import 'package:aura/services/health_data_fetcher.dart';
 import 'package:aura/utils/init.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +48,7 @@ class _HomeWrapperState extends State<HomeWrapper> with WidgetsBindingObserver {
     try {
       await NotificationService().requestPermission();
       await NotificationService().initNotification();
-      await HealthService.requestRuntimePermissions();
+      await HealthDataFetcher().requestRuntimePermissions();
       await InitializationManager.setInitialized(); // Tandai inisialisasi selesai
       setState(() => _initialized = true);
     } catch (e) {
