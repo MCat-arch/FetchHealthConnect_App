@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "803053835663",
+    "firebase_url": "https://nonapbn25-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "nonapbn25",
+    "storage_bucket": "nonapbn25.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803053835663:android:31a11fff8e96f69a88e7fa",
+        "android_client_info": {
+          "package_name": "com.example.aura"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803053835663-0h4hpuv1v4v7mqf4mk67so17qlh0ogpg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUaHw-YbGFFS2I-brucdtj5JeK0vJMuaQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803053835663-0h4hpuv1v4v7mqf4mk67so17qlh0ogpg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "803053835663-30u4hbv5vp8isldj5ncbdakdsrbbaj9r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.aura"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803053835663:android:770b1deebfb4166888e7fa",
+        "android_client_info": {
+          "package_name": "com.example.aura_bluetooth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803053835663-0h4hpuv1v4v7mqf4mk67so17qlh0ogpg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUaHw-YbGFFS2I-brucdtj5JeK0vJMuaQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803053835663-0h4hpuv1v4v7mqf4mk67so17qlh0ogpg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "803053835663-30u4hbv5vp8isldj5ncbdakdsrbbaj9r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.aura"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
