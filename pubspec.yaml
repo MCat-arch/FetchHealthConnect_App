@@ -37,6 +37,7 @@ dependencies:
   audio_session: ^0.2.2
   just_audio: ^0.10.5
   fl_chart: ^0.69.0
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:

@@ -161,86 +161,110 @@ class _HomePageState extends State<HomePage> {
       elevation: 4,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'HEART RATE',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                  ),
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.favorite,
-                      color: heartRate.bpm > 100
-                          ? Colors.red
-                          : heartRate.bpm > 80
-                          ? Colors.orange
-                          : Colors.green,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'HEART RATE',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
                     ),
-                    if (heartRate.rrIntervals == null ||
-                        heartRate.rrIntervals!.isEmpty)
-                      const Tooltip(
-                        message: 'No RR Intervals - Basic HR only',
-                        child: Icon(
-                          Icons.info_outline,
-                          size: 16,
-                          color: Colors.orange,
-                        ),
-                      ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              textBaseline: TextBaseline.alphabetic,
-              children: [
-                Text(
-                  '${heartRate.bpm}',
-                  style: const TextStyle(
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,
                   ),
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  'BPM',
-                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            _buildAdditionalInfo(heartRate),
-          ],
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.favorite,
+                        color: heartRate.bpm > 100
+                            ? Colors.red
+                            : heartRate.bpm > 80
+                            ? Colors.orange
+                            : Colors.green,
+                      ),
+                      if (heartRate.rrIntervals == null ||
+                          heartRate.rrIntervals!.isEmpty)
+                        const Tooltip(
+                          message: 'No RR Intervals - Basic HR only',
+                          child: Icon(
+                            Icons.info_outline,
+                            size: 16,
+                            color: Colors.orange,
+                          ),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Text(
+                    '${heartRate.bpm}',
+                    style: const TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    'BPM',
+                    style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              _buildAdditionalInfo(heartRate),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildAdditionalInfo(HeartRateData hr) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildInfoRow('RHR', '${hr.rhr.toStringAsFixed(1)} BPM'),
-        _buildInfoRow('Activity', hr.phoneSensor.rawActivityStatus),
-        _buildInfoRow(
-          'Noise',
-          '${hr.phoneSensor.noiseLeveldB?.toStringAsFixed(1) ?? 'N/A'} dB',
-        ),
-        _buildInfoRow('Time', hr.phoneSensor.timeOfDayCategory),
-        if (hr.rrIntervals == null || hr.rrIntervals!.isEmpty)
-          _buildInfoRow('RR Data', 'Not available', isWarning: true),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildInfoRow('RHR', '${hr.rhr.toStringAsFixed(1)} BPM'),
+          _buildInfoRow('Activity', hr.phoneSensor.rawActivityStatus),
+          _buildInfoRow(
+            'Noise',
+            '${hr.phoneSensor.noiseLeveldB?.toStringAsFixed(1) ?? 'N/A'} dB',
+          ),
+          // 4. HRV Metrics (Tambahkan RMSSD & SDNN)
+          // Mengambil data dari window 60 detik (HRV60s)
+          _buildInfoRow(
+            'HRV (RMSSD)',
+            '${hr.HRV60s?.rmssd?.toStringAsFixed(1) ?? '-'} ms',
+          ),
+          _buildInfoRow(
+            'HRV (SDNN)',
+            '${hr.HRV60s?.sdnn?.toStringAsFixed(1) ?? '-'} ms',
+          ),
+
+          _buildInfoRow('Time', hr.phoneSensor.timeOfDayCategory),
+
+          // Warning jika RR interval kosong (Sensor BLE tidak kirim data detil)
+          if (hr.rrIntervals == null || hr.rrIntervals!.isEmpty)
+            _buildInfoRow(
+              'RR Data',
+              'Not available (Wait 1 min)',
+              isWarning: true,
+            ),
+          // _buildInfoRow('Time', hr.phoneSensor.timeOfDayCategory),
+          // if (hr.rrIntervals == null || hr.rrIntervals!.isEmpty)
+          //   _buildInfoRow('RR Data', 'Not available', isWarning: true),
+        ],
+      ),
     );
   }
 
@@ -361,102 +385,211 @@ class _HomePageState extends State<HomePage> {
   //   );
   // }
 
-  Widget _buildScanningSection(BLEProvider ble) {
-    // Tampilkan scanning section hanya jika tidak connected dan perlu scan
-    final shouldShow =
-        !ble.statusConnect && (ble.isScanning || ble.scanResults.isNotEmpty);
+  // Widget _buildScanningSection(BLEProvider ble) {
+  //   // Tampilkan scanning section hanya jika tidak connected dan perlu scan
+  //   final shouldShow =
+  //       !ble.statusConnect && (ble.isScanning || ble.scanResults.isNotEmpty);
 
-    if (!shouldShow) return const SizedBox();
+  //   if (!shouldShow) return const SizedBox();
 
+  //   return Card(
+  //     elevation: 4,
+  //     child: Padding(
+  //       padding: const EdgeInsets.all(16.0),
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               const Text(
+  //                 'AVAILABLE DEVICES',
+  //                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+  //               ),
+  //               if (ble.isScanning)
+  //                 const Row(
+  //                   children: [
+  //                     SizedBox(
+  //                       width: 16,
+  //                       height: 16,
+  //                       child: CircularProgressIndicator(strokeWidth: 2),
+  //                     ),
+  //                     SizedBox(width: 8),
+  //                     Text('Scanning...', style: TextStyle(fontSize: 12)),
+  //                   ],
+  //                 ),
+  //             ],
+  //           ),
+  //           const SizedBox(height: 12),
+  //           _buildDeviceList(ble),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // Widget _buildDeviceList(BLEProvider ble) {
+  //   final List<ScanResult> results = ble.scanResults;
+
+  //   if (results.isEmpty) {
+  //     return const Padding(
+  //       padding: EdgeInsets.all(16.0),
+  //       child: Column(
+  //         children: [
+  //           Icon(Icons.search_off, size: 48, color: Colors.grey),
+  //           SizedBox(height: 8),
+  //           Text('No devices found', style: TextStyle(color: Colors.grey)),
+  //           SizedBox(height: 4),
+  //           Text(
+  //             'Make sure your heart rate monitor is turned on and in range',
+  //             textAlign: TextAlign.center,
+  //             style: TextStyle(fontSize: 12, color: Colors.grey),
+  //           ),
+  //         ],
+  //       ),
+  //     );
+  //   }
+
+  //   return ConstrainedBox(
+  //     constraints: const BoxConstraints(maxHeight: 300),
+  //     child: ListView.separated(
+  //       shrinkWrap: true,
+  //       physics: const AlwaysScrollableScrollPhysics(),
+  //       itemCount: results.length,
+  //       separatorBuilder: (context, index) => const Divider(height: 1),
+  //       itemBuilder: (context, index) {
+  //         final device = results[index];
+  //         final advName = device.advertisementData.advName?.trim() ?? '';
+  //         final platformName = device.device.platformName?.trim() ?? '';
+
+  //         String displayName = advName.isNotEmpty
+  //             ? advName
+  //             : platformName.isNotEmpty
+  //             ? platformName
+  //             : 'Unknown Device';
+
+  //         return ListTile(
+  //           leading: const Icon(Icons.fitness_center, color: Colors.blue),
+  //           title: Text(displayName),
+  //           subtitle: Text(
+  //             'RSSI: ${device.rssi} • ${device.device.remoteId.str}',
+  //           ),
+  //           trailing: ElevatedButton(
+  //             onPressed: () => ble.connectTo(device),
+  //             child: const Text('Connect'),
+  //           ),
+  //         );
+  //       },
+  //     ),
+  //   );
+  // }
+
+  // Widget Tombol Action (Sesuai request Anda)
+  Widget _buildActionButtons(BLEProvider ble) {
     return Card(
-      elevation: 4,
+      elevation: 2,
+      margin: const EdgeInsets.all(12),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        padding: const EdgeInsets.all(12.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'AVAILABLE DEVICES',
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            // Tombol Scan (Hanya muncul jika belum connect)
+            if (!ble.statusConnect) ...[
+              ElevatedButton.icon(
+                onPressed: ble.isScanning ? ble.stopScan : ble.startScan,
+                icon: Icon(ble.isScanning ? Icons.stop : Icons.search),
+                label: Text(ble.isScanning ? 'Stop Scan' : 'Start Scan'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: ble.isScanning ? Colors.orange : Colors.blue,
+                  foregroundColor: Colors.white,
                 ),
-                if (ble.isScanning)
-                  const Row(
-                    children: [
-                      SizedBox(
-                        width: 16,
-                        height: 16,
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      ),
-                      SizedBox(width: 8),
-                      Text('Scanning...', style: TextStyle(fontSize: 12)),
-                    ],
-                  ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            _buildDeviceList(ble),
+              ),
+            ] else ...[
+              // Tombol Disconnect (Muncul jika connected)
+              ElevatedButton.icon(
+                onPressed: () => ble.disconnect(), // Ini akan kirim pesan ke BG
+                icon: const Icon(Icons.link_off),
+                label: const Text('Disconnect'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ],
+
+            // Tombol Refresh (Rescan)
+            if (!ble.statusConnect)
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: ble.startScan,
+                tooltip: 'Rescan Devices',
+              ),
+
+            // Tombol Fitur Tambahan (Breathing)
+            if (ble.statusConnect) ...[
+              IconButton(
+                icon: const Icon(Icons.psychology, color: Colors.teal),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const BreathingGuidePage(),
+                    ),
+                  );
+                },
+                tooltip: 'Breathing Exercise',
+              ),
+            ],
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDeviceList(BLEProvider ble) {
-    final List<ScanResult> results = ble.scanResults;
-
-    if (results.isEmpty) {
-      return const Padding(
-        padding: EdgeInsets.all(16.0),
+  // Widget List Hasil Scan (WAJIB ADA untuk memilih device)
+  Widget _buildScanResultList(BLEProvider ble) {
+    if (ble.statusConnect) {
+      // Tampilkan Data HR jika sudah connect
+      return Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.search_off, size: 48, color: Colors.grey),
-            SizedBox(height: 8),
-            Text('No devices found', style: TextStyle(color: Colors.grey)),
-            SizedBox(height: 4),
+            const Icon(Icons.favorite, color: Colors.red, size: 64),
             Text(
-              'Make sure your heart rate monitor is turned on and in range',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+              "${ble.heartRate?.bpm ?? '--'} BPM",
+              style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
             ),
+            Text("Status: ${ble.status}"),
           ],
         ),
       );
     }
 
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 300),
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: const AlwaysScrollableScrollPhysics(),
-        itemCount: results.length,
-        separatorBuilder: (context, index) => const Divider(height: 1),
-        itemBuilder: (context, index) {
-          final device = results[index];
-          final advName = device.advertisementData.advName?.trim() ?? '';
-          final platformName = device.device.platformName?.trim() ?? '';
+    // Tampilkan List Scan jika belum connect
+    return ListView.builder(
+      shrinkWrap: true, // Agar bisa masuk di Column/SingleChildScrollView
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: ble.scanResults.length,
+      itemBuilder: (context, index) {
+        final result = ble.scanResults[index];
+        final name = result.device.platformName.isNotEmpty
+            ? result.device.platformName
+            : "Unknown Device (${result.device.remoteId})";
 
-          String displayName = advName.isNotEmpty
-              ? advName
-              : platformName.isNotEmpty
-              ? platformName
-              : 'Unknown Device';
-
-          return ListTile(
-            leading: const Icon(Icons.fitness_center, color: Colors.blue),
-            title: Text(displayName),
-            subtitle: Text(
-              'RSSI: ${device.rssi} • ${device.device.remoteId.str}',
-            ),
-            trailing: ElevatedButton(
-              onPressed: () => ble.connectTo(device),
-              child: const Text('Connect'),
-            ),
-          );
-        },
-      ),
+        return ListTile(
+          title: Text(name),
+          subtitle: Text(result.device.remoteId.str),
+          trailing: ElevatedButton(
+            child: const Text("Connect"),
+            onPressed: () {
+              // INI KUNCINYA: Panggil connectTo di Provider
+              // Provider akan mengirim perintah ke Background Task
+              ble.connectTo(result);
+            },
+          ),
+        );
+      },
     );
   }
 
@@ -494,53 +627,53 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildActionButtons(BLEProvider ble) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            if (!ble.statusConnect) ...[
-              ElevatedButton.icon(
-                onPressed: ble.isScanning ? ble.stopScan : ble.startScan,
-                icon: Icon(ble.isScanning ? Icons.stop : Icons.search),
-                label: Text(ble.isScanning ? 'Stop Scan' : 'Start Scan'),
-              ),
-            ] else ...[
-              ElevatedButton.icon(
-                onPressed: () => ble.disconnect(),
-                icon: const Icon(Icons.link_off),
-                label: const Text('Disconnect'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  foregroundColor: Colors.white,
-                ),
-              ),
-            ],
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: ble.startScan,
-              tooltip: 'Rescan Devices',
-            ),
-            if (ble.statusConnect) ...[
-              IconButton(
-                icon: const Icon(Icons.psychology),
-                onPressed: () {
-                  // Navigate to breathing exercise
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => BreathingGuidePage()),
-                  );
-                },
-                tooltip: 'Breathing Exercise',
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget _buildActionButtons(BLEProvider ble) {
+  //   return Card(
+  //     child: Padding(
+  //       padding: const EdgeInsets.all(12.0),
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //         children: [
+  //           if (!ble.statusConnect) ...[
+  //             ElevatedButton.icon(
+  //               onPressed: ble.isScanning ? ble.stopScan : ble.startScan,
+  //               icon: Icon(ble.isScanning ? Icons.stop : Icons.search),
+  //               label: Text(ble.isScanning ? 'Stop Scan' : 'Start Scan'),
+  //             ),
+  //           ] else ...[
+  //             ElevatedButton.icon(
+  //               onPressed: () => ble.disconnect(),
+  //               icon: const Icon(Icons.link_off),
+  //               label: const Text('Disconnect'),
+  //               style: ElevatedButton.styleFrom(
+  //                 backgroundColor: Colors.red,
+  //                 foregroundColor: Colors.white,
+  //               ),
+  //             ),
+  //           ],
+  //           IconButton(
+  //             icon: const Icon(Icons.refresh),
+  //             onPressed: ble.startScan,
+  //             tooltip: 'Rescan Devices',
+  //           ),
+  //           if (ble.statusConnect) ...[
+  //             IconButton(
+  //               icon: const Icon(Icons.psychology),
+  //               onPressed: () {
+  //                 // Navigate to breathing exercise
+  //                 Navigator.push(
+  //                   context,
+  //                   MaterialPageRoute(builder: (_) => BreathingGuidePage()),
+  //                 );
+  //               },
+  //               tooltip: 'Breathing Exercise',
+  //             ),
+  //           ],
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildStatisticsSection(BLEProvider ble) {
     return Card(
@@ -626,30 +759,30 @@ class _HomePageState extends State<HomePage> {
   }
 
   // Di HomePage, tambahkan debug button
-  Widget _buildDebugButton() {
-    return IconButton(
-      icon: Icon(Icons.bug_report),
-      onPressed: () {
-        // Access BLEService melalui provider atau langsung
-        final stats = BLEService().getDebugStats();
+  // Widget _buildDebugButton() {
+  //   return IconButton(
+  //     icon: Icon(Icons.bug_report),
+  //     onPressed: () {
+  //       // Access BLEService melalui provider atau langsung
+  //       final stats = BLEService().getDebugStats();
 
-        // Atau show dialog dengan stats
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Debug Report'),
-            content: SingleChildScrollView(child: Text(stats.toString())),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('Close'),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
+  //       // Atau show dialog dengan stats
+  //       showDialog(
+  //         context: context,
+  //         builder: (context) => AlertDialog(
+  //           title: Text('Debug Report'),
+  //           content: SingleChildScrollView(child: Text(stats.toString())),
+  //           actions: [
+  //             TextButton(
+  //               onPressed: () => Navigator.pop(context),
+  //               child: Text('Close'),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -688,7 +821,8 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 16),
 
               // Device Scanning Section
-              _buildScanningSection(ble),
+              // _buildScanningSection(ble),
+              _buildScanResultList(ble),
 
               const SizedBox(height: 16),
 
@@ -701,8 +835,8 @@ class _HomePageState extends State<HomePage> {
               _buildStatisticsSection(ble),
 
               // Bottom padding untuk safe area
-              const SizedBox(height: 20),
-              _buildDebugButton(),
+              // const SizedBox(height: 20),
+              // _buildDebugButton(),
             ],
           ),
         ),

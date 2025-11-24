@@ -58,7 +58,6 @@ void main() async {
     final ForegroundMonitorService foregroundMonitorService =
         ForegroundMonitorService();
 
-
     // 5. Init Core Services
     await settingsService.initialize();
     await phoneSensorService.initialize();
@@ -66,9 +65,9 @@ void main() async {
 
     // Init Workmanager
     await Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
+    await _registerWorkmanagerTasks();
 
     await ForegroundMonitorService().init();
-    // await ForegroundMonitorService().start();
 
     print('[Main] All services initialized successfully');
 
@@ -103,38 +102,6 @@ void main() async {
     // Fallback - run app even if some services fail
     runApp(const MyApp());
   }
-}
-
-Future<void> _initializeCoreServices() async {
-  try {
-    // Initialize settings service first
-    print('[Main] Initializing settings service...');
-    await SettingsService().initialize();
-
-    // Initialize phone sensor service
-    print('[Main] Initializing phone sensor service...');
-    await PhoneSensorService().initialize();
-
-    // Initialize notification service
-    print('[Main] Initializing notification service...');
-    await NotificationService().initNotification();
-
-    print('[Main] Core services initialized successfully');
-  } catch (e) {
-    print('[Main] Error in core services: $e');
-    rethrow;
-  }
-}
-
-Future<void> _initializeBackgroundServices() async {
-  // Initialize Workmanager for background tasks
-  await Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
-
-  // // Initialize foreground task
-  FlutterForegroundTask.initCommunicationPort();
-
-  // Register periodic tasks
-  await _registerWorkmanagerTasks();
 }
 
 Future<void> _registerWorkmanagerTasks() async {
@@ -196,14 +163,6 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.system,
         routerConfig: route.router,
         debugShowCheckedModeBanner: false,
-        // builder: (context, child) {
-        //   return MediaQuery(
-        //     data: MediaQuery.of(context).copyWith(
-        //       textScaleFactor: 1.0, // Prevent system font scaling
-        //     ),
-        //     child: child!,
-        //   );
-        // },
       ),
     );
   }

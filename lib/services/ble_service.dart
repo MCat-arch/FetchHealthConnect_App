@@ -49,7 +49,7 @@ class BLEService {
       StreamController<HeartRateData>.broadcast();
   final StreamController<List<ScanResult>> _scanResultsCtrl =
       StreamController<List<ScanResult>>.broadcast();
-  final StreamController<RawHrModel> _rawHrCtrl = StreamController<RawHrModel>.broadcast();
+  final StreamController<RawHrModel> _rawHrCtrl = StreamController.broadcast();
 
   final StreamController<Map<int, HRVMetrics>> _hrvCtrl =
       StreamController<Map<int, HRVMetrics>>.broadcast();
@@ -82,6 +82,9 @@ class BLEService {
   List<HeartRateData> getHistorySnapshot() => List.unmodifiable(_history);
 
   bool _isScanning = false;
+  bool get isConnected {
+    return FlutterBluePlus.connectedDevices.isNotEmpty;
+  }
 
   int _savedCount = 0;
   // Debug counters
@@ -108,138 +111,6 @@ class BLEService {
     }
   }
 
-  bool get isConnected => _device?.isConnected ?? false;
-
-  // BLEService() {
-  //   // aktifkan verbose log untuk debugging (opsional)
-  //   try {
-  //     FlutterBluePlus.setLogLevel(LogLevel.verbose, color: true);
-  //   } catch (_) {}
-  // }'
-
-  // Future<void> _onNewHeartRateData(HeartRateData data) async {
-  //   _totalDataPoints++;
-  //   _debugLog('📥 Processing new heart rate data #$_totalDataPoints');
-  //   _debugLog(
-  //     'Data details: BPM=${data.bpm}, RR=${data.rrIntervals?.length ?? 0} intervals, RHR=${data.rhr}',
-  //   );
-  //   try {
-  //     _debugLog('🔄 Starting Firestore sync...');
-  //     await _firestoreService.syncHeartRateData(data);
-
-  //     _firestoreSyncs++;
-  //     _debugLog(
-  //       '✅ Firestore sync completed successfully (total: $_firestoreSyncs)',
-  //     );
-
-  //     // _debugLog('🧠 Running ML panic detection...');
-  //     // final prediction = await _mlService.predictPanicAttack(data);
-  //     // if (prediction.isPanic && prediction.confidence > 0.7) {
-  //     //   _panicAlertCtrl.add(prediction);
-  //     //   _triggerPanicAlert(prediction);
-  //     // }
-
-  //     // 4. Log untuk debugging
-  //     _debugLog('''
-  //     📊 DATA PROCESSING SUMMARY #$_totalDataPoints:
-  //     ┌─────────────────────────────────────
-  //     │ BPM: ${data.bpm}
-  //     │ HRV RMSSD: ${data.HRV60s?.rmssd?.toStringAsFixed(2) ?? 'N/A'}
-  //     │ RHR: ${data.rhr.toStringAsFixed(2)}
-  //     │ Activity: ${data.phoneSensor.rawActivityStatus}
-  //     │ Noise: ${data.phoneSensor.noiseLeveldB?.toStringAsFixed(1) ?? 'N/A'} dB
-  //     │ Time: ${data.phoneSensor.timeOfDayCategory}
-  //     │ RR Intervals: ${data.rrIntervals?.length ?? 0}
-
-  //     // └─────────────────────────────────────
-  //     ''');
-  //   } catch (e) {
-  //     print('❌ Error processing heart rate data: $e');
-  //     _debugLog('❌ Error processing heart rate data: $e', type: 'ERROR');
-  //     _debugLog('Stack trace: ${e.toString()}', type: 'ERROR');
-  //   }
-  // }
-
-  // void _triggerPanicAlert(PanicPrediction prediction) {
-  //   // TODO: Implement alert mechanism
-  //   // - Local notification
-  //   _debugLog('🚨 Triggering panic alert system');
-  //   NotificationService().showNotification();
-  //   // - Sound alert
-  //   // - Haptic feedback
-  //   // - Emergency contact notification
-
-  //   print(
-  //     '🚨 PANIC ATTACK DETECTED! Confidence: ${(prediction.confidence * 100).toStringAsFixed(1)}%',
-  //   );
-  // }
-
-  // Future<void> _onNewHeartData(HeartRateData hr) async {
-  //   await _processingLock.synchronized(() async {
-  //     _totalDataPoints++;
-  //     _debugLog('Processing new hr data');
-  //   });
-
-  //   _debugLog('💾 Saving data to history and local storage');
-  //   _history.add(hr);
-  //   _pruneHistory();
-
-  //   try {
-  //     final box = Hive.box('hr_box');
-  //     final key = hr.timestamp.millisecondsSinceEpoch.toString();
-
-  //     final jsonMap = {
-  //       'bpm': hr.bpm,
-  //       'timestamp': hr.timestamp.millisecondsSinceEpoch,
-  //       'rrIntervals': hr.rrIntervals,
-  //       'hrv10s': hr.HRV10s?.toJson(),
-  //       'hrv30s': hr.HRV30s?.toJson(),
-  //       'hrv60s': hr.HRV60s?.toJson(),
-  //       'rhr': hr.rhr,
-  //       'phoneSensor': hr.phoneSensor.toJson(),
-  //     };
-  //     _debugLog('Saving to Hive with key: $key');
-  //     await box.put(key, jsonMap);
-  //     _hiveSaves++;
-  //     _debugLog('✅ Hive save completed (total: $_hiveSaves)');
-
-  //     _debugLog('🧠 Running ML panic detection...');
-  //     final prediction = await _mlService.predictPanicAttack(hr);
-  //     if (prediction.isPanic && prediction.confidence > 0.7) {
-  //       _panicAlertCtrl.add(prediction);
-  //       _triggerPanicAlert(prediction);
-  //     }
-
-  //     // Verify the save
-  //     final savedData = box.get(key);
-  //     if (savedData != null) {
-  //       _debugLog('✅ Data verified in Hive storage');
-  //     } else {
-  //       _debugLog('❌ Data NOT found in Hive after save!', type: 'ERROR');
-  //     }
-
-  //     // 4. Log untuk debugging
-  //     _debugLog('''
-  //     📊 DATA PROCESSING SUMMARY #$_totalDataPoints:
-  //     ┌─────────────────────────────────────
-  //     │ BPM: ${savedData.bpm}
-  //     │ HRV RMSSD: ${savedData.HRV60s?.rmssd?.toStringAsFixed(2) ?? 'N/A'}
-  //     │ RHR: ${savedData.rhr.toStringAsFixed(2)}
-  //     │ Activity: ${savedData.phoneSensor.rawActivityStatus}
-  //     │ Noise: ${savedData.phoneSensor.noiseLeveldB?.toStringAsFixed(1) ?? 'N/A'} dB
-  //     │ Time: ${savedData.phoneSensor.timeOfDayCategory}
-  //     │ RR Intervals: ${savedData.rrIntervals?.length ?? 0}
-  //     │ Panic: ${prediction.isPanic} (${(prediction.confidence * 100).toStringAsFixed(1)}%)
-  //     └─────────────────────────────────────
-  //     ''');
-
-  //     _debugLog('📤 Emitting data to UI stream');
-  //     _hrCtrl.add(hr);
-  //   } catch (e) {
-  //     List<HeartRateData> getHistorySnapshot() => List.unmodifiable(_history);
-  //   }
-  // }
-
   /// Start scanning for BLE devices (filtered by HR service to reduce noise)
   Future<void> startScan({
     Duration timeout = const Duration(seconds: 12),
@@ -247,12 +118,6 @@ class BLEService {
     log('Start scan requested');
     // cancel previous scan subscription if any
     await _scanSub?.cancel();
-
-    final ok = await PhonePermissionService.requestAllPermission();
-    if (!ok) {
-      log('Permissions denied - cannot scan');
-      return;
-    }
 
     // ensure adapter on
     final adapterState = await FlutterBluePlus.adapterStateNow;
@@ -320,91 +185,95 @@ class BLEService {
   }
 
   /// Connect to a specific ScanResult's device (and subscribe HR)
-  Future<void> connectToDevice(ScanResult scanResult) async {
-    final device = scanResult.device;
-    _device = device;
-    // final name = scanResult.advertisementData.advName?.isNotEmpty == true
-    //     ? scanResult.advertisementData.advName
-    //     : (scanResult.device.platformName?.isNotEmpty == true
-    //           ? scanResult.device.platformName
-    //           : scanResult.device.remoteId.str);
+  Future<void> connectToDevice(
+    ScanResult? scanResult, {
+    BluetoothDevice? device,
+  }) async {
+    BluetoothDevice? targetDevice = device ?? scanResult?.device;
 
-    // log('Connect requested -> $name');
+    if (targetDevice == null) {
+      final systemDevs = await FlutterBluePlus.connectedDevices;
+      if (systemDevs.isNotEmpty) targetDevice = systemDevs.first;
+    }
 
-    // stop scanning before connecting
-    final advName = scanResult.advertisementData.advName ?? '';
-    final platformName = device.platformName ?? '';
-    _debugLog('🔗 Connecting to device: $advName (Platform: $platformName)');
+    if (targetDevice == null) {
+      log("connectToDevice: No device found to connect.");
+      return;
+    }
+
+    _device = targetDevice;
+
     await stopScan();
-
-    _device = scanResult.device;
 
     // listen connection state
     _connSub?.cancel();
     _connSub = _device!.connectionState.listen((state) {
       log('Connection state: $state');
-      if (state == BluetoothConnectionState.connected) {
-        log('Device connected - discovering services...');
-        _discoverServices();
-      } else if (state == BluetoothConnectionState.disconnected) {
+      if (state == BluetoothConnectionState.disconnected) {
         log('Device disconnected');
       }
     });
     // Connect only if not already connected
-    final stateNow = await device.connectionState.first;
+    final stateNow = await _device!.connectionState.first;
 
-    if (stateNow != BluetoothConnectionState.connected) {
-      try {
-        await device.connect(license: License.free);
-        log("connect() finished");
-      } catch (e) {
-        log("connect() error: $e");
-      }
+    // 4. LOGIKA UTAMA: Cek status DULU sebelum bertindak
+    // Kita cek langsung ke Hardware apakah dia sudah connect?
+    final connectedList = await FlutterBluePlus.connectedDevices;
+    final isAlreadyConnected = connectedList.any(
+      (d) => d.remoteId == targetDevice!.remoteId,
+    );
+
+    if (isAlreadyConnected) {
+      _debugLog(
+        "ℹ️ Device ${_device!.platformName} is ALREADY CONNECTED. Skipping connect()...",
+      );
+      // LANGSUNG DISCOVER SERVICES
+      // Beri jeda sedikit agar stabil
+      await Future.delayed(const Duration(milliseconds: 500));
+      await _discoverServices();
     } else {
-      log("Device is already connected → skipping connect()");
-      _discoverServices();
+      _debugLog("🔗 Connecting to ${_device!.platformName}...");
+      try {
+        // Lakukan koneksi fisik
+        await _device!.connect(autoConnect: false, license: License.free);
+        _debugLog("✅ Connection successful. Discovering services...");
+        await _discoverServices();
+      } catch (e) {
+        // Jika errornya "Already Connected", kita tetap lanjut discover
+        if (e.toString().contains("already_connected")) {
+          _debugLog(
+            "⚠️ Exception caught: Already connected. Proceeding to discover...",
+          );
+          await _discoverServices();
+        } else {
+          _debugLog("❌ Connection failed: $e", type: 'ERROR');
+        }
+      }
     }
-
-    // try {
-    //   // connect (no extra args)
-    //   await _device!.connect(license: License.free);
-    //   log('connect() returned (await completed)');
-    // } catch (e) {
-    //   log('connect() error: $e');
-    //   // still try to discover services if connection succeeded partially
-    //   // but normally if connect fails, abort
-    // }
   }
+
+  // try {
+  //   // connect (no extra args)
+  //   await _device!.connect(license: License.free);
+  //   log('connect() returned (await completed)');
+  // } catch (e) {
+  //   log('connect() error: $e');
+  //   // still try to discover services if connection succeeded partially
+  //   // but normally if connect fails, abort
+  // }
 
   Future<bool> checkAlreadyConnectedDevice() async {
     final systemConnected = await FlutterBluePlus.connectedDevices;
 
-    if (systemConnected.isEmpty) {
-      log("⚠️ No system connected BLE device.");
-      return false;
-    }
-
-    for (final dev in systemConnected) {
-      log(
-        "Found already connected device → ${dev.platformName} (${dev.remoteId})",
-      );
-
-      _device = dev;
-
-      // listen state
-      _connSub?.cancel();
-      _connSub = dev.connectionState.listen((state) {
-        log("Reconnected device state: $state");
-        if (state == BluetoothConnectionState.connected) {
-          _discoverServices();
-        }
-      });
-
-      // discover immediately
-      _discoverServices();
+    if (systemConnected.isNotEmpty) {
+      // Gunakan fungsi connectToDevice yang sudah kita perbaiki di atas
+      // Kirim null untuk scanResult, tapi kirim device yang ditemukan
+      log("Found existing device, re-attaching...");
+      await connectToDevice(null, device: systemConnected.first);
       return true;
     }
 
+    log("⚠️ No system connected BLE device.");
     return false;
   }
 

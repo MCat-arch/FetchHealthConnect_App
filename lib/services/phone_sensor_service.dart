@@ -13,9 +13,11 @@ class PhoneSensorService {
 
   PhoneSensorService._internal(); // Private constructor
 
-  SpatioTemporal? latestContext;
-  final ValueNotifier<SpatioTemporal?> currentContextNotifier =
-      ValueNotifier<SpatioTemporal?>(null);
+  SpatioTemporal latestContext = SpatioTemporal.empty();
+
+  // Notifier juga langsung diisi nilai awal
+  final ValueNotifier<SpatioTemporal> currentContextNotifier =
+      ValueNotifier<SpatioTemporal>(SpatioTemporal.empty());
 
   NoiseMeter? noiseMeter;
   bool _isRecording = false;
@@ -23,6 +25,7 @@ class PhoneSensorService {
 
   String? _currentActivityStatus;
   double? _currentNoiseDB;
+  VoidCallback? _listenerCallback;
 
   StreamSubscription<Activity>? _activitySubscription;
   StreamSubscription<NoiseReading>? _noiseSubscription;
@@ -59,14 +62,6 @@ class PhoneSensorService {
 
       _isInitialized = true;
 
-      if (latestContext == null) {
-        latestContext = SpatioTemporal.fromRawData(
-          activityStatus: "UNKNOWN",
-          timestamp: DateTime.now(),
-          noiseDB: 0,
-        );
-        currentContextNotifier.value = latestContext;
-      }
       print("[PhoneSensorService] ✅ All sensors initialized successfully");
     } catch (e) {
       print("[PhoneSensorService] ❌ Error initializing sensors: $e");
@@ -206,7 +201,7 @@ class PhoneSensorService {
   void stop() {
     _noiseSubscription?.cancel();
     _activitySubscription?.cancel();
-    _contextCtrl.close();
+    // _contextCtrl.close();
     _isRecording = false;
   }
 
@@ -214,5 +209,5 @@ class PhoneSensorService {
   bool get isInitialized => _isInitialized;
   bool get isRecording => _isRecording;
   double? get currentNoiseLevel => _currentNoiseDB;
-  SpatioTemporal? get currentContext => latestContext;
+  SpatioTemporal get currentContext => latestContext;
 }

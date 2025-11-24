@@ -30,16 +30,6 @@ class _HomeWrapperState extends State<HomeWrapper> with WidgetsBindingObserver {
     const SettingPage(),
   ];
 
-  //initialize
-  // final ForegroundMonitorService _foregroundMonitorService =
-  //     ForegroundMonitorService();
-  // final WorkmanagerService _workmanagerService = WorkmanagerService();
-  // final SettingsService _settingsService = SettingsService();
-
-  // late ForegroundMonitorService _foregroundMonitorService;
-  // late WorkmanagerService _workmanagerService;
-  // late SettingsService _settingsService;
-
   bool _isForegroundRunning = false;
 
   @override
@@ -109,23 +99,6 @@ class _HomeWrapperState extends State<HomeWrapper> with WidgetsBindingObserver {
       // Optional: Periksa apakah perlu refresh data
     }
   }
-
-  // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   super.didChangeDependencies();
-  //   _foregroundMonitorService = Provider.of<ForegroundMonitorService>(
-  //     context,
-  //     listen: false,
-  //   );
-  //   _workmanagerService = Provider.of<WorkmanagerService>(
-  //     context,
-  //     listen: false,
-  //   );
-  //   _settingsService = Provider.of<SettingsService>(context, listen: false);
-
-  //   _initializeServices();
-  // }
 
   Future<void> _checkInitialization() async {
     if (await InitializationManager.isInitialized()) {
