@@ -1,7 +1,9 @@
 // services/ble_service.dart
 import 'dart:async';
 import 'package:aura_bluetooth/models/hrv_metric.dart';
+import 'package:aura_bluetooth/models/raw_hr_model.dart';
 import 'package:aura_bluetooth/models/spatio.model.dart';
+import 'package:aura_bluetooth/providers/phoneSensor_provider.dart';
 import 'package:aura_bluetooth/services/firestore_service.dart';
 import 'package:aura_bluetooth/services/hrv_service.dart';
 import 'package:aura_bluetooth/services/ml_panic_service.dart';
@@ -17,10 +19,13 @@ import 'package:noise_meter/noise_meter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../models/heart_rate_model.dart';
 import 'package:hive/hive.dart';
+import 'package:synchronized/synchronized.dart';
 
 class BLEService {
   //final FlutterBluePlus _fbp = FlutterBluePlus.instance();
   // BLEService._internal();
+
+  //first scenario
   static final BLEService _instance = BLEService._internal();
   factory BLEService() => _instance;
   BLEService._internal() {
@@ -29,8 +34,13 @@ class BLEService {
     } catch (_) {}
   }
 
+  // //second scenario
+  // final PhoneSensorProvider phoneSensor;
+  // BLEService(this.phoneSensor);
+
   BluetoothDevice? _device;
   BluetoothCharacteristic? _hrChar;
+  final _processingLock = Lock();
 
   // streams untuk UI
   final StreamController<String> _statusCtrl =
@@ -39,6 +49,7 @@ class BLEService {
       StreamController<HeartRateData>.broadcast();
   final StreamController<List<ScanResult>> _scanResultsCtrl =
       StreamController<List<ScanResult>>.broadcast();
+  final StreamController<RawHrModel> _rawHrCtrl = StreamController<RawHrModel>.broadcast();
 
   final StreamController<Map<int, HRVMetrics>> _hrvCtrl =
       StreamController<Map<int, HRVMetrics>>.broadcast();
@@ -47,10 +58,11 @@ class BLEService {
   Stream<HeartRateData> get hrStream => _hrCtrl.stream;
   Stream<List<ScanResult>> get scanResultsStream => _scanResultsCtrl.stream;
   Stream<Map<int, HRVMetrics>> get hrvStream => _hrvCtrl.stream;
+  Stream<RawHrModel> get rawHrStream => _rawHrCtrl.stream;
   // Stream<Activity> get activityStream => _activityCtrl.stream;
 
-  final FirestoreService _firestoreService = FirestoreService();
-  final MLPanicService _mlService = MLPanicService();
+  // final FirestoreService _firestoreService = FirestoreService();
+  // final MLPanicService _mlService = MLPanicService();
 
   final StreamController<PanicPrediction> _panicAlertCtrl =
       StreamController<PanicPrediction>.broadcast();
@@ -64,7 +76,7 @@ class BLEService {
   final HRVService _hrvService = HRVService();
   // final RHRService _rhrService = RHRService();
   // final SpatioTemporal _spatioTemporal = SpatioTemporal._internal();
-  final PhoneSensorService _phoneSensorService = PhoneSensorService();
+  // final PhoneSensorService _phoneSensorService = PhoneSensorService();
 
   final List<HeartRateData> _history = [];
   List<HeartRateData> getHistorySnapshot() => List.unmodifiable(_history);
@@ -105,101 +117,128 @@ class BLEService {
   //   } catch (_) {}
   // }'
 
-  Future<void> _onNewHeartRateData(HeartRateData data) async {
-    _totalDataPoints++;
-    _debugLog('📥 Processing new heart rate data #$_totalDataPoints');
-    _debugLog(
-      'Data details: BPM=${data.bpm}, RR=${data.rrIntervals?.length ?? 0} intervals, RHR=${data.rhr}',
-    );
-    try {
-      _debugLog('🔄 Starting Firestore sync...');
-      await _firestoreService.syncHeartRateData(data);
+  // Future<void> _onNewHeartRateData(HeartRateData data) async {
+  //   _totalDataPoints++;
+  //   _debugLog('📥 Processing new heart rate data #$_totalDataPoints');
+  //   _debugLog(
+  //     'Data details: BPM=${data.bpm}, RR=${data.rrIntervals?.length ?? 0} intervals, RHR=${data.rhr}',
+  //   );
+  //   try {
+  //     _debugLog('🔄 Starting Firestore sync...');
+  //     await _firestoreService.syncHeartRateData(data);
 
-      _firestoreSyncs++;
-      _debugLog(
-        '✅ Firestore sync completed successfully (total: $_firestoreSyncs)',
-      );
+  //     _firestoreSyncs++;
+  //     _debugLog(
+  //       '✅ Firestore sync completed successfully (total: $_firestoreSyncs)',
+  //     );
 
-      _debugLog('🧠 Running ML panic detection...');
-      final prediction = await _mlService.predictPanicAttack(data);
-      if (prediction.isPanic && prediction.confidence > 0.7) {
-        _panicAlertCtrl.add(prediction);
-        _triggerPanicAlert(prediction);
-      }
+  //     // _debugLog('🧠 Running ML panic detection...');
+  //     // final prediction = await _mlService.predictPanicAttack(data);
+  //     // if (prediction.isPanic && prediction.confidence > 0.7) {
+  //     //   _panicAlertCtrl.add(prediction);
+  //     //   _triggerPanicAlert(prediction);
+  //     // }
 
-      // 4. Log untuk debugging
-      _debugLog('''
-      📊 DATA PROCESSING SUMMARY #$_totalDataPoints:
-      ┌─────────────────────────────────────
-      │ BPM: ${data.bpm}
-      │ HRV RMSSD: ${data.HRV60s?.rmssd?.toStringAsFixed(2) ?? 'N/A'}
-      │ RHR: ${data.rhr.toStringAsFixed(2)}
-      │ Activity: ${data.phoneSensor.rawActivityStatus}
-      │ Noise: ${data.phoneSensor.noiseLeveldB?.toStringAsFixed(1) ?? 'N/A'} dB
-      │ Time: ${data.phoneSensor.timeOfDayCategory}
-      │ RR Intervals: ${data.rrIntervals?.length ?? 0}
-      │ Panic: ${prediction.isPanic} (${(prediction.confidence * 100).toStringAsFixed(1)}%)
-      └─────────────────────────────────────
-      ''');
-    } catch (e) {
-      print('❌ Error processing heart rate data: $e');
-      _debugLog('❌ Error processing heart rate data: $e', type: 'ERROR');
-      _debugLog('Stack trace: ${e.toString()}', type: 'ERROR');
-    }
-  }
+  //     // 4. Log untuk debugging
+  //     _debugLog('''
+  //     📊 DATA PROCESSING SUMMARY #$_totalDataPoints:
+  //     ┌─────────────────────────────────────
+  //     │ BPM: ${data.bpm}
+  //     │ HRV RMSSD: ${data.HRV60s?.rmssd?.toStringAsFixed(2) ?? 'N/A'}
+  //     │ RHR: ${data.rhr.toStringAsFixed(2)}
+  //     │ Activity: ${data.phoneSensor.rawActivityStatus}
+  //     │ Noise: ${data.phoneSensor.noiseLeveldB?.toStringAsFixed(1) ?? 'N/A'} dB
+  //     │ Time: ${data.phoneSensor.timeOfDayCategory}
+  //     │ RR Intervals: ${data.rrIntervals?.length ?? 0}
 
-  void _triggerPanicAlert(PanicPrediction prediction) {
-    // TODO: Implement alert mechanism
-    // - Local notification
-    _debugLog('🚨 Triggering panic alert system');
-    NotificationService().showNotification();
-    // - Sound alert
-    // - Haptic feedback
-    // - Emergency contact notification
+  //     // └─────────────────────────────────────
+  //     ''');
+  //   } catch (e) {
+  //     print('❌ Error processing heart rate data: $e');
+  //     _debugLog('❌ Error processing heart rate data: $e', type: 'ERROR');
+  //     _debugLog('Stack trace: ${e.toString()}', type: 'ERROR');
+  //   }
+  // }
 
-    print(
-      '🚨 PANIC ATTACK DETECTED! Confidence: ${(prediction.confidence * 100).toStringAsFixed(1)}%',
-    );
-  }
+  // void _triggerPanicAlert(PanicPrediction prediction) {
+  //   // TODO: Implement alert mechanism
+  //   // - Local notification
+  //   _debugLog('🚨 Triggering panic alert system');
+  //   NotificationService().showNotification();
+  //   // - Sound alert
+  //   // - Haptic feedback
+  //   // - Emergency contact notification
 
-  Future<void> _onNewHeartData(HeartRateData hr) async {
-    _debugLog('💾 Saving data to history and local storage');
-    _history.add(hr);
-    _pruneHistory();
+  //   print(
+  //     '🚨 PANIC ATTACK DETECTED! Confidence: ${(prediction.confidence * 100).toStringAsFixed(1)}%',
+  //   );
+  // }
 
-    try {
-      final box = Hive.box('hr_box');
-      final key = hr.timestamp.millisecondsSinceEpoch.toString();
+  // Future<void> _onNewHeartData(HeartRateData hr) async {
+  //   await _processingLock.synchronized(() async {
+  //     _totalDataPoints++;
+  //     _debugLog('Processing new hr data');
+  //   });
 
-      final jsonMap = {
-        'bpm': hr.bpm,
-        'timestamp': hr.timestamp.millisecondsSinceEpoch,
-        'rrIntervals': hr.rrIntervals,
-        'hrv10s': hr.HRV10s?.toJson(),
-        'hrv30s': hr.HRV30s?.toJson(),
-        'hrv60s': hr.HRV60s?.toJson(),
-        'rhr': hr.rhr,
-        'phoneSensor': hr.phoneSensor.toJson(),
-      };
-      _debugLog('Saving to Hive with key: $key');
-      await box.put(key, jsonMap);
-      _hiveSaves++;
-      _debugLog('✅ Hive save completed (total: $_hiveSaves)');
+  //   _debugLog('💾 Saving data to history and local storage');
+  //   _history.add(hr);
+  //   _pruneHistory();
 
-      // Verify the save
-      final savedData = box.get(key);
-      if (savedData != null) {
-        _debugLog('✅ Data verified in Hive storage');
-      } else {
-        _debugLog('❌ Data NOT found in Hive after save!', type: 'ERROR');
-      }
+  //   try {
+  //     final box = Hive.box('hr_box');
+  //     final key = hr.timestamp.millisecondsSinceEpoch.toString();
 
-      _debugLog('📤 Emitting data to UI stream');
-      _hrCtrl.add(hr);
-    } catch (e) {
-      List<HeartRateData> getHistorySnapshot() => List.unmodifiable(_history);
-    }
-  }
+  //     final jsonMap = {
+  //       'bpm': hr.bpm,
+  //       'timestamp': hr.timestamp.millisecondsSinceEpoch,
+  //       'rrIntervals': hr.rrIntervals,
+  //       'hrv10s': hr.HRV10s?.toJson(),
+  //       'hrv30s': hr.HRV30s?.toJson(),
+  //       'hrv60s': hr.HRV60s?.toJson(),
+  //       'rhr': hr.rhr,
+  //       'phoneSensor': hr.phoneSensor.toJson(),
+  //     };
+  //     _debugLog('Saving to Hive with key: $key');
+  //     await box.put(key, jsonMap);
+  //     _hiveSaves++;
+  //     _debugLog('✅ Hive save completed (total: $_hiveSaves)');
+
+  //     _debugLog('🧠 Running ML panic detection...');
+  //     final prediction = await _mlService.predictPanicAttack(hr);
+  //     if (prediction.isPanic && prediction.confidence > 0.7) {
+  //       _panicAlertCtrl.add(prediction);
+  //       _triggerPanicAlert(prediction);
+  //     }
+
+  //     // Verify the save
+  //     final savedData = box.get(key);
+  //     if (savedData != null) {
+  //       _debugLog('✅ Data verified in Hive storage');
+  //     } else {
+  //       _debugLog('❌ Data NOT found in Hive after save!', type: 'ERROR');
+  //     }
+
+  //     // 4. Log untuk debugging
+  //     _debugLog('''
+  //     📊 DATA PROCESSING SUMMARY #$_totalDataPoints:
+  //     ┌─────────────────────────────────────
+  //     │ BPM: ${savedData.bpm}
+  //     │ HRV RMSSD: ${savedData.HRV60s?.rmssd?.toStringAsFixed(2) ?? 'N/A'}
+  //     │ RHR: ${savedData.rhr.toStringAsFixed(2)}
+  //     │ Activity: ${savedData.phoneSensor.rawActivityStatus}
+  //     │ Noise: ${savedData.phoneSensor.noiseLeveldB?.toStringAsFixed(1) ?? 'N/A'} dB
+  //     │ Time: ${savedData.phoneSensor.timeOfDayCategory}
+  //     │ RR Intervals: ${savedData.rrIntervals?.length ?? 0}
+  //     │ Panic: ${prediction.isPanic} (${(prediction.confidence * 100).toStringAsFixed(1)}%)
+  //     └─────────────────────────────────────
+  //     ''');
+
+  //     _debugLog('📤 Emitting data to UI stream');
+  //     _hrCtrl.add(hr);
+  //   } catch (e) {
+  //     List<HeartRateData> getHistorySnapshot() => List.unmodifiable(_history);
+  //   }
+  // }
 
   /// Start scanning for BLE devices (filtered by HR service to reduce noise)
   Future<void> startScan({
@@ -430,62 +469,12 @@ class BLEService {
 
         _debugLog('📊 Parsed HR: $bpm BPM, RR intervals: ${rr?.length ?? 0}');
 
-        log('Parsed HR => $bpm bpm');
-        if (rr != null && rr.isNotEmpty) {
-          log(
-            'RR intervals: ${rr.map((r) => r.toStringAsFixed(2)).join(", ")} ms',
-          );
-          // log('RR intervals: $rr');
-          try {
-            int nowMs = DateTime.now().millisecondsSinceEpoch;
-            _debugLog('🧮 Calculating HRV metrics...');
-            for (var r in rr) {
-              _hrvService.addRR(r, nowMs);
-            }
-            final metrics = _hrvService.computeForStandardWindows();
-            _hrvCtrl.add(metrics);
-          } catch (e) {
-            print(e);
-          }
-        } else {
-          log('RR intervals not available');
-        }
-        final results = _hrvService.computeForStandardWindows();
-        final double? rhr = RHRService.computeRHR(_history);
-        final SpatioTemporal spatio =
-            _phoneSensorService.latestContext ??
-            SpatioTemporal.fromRawData(
-              activityStatus: "UNKNOWN",
-              timestamp: DateTime.now(),
-              noiseDB: 0,
-            );
-
-        final hr = HeartRateData(
-          bpm,
-          DateTime.now(),
-          rr,
-          results[10],
-          results[30],
-          results[60],
-          rhr!,
-          spatio,
+        final rawData = RawHrModel(
+          bpm: bpm,
+          rrIntervals: rr,
+          time: DateTime.now(),
         );
-
-        _debugLog('✅ HeartRateData model created successfully');
-        _debugLog(
-          'Model details: '
-          'BPM=${hr.bpm}, '
-          'RHR=${hr.rhr}, '
-          'HRV60s=${hr.HRV60s?.rmssd?.toStringAsFixed(2)}, '
-          'Activity=${hr.phoneSensor.rawActivityStatus}',
-        );
-
-        //simpan ke history then prune
-        _history.add(hr);
-        _pruneHistory();
-        //emit ke UI
-        _onNewHeartData(hr);
-        _hrCtrl.add(hr);
+        _rawHrCtrl.add(rawData);
       },
       onError: (e) {
         log('char onValue error: $e');
@@ -586,14 +575,14 @@ class BLEService {
   }
 
   /// Public helper: compute latest RHR from cached history
-  double? rhrData() {
-    return RHRService.computeRHR(_history);
-  }
+  // double? rhrData() {
+  //   return RHRService.computeRHR(_history);
+  // }
 
-  /// Public helper: latest spatio temporal context (from PhoneSensorService)
-  SpatioTemporal? spatioData() {
-    return _phoneSensorService.latestContext;
-  }
+  // /// Public helper: latest spatio temporal context (from PhoneSensorService)
+  // SpatioTemporal? spatioData() {
+  //   return _phoneSensorService.latestContext;
+  // }
 
   /// Get debug statistics
   Map<String, dynamic> getDebugStats() {

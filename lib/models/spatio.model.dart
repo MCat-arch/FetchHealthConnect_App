@@ -37,12 +37,24 @@ class SpatioTemporal extends HiveObject {
   SpatioTemporal({
     required this.rawActivityStatus, //memberikan data aktivitas
     required this.time,
-    this.noiseLeveldB,  //memberikan data apakah user di kerumunan
+    this.noiseLeveldB, //memberikan data apakah user di kerumunan
     required this.isWalking,
     required this.isRunning,
     required this.isStill,
     required this.timeOfDayCategory,
   });
+
+  factory SpatioTemporal.empty() {
+    return SpatioTemporal(
+      rawActivityStatus: "UNKNOWN",
+      time: "00:00:00",
+      noiseLeveldB: 0.0,
+      isWalking: false,
+      isRunning: false,
+      isStill: true,
+      timeOfDayCategory: "unknown",
+    );
+  }
 
   // -----------------------------------------------------------
   // 2. PRIVATE INTERNAL CONSTRUCTOR untuk dipakai factory

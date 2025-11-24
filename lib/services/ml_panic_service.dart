@@ -83,4 +83,24 @@ class PanicPrediction {
     required this.features,
     required this.timestamp,
   });
+
+  factory PanicPrediction.fromJson(Map<String, dynamic> json) {
+    return PanicPrediction(
+      isPanic: json['isPanic'] as bool? ?? false,
+      confidence: (json['confidence'] as num)?.toDouble() ?? 0.0,
+      features: Map<String, dynamic>.from(json['features'] ?? {}),
+      timestamp: DateTime.fromMicrosecondsSinceEpoch(
+        json['timestamp'] as int ?? DateTime.now().millisecondsSinceEpoch,
+      ),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'isPanic': isPanic,
+      'confidence': confidence,
+      'features': features,
+      'timestamp': timestamp.millisecondsSinceEpoch,
+    };
+  }
 }

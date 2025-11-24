@@ -7,7 +7,7 @@ import '../models/spatio.model.dart';
 class RHRService {
   /// Compute resting HR from last N heart rate samples
   /// Only considers samples where phoneSensor.isStill == true
-  static double? computeRHR(List<HeartRateData> data, {int windowMinutes = 5}) {
+  double? computeRHR(List<HeartRateData> data, {int windowMinutes = 5}) {
     if (data.isEmpty) return null;
 
     final now = DateTime.now();

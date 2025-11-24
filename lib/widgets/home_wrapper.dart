@@ -5,11 +5,11 @@ import 'package:aura_bluetooth/services/setting_service.dart';
 import 'package:aura_bluetooth/services/workmanager_service.dart';
 import 'package:aura_bluetooth/utils/init.dart' show InitializationManager;
 import 'package:aura_bluetooth/views/breathing_page.dart';
-import 'package:aura_bluetooth/views/home.dart';
 import 'package:aura_bluetooth/views/home_page.dart';
 import 'package:aura_bluetooth/views/setting.dart';
 import 'package:aura_bluetooth/widgets/navbar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeWrapper extends StatefulWidget {
   const HomeWrapper({super.key});
@@ -31,32 +31,68 @@ class _HomeWrapperState extends State<HomeWrapper> with WidgetsBindingObserver {
   ];
 
   //initialize
-  final ForegroundMonitorService _foregroundMonitorService =
-      ForegroundMonitorService();
-  final WorkmanagerService _workmanagerService = WorkmanagerService();
-  final SettingsService _settingsService = SettingsService();
+  // final ForegroundMonitorService _foregroundMonitorService =
+  //     ForegroundMonitorService();
+  // final WorkmanagerService _workmanagerService = WorkmanagerService();
+  // final SettingsService _settingsService = SettingsService();
+
+  // late ForegroundMonitorService _foregroundMonitorService;
+  // late WorkmanagerService _workmanagerService;
+  // late SettingsService _settingsService;
 
   bool _isForegroundRunning = false;
 
+  @override
+  void initState() {
+    super.initState();
+    print('HomeWrapper initState called');
+    WidgetsBinding.instance.addObserver(this);
+    _checkInitialization();
+    // Tunggu sampai build selesai baru inisialisasi services
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initializeServices();
+    });
+  }
+
   Future<void> _initializeServices() async {
     try {
-      // Initialize settings first
-      await _settingsService.initialize();
+      print('[HOMEWRAPPER] Starting app');
+      print('[HomeWrapper] Requesting permissions...');
+      await PhonePermissionService.requestAllPermission();
+      await context.read<NotificationService>().requestPermission();
+      await context.read<NotificationService>().initNotification();
 
-      // Initialize other services based on settings
-      await _workmanagerService.initialize();
+      if (!mounted) return; // Cek mounted setelah await
+      final settingsService = context.read<SettingsService>();
+      final workmanagerService = context.read<WorkmanagerService>();
+      final foregroundService = context.read<ForegroundMonitorService>();
+      // 3. Initialize Logic Services
+      print('[HomeWrapper] Initializing Logic Services...');
+      await settingsService.initialize();
+      await workmanagerService.initialize();
 
-      // Only start foreground service if enabled in settings
-      if (_settingsService.isForegroundServiceEnabled) {
-        await _foregroundMonitorService.start();
-        setState(() {
-          _isForegroundRunning = true;
-        });
+      if (settingsService.isForegroundServiceEnabled) {
+        print('[HomeWrapper] Starting Foreground Service...');
+        // Pastikan init konfigurasi dipanggil dulu (aman dipanggil ulang)
+        await foregroundService.init();
+        await foregroundService.start();
       }
 
-      print('[HomeWrapper] All services initialized successfully');
-    } catch (e) {
-      print('[HomeWrapper] Error initializing services: $e');
+      // 5. Selesai! Tampilkan UI Utama
+      print('[HomeWrapper] ✅ Bootstrap Complete. App is Ready.');
+      if (mounted) {
+        setState(() {
+          _initialized = true;
+        });
+      }
+    } catch (e, stack) {
+      print('[HomeWrapper] ❌ Bootstrap Error: $e');
+      print(stack);
+      if (mounted) {
+        setState(() {
+          _error = "Gagal memuat aplikasi: $e";
+        });
+      }
     }
   }
 
@@ -67,15 +103,6 @@ class _HomeWrapperState extends State<HomeWrapper> with WidgetsBindingObserver {
   }
 
   @override
-  void initState() {
-    super.initState();
-    print('HomeWrapper initState called');
-    WidgetsBinding.instance.addObserver(this);
-    _checkInitialization();
-    _initializeServices();
-  }
-
-  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       print('HomeWrapper: App resumed');
@@ -83,11 +110,22 @@ class _HomeWrapperState extends State<HomeWrapper> with WidgetsBindingObserver {
     }
   }
 
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   super.didChangeDependencies();
+  //   _foregroundMonitorService = Provider.of<ForegroundMonitorService>(
+  //     context,
+  //     listen: false,
+  //   );
+  //   _workmanagerService = Provider.of<WorkmanagerService>(
+  //     context,
+  //     listen: false,
+  //   );
+  //   _settingsService = Provider.of<SettingsService>(context, listen: false);
+
+  //   _initializeServices();
+  // }
 
   Future<void> _checkInitialization() async {
     if (await InitializationManager.isInitialized()) {
@@ -108,18 +146,62 @@ class _HomeWrapperState extends State<HomeWrapper> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    // 1. Tampilkan Error jika ada
     if (_error != null) {
-      return Scaffold(body: Center(child: Text('Error: $_error')));
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.error_outline, color: Colors.red, size: 48),
+              const SizedBox(height: 16),
+              Text(_error!, textAlign: TextAlign.center),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() => _error = null);
+                  _initializeServices(); // Coba lagi
+                },
+                child: const Text("Coba Lagi"),
+              ),
+            ],
+          ),
+        ),
+      );
     }
+
+    // 2. Tampilkan Loading Screen selama Bootstrap berjalan
     if (!_initialized) {
-      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      return const Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 20),
+              Text(
+                "Menyiapkan Monitor Kesehatan...",
+                style: TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+      );
     }
+
+    // 3. Tampilkan UI Utama setelah siap
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: Navbar(
         currentIndex: _selectedIndex,
         onTap: _onNavTap,
       ),
-    ); // langsung masuk ke Home
+    );
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 }

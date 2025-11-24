@@ -47,9 +47,9 @@ class HeartRateData {
           ? HRVMetrics.fromJson(Map<String, dynamic>.from(json['HRV60s']))
           : null,
       json['rhr'] != null ? (json['rhr'] as num).toDouble() : 0.0,
-      json['phoneSensor'] = SpatioTemporal.fromJson(
+      json['phoneSensor'] != null ? SpatioTemporal.fromJson(
         Map<String, dynamic>.from(json['phoneSensor']),
-      ), // asumsi konstruktor default ada
+      ) : SpatioTemporal.empty(), // asumsi konstruktor default ada
     );
   }
 

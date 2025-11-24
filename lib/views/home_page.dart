@@ -270,96 +270,96 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildHRVCards(BLEProvider ble) {
-    final Map<int, HRVMetrics> metrics = ble.hrvMetrics;
+  // Widget _buildHRVCards(BLEProvider ble) {
+  //   final Map<int, HRVMetrics> metrics = ble.hrvMetrics;
 
-    // Tampilkan HRV cards hanya jika ada data HRV
-    final hasHRVData = metrics.values.any((m) => m.count > 0);
+  //   // Tampilkan HRV cards hanya jika ada data HRV
+  //   final hasHRVData = metrics.values.any((m) => m.count > 0);
 
-    if (!hasHRVData) {
-      return _buildPlaceholderCard(
-        'HRV Metrics',
-        'HRV data will appear here\nwhen RR intervals are available',
-        Icons.analytics_outlined,
-        color: Colors.blue,
-      );
-    }
+  //   if (!hasHRVData) {
+  //     return _buildPlaceholderCard(
+  //       'HRV Metrics',
+  //       'HRV data will appear here\nwhen RR intervals are available',
+  //       Icons.analytics_outlined,
+  //       color: Colors.blue,
+  //     );
+  //   }
 
-    return Column(
-      children: [
-        _buildHRVCard('HRV (60s)', metrics[60]),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            Expanded(child: _buildHRVCard('HRV (30s)', metrics[30])),
-            const SizedBox(width: 12),
-            Expanded(child: _buildHRVCard('HRV (10s)', metrics[10])),
-          ],
-        ),
-      ],
-    );
-  }
+  //   return Column(
+  //     children: [
+  //       _buildHRVCard('HRV (60s)', metrics[60]),
+  //       const SizedBox(height: 12),
+  //       Row(
+  //         children: [
+  //           Expanded(child: _buildHRVCard('HRV (30s)', metrics[30])),
+  //           const SizedBox(width: 12),
+  //           Expanded(child: _buildHRVCard('HRV (10s)', metrics[10])),
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
 
-  Widget _buildHRVCard(String title, HRVMetrics? metrics) {
-    final hasData = metrics != null && metrics.count > 0;
+  // Widget _buildHRVCard(String title, HRVMetrics? metrics) {
+  //   final hasData = metrics != null && metrics.count > 0;
 
-    return Card(
-      elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey,
-              ),
-            ),
-            const SizedBox(height: 8),
-            if (!hasData)
-              const Text(
-                'No data',
-                style: TextStyle(fontSize: 14, color: Colors.grey),
-              )
-            else ...[
-              _buildHRVMetricRow(
-                'RMSSD',
-                '${metrics.rmssd?.toStringAsFixed(1) ?? 'N/A'} ms',
-              ),
-              _buildHRVMetricRow(
-                'SDNN',
-                '${metrics.sdnn?.toStringAsFixed(1) ?? 'N/A'} ms',
-              ),
-              _buildHRVMetricRow(
-                'pNN50',
-                '${metrics.pnn50?.toStringAsFixed(1) ?? 'N/A'}%',
-              ),
-              _buildHRVMetricRow('Samples', '${metrics.count}'),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
+  //   return Card(
+  //     elevation: 2,
+  //     child: Padding(
+  //       padding: const EdgeInsets.all(12.0),
+  //       child: Column(
+  //         crossAxisAlignment: CrossAxisAlignment.start,
+  //         children: [
+  //           Text(
+  //             title,
+  //             style: const TextStyle(
+  //               fontSize: 12,
+  //               fontWeight: FontWeight.bold,
+  //               color: Colors.grey,
+  //             ),
+  //           ),
+  //           const SizedBox(height: 8),
+  //           if (!hasData)
+  //             const Text(
+  //               'No data',
+  //               style: TextStyle(fontSize: 14, color: Colors.grey),
+  //             )
+  //           else ...[
+  //             _buildHRVMetricRow(
+  //               'RMSSD',
+  //               '${metrics.rmssd?.toStringAsFixed(1) ?? 'N/A'} ms',
+  //             ),
+  //             _buildHRVMetricRow(
+  //               'SDNN',
+  //               '${metrics.sdnn?.toStringAsFixed(1) ?? 'N/A'} ms',
+  //             ),
+  //             _buildHRVMetricRow(
+  //               'pNN50',
+  //               '${metrics.pnn50?.toStringAsFixed(1) ?? 'N/A'}%',
+  //             ),
+  //             _buildHRVMetricRow('Samples', '${metrics.count}'),
+  //           ],
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
-  Widget _buildHRVMetricRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(label, style: const TextStyle(fontSize: 11, color: Colors.grey)),
-          Text(
-            value,
-            style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildHRVMetricRow(String label, String value) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 2.0),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Text(label, style: const TextStyle(fontSize: 11, color: Colors.grey)),
+  //         Text(
+  //           value,
+  //           style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildScanningSection(BLEProvider ble) {
     // Tampilkan scanning section hanya jika tidak connected dan perlu scan
@@ -576,7 +576,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildQuickStatsPreview(BLEProvider ble) {
     final hr = ble.heartRate;
-    final hrvMetrics = ble.hrvMetrics[60];
+    // final hrvMetrics = ble.hrvMetrics[60];
 
     if (hr == null) {
       return const Padding(
@@ -593,12 +593,12 @@ class _HomePageState extends State<HomePage> {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         _buildQuickStat('HR', '${hr.bpm}', 'BPM', Colors.red),
-        _buildQuickStat(
-          'HRV',
-          hrvMetrics?.rmssd?.toStringAsFixed(1) ?? 'N/A',
-          'ms',
-          Colors.blue,
-        ),
+        // _buildQuickStat(
+        //   'HRV',
+        //   hrvMetrics?.rmssd?.toStringAsFixed(1) ?? 'N/A',
+        //   'ms',
+        //   Colors.blue,
+        // ),
         _buildQuickStat('RHR', '${hr.rhr.toInt()}', 'BPM', Colors.green),
       ],
     );
@@ -680,7 +680,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Expanded(flex: 2, child: _buildHeartRateCard(ble)),
                     const SizedBox(width: 12),
-                    Expanded(flex: 3, child: _buildHRVCards(ble)),
+                    // Expanded(flex: 3, child: _buildHRVCards(ble)),
                   ],
                 ),
               ),

@@ -19,10 +19,17 @@ class PhoneSensorService {
 
   NoiseMeter? noiseMeter;
   bool _isRecording = false;
-  double? noiseDB;
+  // double? noiseDB;
+
+  String? _currentActivityStatus;
+  double? _currentNoiseDB;
 
   StreamSubscription<Activity>? _activitySubscription;
   StreamSubscription<NoiseReading>? _noiseSubscription;
+  StreamController<SpatioTemporal> _contextCtrl =
+      StreamController<SpatioTemporal>.broadcast();
+
+  Stream<SpatioTemporal> get contextStream => _contextCtrl.stream;
 
   bool _isInitialized = false;
 
@@ -107,8 +114,8 @@ class PhoneSensorService {
 
       _noiseSubscription = noiseMeter!.noise.listen(
         (reading) {
-          noiseDB = reading.meanDecibel;
-          _updateNoiseLevel(noiseDB);
+          _currentNoiseDB = reading.meanDecibel;
+          _updateNoiseLevel(_currentNoiseDB);
         },
         onError: _onError,
         cancelOnError: false,
@@ -124,18 +131,23 @@ class PhoneSensorService {
 
   void _updateActivity(Activity activity) {
     try {
-      final status = activity.type.toString().split('.').last.toUpperCase();
-      final now = DateTime.now();
+      final _currentActivityStatus = activity.type
+          .toString()
+          .split('.')
+          .last
+          .toUpperCase();
+      // final now = DateTime.now();
 
-      latestContext = SpatioTemporal.fromRawData(
-        activityStatus: status,
-        timestamp: now,
-        noiseDB: noiseDB,
-        // noiseDB: noiseDB ?? 0,
-      );
-      currentContextNotifier.value = latestContext;
+      // latestContext = SpatioTemporal.fromRawData(
+      //   activityStatus: status,
+      //   timestamp: now,
+      //   noiseDB: noiseDB,
+      //   // noiseDB: noiseDB ?? 0,
+      // );
+      // currentContextNotifier.value = latestContext;
+      _emitCombinedContext();
 
-      print('[PhoneSensorService] Activity updated: $status');
+      print('[PhoneSensorService] Activity updated: ');
     } catch (e) {
       print("[PhoneSensorService] Error updating activity: $e");
     }
@@ -143,17 +155,32 @@ class PhoneSensorService {
 
   void _updateNoiseLevel(double? dbLevel) {
     try {
-      if (latestContext != null && dbLevel != null) {
-        latestContext = SpatioTemporal.fromRawData(
-          activityStatus: latestContext!.rawActivityStatus,
-          timestamp: DateTime.now(),
-          noiseDB: dbLevel,
-        );
-        currentContextNotifier.value = latestContext;
-      }
+      // if (latestContext != null && dbLevel != null) {
+      //   latestContext = SpatioTemporal.fromRawData(
+      //     activityStatus: latestContext!.rawActivityStatus,
+      //     timestamp: DateTime.now(),
+      //     noiseDB: dbLevel,
+      //   );
+      //   currentContextNotifier.value = latestContext;
+      // }
+      _currentNoiseDB = dbLevel;
+      _emitCombinedContext();
     } catch (e) {
       print("[PhoneSensorService] Error updating noise level: $e");
     }
+  }
+
+  void _emitCombinedContext() {
+    // Pastikan kedua data ada sebelum emit (atau gunakan nilai default)
+    final newContext = SpatioTemporal.fromRawData(
+      activityStatus: _currentActivityStatus ?? "UNKNOWN",
+      timestamp: DateTime.now(),
+      noiseDB: _currentNoiseDB ?? 0.0,
+    );
+    latestContext =
+        newContext; // Tetap perbarui latestContext untuk akses sinkron
+    currentContextNotifier.value = newContext;
+    _contextCtrl.add(newContext); // Emit ke DataAggregationService
   }
 
   void _onError(dynamic error) {
@@ -170,6 +197,7 @@ class PhoneSensorService {
     print('[PhoneSensorService] Disposing...');
     _activitySubscription?.cancel();
     _noiseSubscription?.cancel();
+    // _contextCtrl?.cancel();
     _isRecording = false;
     _isInitialized = false;
     print("PhoneSensorService: all streams disposed");
@@ -178,255 +206,13 @@ class PhoneSensorService {
   void stop() {
     _noiseSubscription?.cancel();
     _activitySubscription?.cancel();
+    _contextCtrl.close();
     _isRecording = false;
   }
 
   // Getters
   bool get isInitialized => _isInitialized;
   bool get isRecording => _isRecording;
-  double? get currentNoiseLevel => noiseDB;
+  double? get currentNoiseLevel => _currentNoiseDB;
   SpatioTemporal? get currentContext => latestContext;
 }
-
-// // services/phone_sensor_service.dart
-// import 'dart:async';
-// import 'package:aura_bluetooth/models/spatio.model.dart';
-// import 'package:flutter/services.dart';
-// import 'package:flutter_activity_recognition/flutter_activity_recognition.dart';
-// import 'package:noise_meter/noise_meter.dart';
-// import 'package:flutter/material.dart';
-
-// class PhoneSensorService {
-//   // FIX: Gunakan static final untuk instance, bukan final di class level
-//   static final PhoneSensorService _instance = PhoneSensorService._internal();
-//   factory PhoneSensorService() => _instance;
-
-//   PhoneSensorService._internal(); // Private constructor
-
-//   SpatioTemporal? latestContext;
-//   final ValueNotifier<SpatioTemporal?> currentContextNotifier =
-//       ValueNotifier<SpatioTemporal?>(null);
-
-//   NoiseMeter? noiseMeter;
-//   bool _isRecording = false;
-//   double? noiseDB;
-
-//   StreamSubscription<Activity>? _activitySubscription;
-//   StreamSubscription<NoiseReading>? _noiseSubscription;
-
-//   Future<void> initialize() async {
-//     print('[PhoneSensorService] Initializing...');
-//     try {
-//       await startActivityStream();
-//       await startNoiseStream();
-//       print("[PhoneSensorService] All contextual streams initialized");
-//     } catch (e) {
-//       print("[PhoneSensorService] Error initializing: $e");
-//     }
-//   }
-
-//   void dispose() {
-//     _activitySubscription?.cancel();
-//     _noiseSubscription?.cancel();
-//     print("Phone Sensor service: all stream disposed");
-//   }
-
-//   //----------------ACTIVITY STREAM--------------
-//   Future<void> startActivityStream() async {
-//     try {
-//       final activityStream = FlutterActivityRecognition.instance.activityStream
-//           .handleError(_onError);
-//       _activitySubscription = activityStream.listen((activity) {
-//         _updateActivity(activity);
-//       });
-//     } catch (e) {
-//       print("[PhoneSensorService] Error starting activity stream: $e");
-//     }
-//   }
-
-//   void _updateActivity(Activity activity) {
-//     try {
-//       final status = activity.type.toString().split('.').last.toUpperCase();
-//       final now = DateTime.now();
-
-//       latestContext = SpatioTemporal.fromRawData(
-//         activityStatus: status,
-//         timestamp: now,
-//         noiseDB: noiseDB,
-//       );
-//       currentContextNotifier.value = latestContext;
-
-//       print('[PhoneSensorService] Activity updated: $status');
-//     } catch (e) {
-//       print("[PhoneSensorService] Error updating activity: $e");
-//     }
-//   }
-
-//   void _onError(dynamic error) {
-//     String errorMessage;
-//     if (error is PlatformException) {
-//       errorMessage = error.message ?? error.code;
-//     } else {
-//       errorMessage = error.toString();
-//     }
-//     debugPrint("PhoneSensorService error: $errorMessage");
-//   }
-
-//   //-------NOISE STREAM-------
-//   Future<void> startNoiseStream() async {
-//     try {
-//       noiseMeter ??= NoiseMeter();
-//       _noiseSubscription = noiseMeter!.noise.listen((reading) {
-//         noiseDB = reading.meanDecibel;
-//         if (latestContext != null) {
-//           latestContext = SpatioTemporal.fromRawData(
-//             activityStatus: latestContext!.rawActivityStatus,
-//             timestamp: DateTime.now(),
-//             noiseDB: noiseDB,
-//           );
-//           currentContextNotifier.value = latestContext;
-//         }
-//       }, onError: _onError);
-//       _isRecording = true;
-//     } catch (e) {
-//       debugPrint("Error starting noise Stream : $e");
-//     }
-//   }
-
-//   void stop() {
-//     _noiseSubscription?.cancel();
-//     _activitySubscription?.cancel();
-//     _isRecording = false;
-//   }
-// }
-
-// // import 'dart:async';
-
-// // import 'package:aura_bluetooth/models/spatio.model.dart';
-// // import 'package:flutter/services.dart';
-// // import 'package:flutter_activity_recognition/flutter_activity_recognition.dart';
-// // import 'package:noise_meter/noise_meter.dart';
-// // // import 'package:sensors_plus/sensors_plus.dart';
-// // import 'package:flutter/material.dart';
-
-// // class PhoneSensorService {
-// //   PhoneSensorService._(); // private constructor
-
-// //   static final PhoneSensorService _instance = PhoneSensorService._();
-
-// //   factory PhoneSensorService() => _instance;
-
-// //   // static final PhoneSensorService _instance = PhoneSensorService();
-// //   // factory PhoneSensorService() => _instance;
-// //   // PhoneSensorService();
-
-// //   SpatioTemporal? latestContext;
-
-// //   // final ValueNotifier<String> _activityResult = ValueNotifier('');
-// //   // final ValueNotifier<double> _noiseLevelDB = ValueNotifier(0);
-// //   final ValueNotifier<SpatioTemporal?> currentContextNotifier =
-// //       ValueNotifier<SpatioTemporal?>(null);
-
-// //   // NoiseReading? _latestReading;
-// //   NoiseMeter? noiseMeter;
-// //   bool _isRecording = false;
-// //   double? noiseDB;
-
-// //   StreamSubscription<Activity>? _activitySubscription;
-// //   // StreamSubscription<int>? _lightSubscription;
-// //   StreamSubscription<NoiseReading>? _noiseSubscription;
-
-// //   Future<void> initialize() async {
-// //     await startActivityStream();
-// //     // _startLightStream();
-// //     await startNoiseStream();
-// //     print("Phoe sensor service: All contextual streams initialized");
-// //   }
-
-// //   void dispose() {
-// //     _activitySubscription?.cancel();
-// //     // _lightSubscription?.cancel();
-// //     _noiseSubscription?.cancel();
-// //     print("Phone Sensor service: all stream disposed");
-// //   }
-
-// //   //----------------ACTIVITY STREAM--------------
-// //   Future<void> startActivityStream() async {
-// //     final activityStream = FlutterActivityRecognition.instance.activityStream
-// //         .handleError(_onError);
-// //     _activitySubscription = activityStream.listen((activity) {
-// //       _updateActivity(activity);
-// //     });
-// //     // _activitySubscription = FlutterActivityRecognition.instance.activityStream
-// //     //     .handleError(_onError)
-// //     //     .listen(_onActivity);
-// //   }
-
-// //   void _updateActivity(Activity activity) {
-// //     final status = activity.type.toString().split('.').last.toUpperCase();
-// //     final now = DateTime.now();
-
-// //     latestContext = SpatioTemporal.fromRawData(
-// //       activityStatus: status,
-// //       timestamp: now,
-// //       noiseDB: noiseDB,
-// //     );
-// //     currentContextNotifier.value = latestContext;
-// //   }
-
-// //   // void _onActivity(Activity activity) {
-// //   //   latestContext.rawActivityStatus = _activityResult.value;
-// //   // }
-
-// //   void _onError(dynamic error) {
-// //     String errorMessage;
-// //     if (error is PlatformException) {
-// //       errorMessage = error.message ?? error.code;
-// //     } else {
-// //       errorMessage = error.toString();
-// //     }
-// //     // return errorMessage;
-// //     debugPrint("PhoneSensorService error: $errorMessage");
-// //   }
-
-// //   //-------NOISE STREAM-------
-
-// //   // void onData(NoiseReading noiseReading) {
-// //   //   _latestReading = noiseReading;
-// //   //   double noiseParse = _latestReading.meanDecibel.toDouble(2);
-// //   //   latestContext.noiseLeveldB = noiseParse;
-// //   // }
-// //   // setState(() => {_latestReading = noiseReading});
-
-// //   Future<void> startNoiseStream() async {
-// //     noiseMeter ??= NoiseMeter();
-// //     try {
-// //       _noiseSubscription = noiseMeter!.noise.listen((reading) {
-// //         noiseDB = reading.meanDecibel;
-// //         // final now = DateTime.now();
-// //         if (latestContext != null) {
-// //           latestContext = SpatioTemporal.fromRawData(
-// //             activityStatus: latestContext!.rawActivityStatus,
-// //             timestamp: DateTime.now(),
-// //             noiseDB: noiseDB,
-// //           );
-// //           currentContextNotifier.value = latestContext;
-// //         }
-// //       }, onError: _onError);
-// //       _isRecording = true;
-// //     } catch (e) {
-// //       debugPrint("Error starting noise Stream : $e");
-// //     }
-// //     // if (!(await )) {
-// //     //   _noiseSubscription? = noiseMeter?.noise.listen(onData, _onError);
-// //     //   setState(()=> _isRecording = true);
-
-// //     // }
-// //   }
-
-// //   void stop() {
-// //     _noiseSubscription?.cancel();
-// //     _activitySubscription?.cancel();
-// //     _isRecording = false;
-// //   }
-// // }

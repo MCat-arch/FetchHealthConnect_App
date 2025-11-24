@@ -1,10 +1,17 @@
 import 'package:aura_bluetooth/firebase_options.dart';
 import 'package:aura_bluetooth/providers/ble_provider.dart';
+import 'package:aura_bluetooth/providers/phoneSensor_provider.dart';
 import 'package:aura_bluetooth/routes/routes.dart';
 import 'package:aura_bluetooth/routes/routes.dart' as route;
+import 'package:aura_bluetooth/services/ble_service.dart';
+import 'package:aura_bluetooth/services/firestore_service.dart';
+import 'package:aura_bluetooth/services/foreground_service_hr.dart';
+import 'package:aura_bluetooth/services/hrv_service.dart';
+import 'package:aura_bluetooth/services/ml_panic_service.dart';
 import 'package:aura_bluetooth/services/notification_service.dart';
 import 'package:aura_bluetooth/services/phone_permission_service.dart';
 import 'package:aura_bluetooth/services/phone_sensor_service.dart';
+import 'package:aura_bluetooth/services/rhr_service.dart';
 import 'package:aura_bluetooth/services/setting_service.dart';
 import 'package:aura_bluetooth/services/workmanager_service.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,18 +20,18 @@ import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:provider/provider.dart';
 import 'package:workmanager/workmanager.dart';
 
-//home page not work yet
-
-// Workmanager callback
-import 'package:aura_bluetooth/services/workmanager_service.dart'
-    show callbackDispatcher;
-
 void main() async {
   // Ensure Flutter binding is initialized
   WidgetsFlutterBinding.ensureInitialized();
   FlutterForegroundTask.initCommunicationPort();
 
+  // 2. Inisialisasi Plugin
+
   try {
+    print('MAIN : initializing firebase');
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
     print('[Main] Initializing services...');
 
     final permissionGranted =
@@ -36,24 +43,54 @@ void main() async {
       print('All permission granted');
     }
 
-    print('MAIN : initializing firebase');
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    // Deklarasikan semua service yang perlu diakses Provider di luar main()
+    final BLEService bleService = BLEService();
+    final PhoneSensorService phoneSensorService = PhoneSensorService();
+    final SettingsService settingsService = SettingsService();
+    final NotificationService notificationService = NotificationService();
+    // Tambahkan services lain yang dibutuhkan oleh provider
+    // Asumsi services ini juga Singleton:
+    final firestoreService = FirestoreService(); //
+    final HRVService hrvService = HRVService();
+    final RHRService rhrService = RHRService();
+    final workmanager = WorkmanagerService();
+    final MLPanicService mlService = MLPanicService();
+    final ForegroundMonitorService foregroundMonitorService =
+        ForegroundMonitorService();
 
-    // Initialize core services
-    await _initializeCoreServices();
 
-    // Initialize background services
-    await _initializeBackgroundServices();
+    // 5. Init Core Services
+    await settingsService.initialize();
+    await phoneSensorService.initialize();
+    await notificationService.initNotification();
+
+    // Init Workmanager
+    await Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
+
+    await ForegroundMonitorService().init();
+    // await ForegroundMonitorService().start();
 
     print('[Main] All services initialized successfully');
 
     runApp(
       MultiProvider(
         providers: [
+          // 1. Providers yang menggunakan Singleton top-level (SUDAH BENAR)
+          Provider<BLEService>.value(value: bleService),
+          Provider<PhoneSensorService>.value(value: phoneSensorService),
+          Provider<SettingsService>.value(value: settingsService),
+          Provider<NotificationService>.value(value: notificationService),
+          // ... services lainnya
+          Provider<HRVService>.value(value: hrvService),
+          // ... dan seterusnya untuk semua service yang Anda definisikan di atas.
+          Provider<ForegroundMonitorService>.value(
+            value: foregroundMonitorService,
+          ),
+          Provider<WorkmanagerService>.value(value: workmanager),
+          ChangeNotifierProvider(create: (_) => PhoneSensorProvider()),
           ChangeNotifierProvider(
-            create: (_) => BLEProvider(), // <-- hanya dibuat SEKALI
+            create: (_) => BLEProvider(),
+            // <-- hanya dibuat SEKALI
           ),
         ],
         child: const MyApp(),
@@ -93,7 +130,7 @@ Future<void> _initializeBackgroundServices() async {
   // Initialize Workmanager for background tasks
   await Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
 
-  // Initialize foreground task
+  // // Initialize foreground task
   FlutterForegroundTask.initCommunicationPort();
 
   // Register periodic tasks
@@ -171,64 +208,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-
-//   await Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
-//   await FlutterForegroundTask.init();
-//   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-//   PhoneSensorService().initialize();
-
-//   await Workmanager().registerPeriodicTask(
-//     'health_data_syncs',
-//     'health_data_sync',
-//     // 'fetchHealthDataTask',
-//     frequency: const Duration(minutes: 15), // minimal Android limit
-//     existingWorkPolicy: ExistingWorkPolicy.keep,
-//     constraints: Constraints(networkType: NetworkType.not_required),
-//   );
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp.router(
-//       //define route
-//       // title: 'BLE Heart Rate',
-//       theme: ThemeData(primarySwatch: Colors.blue),
-//       routerConfig: route.router,
-
-//       // home: const HeartRatePage(),
-//     );
-//   }
-// }
-
-
-//TODO:
-      //perlu refresh app di awal setelah ask permission
-      //calculate hrv, rhr
-      //activity recognition
-      //workmanager, or background running
-
-      //login logout dengan kode sebelumnya
-      //workmanager untuk sync data ke cloud
-
-      //simpan data di cloud
-      //gabung data dan ml model
-      //notifikasi
-      //feedback seperti untuk nafas 
-      
-
-      //integrasi stats nya
-      //integrasi foreground workmanager service
-      //
-
-
-      //NEXT
-      // - menampilkan nama device bluetooth yang akan connect
-      // - logic untuk connect masih error sepertinya (belum bisa connect)
-      // - tambahkan provider untuk simpan state
-      // - masalahnya langsung deteksi panic (tidak menampilkan data)
-      
