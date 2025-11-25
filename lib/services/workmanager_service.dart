@@ -37,14 +37,16 @@ class WorkmanagerService {
       healthDataSyncTask,
       frequency: const Duration(minutes: 15),
       initialDelay: const Duration(seconds: 10),
+      constraints: Constraints(networkType: NetworkType.connected),
     );
 
     // Sync panic data every 30 minutes
     await Workmanager().registerPeriodicTask(
       panicDataSyncTask,
       panicDataSyncTask,
-      frequency: const Duration(minutes: 30),
+      frequency: const Duration(minutes: 15),
       initialDelay: const Duration(minutes: 1),
+      constraints: Constraints(networkType: NetworkType.connected),
     );
 
     // Cleanup old data daily

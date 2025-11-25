@@ -22,7 +22,6 @@ class _HomePageState extends State<HomePage> {
   late BLEProvider _bleProvider;
   VoidCallback? _providerListener;
   PanicPrediction? _lastShownPanic;
-  StreamSubscription<HeartRateData>? _hrSubscription;
 
   @override
   void initState() {
@@ -36,9 +35,9 @@ class _HomePageState extends State<HomePage> {
     _bleProvider = Provider.of<BLEProvider>(context, listen: false);
 
     // Auto start scan ketika app pertama kali dibuka
-    if (!_bleProvider.isScanning && !_bleProvider.statusConnect) {
-      _bleProvider.startScan();
-    }
+    // if (!_bleProvider.isScanning && !_bleProvider.statusConnect) {
+    //   _bleProvider.startScan();
+    // }
 
     // Setup listener untuk panic alerts
     _providerListener = () {
@@ -72,22 +71,25 @@ class _HomePageState extends State<HomePage> {
           children: [
             Icon(Icons.warning, color: Colors.red, size: 28),
             SizedBox(width: 8),
-            Text('Panic Attack Detected'),
+            Text('Panic Alert'),
           ],
         ),
         content: Text(
           'High probability of panic attack detected '
           '(${(prediction.confidence * 100).toStringAsFixed(1)}% confidence).\n\n'
-          'Please take deep breaths and find a comfortable position.',
+          'Please take deep breaths, and recognize the feeling',
         ),
         actions: [
           TextButton(
             onPressed: () {
               Navigator.pop(context);
               // Navigate to breathing page jika mau
-              // Navigator.push(context, MaterialPageRoute(builder: (_) => BreathingGuidePage()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => BreathingGuidePage()),
+              );
             },
-            child: const Text('Breathing Exercise'),
+            child: const Text('Breath'),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -151,7 +153,7 @@ class _HomePageState extends State<HomePage> {
     if (heartRate == null) {
       return _buildPlaceholderCard(
         'Heart Rate',
-        'Connect device to see data',
+        'Waiting for Data',
         Icons.favorite_border,
         color: Colors.grey,
       );
@@ -169,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    'HEART RATE',
+                    'LIVE METRICS',
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
@@ -234,31 +236,83 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildInfoRow('RHR', '${hr.rhr.toStringAsFixed(1)} BPM'),
-          _buildInfoRow('Activity', hr.phoneSensor.rawActivityStatus),
-          _buildInfoRow(
-            'Noise',
-            '${hr.phoneSensor.noiseLeveldB?.toStringAsFixed(1) ?? 'N/A'} dB',
+          Row(
+            children: [
+              Expanded(
+                child: _buildInfoColumn(
+                  'RHR',
+                  '${hr.rhr.toStringAsFixed(0)} bpm',
+                ),
+              ),
+              Expanded(
+                child: _buildInfoColumn(
+                  'HRV (RMSSD)',
+                  '${hr.HRV60s?.rmssd?.toStringAsFixed(1) ?? '-'} ms',
+                ),
+              ),
+              Expanded(
+                child: _buildInfoColumn(
+                  'HRV (SDNN)',
+                  '${hr.HRV60s?.sdnn?.toStringAsFixed(1) ?? '-'} ms',
+                ),
+              ),
+            ],
           ),
-          // 4. HRV Metrics (Tambahkan RMSSD & SDNN)
-          // Mengambil data dari window 60 detik (HRV60s)
-          _buildInfoRow(
-            'HRV (RMSSD)',
-            '${hr.HRV60s?.rmssd?.toStringAsFixed(1) ?? '-'} ms',
+          const SizedBox(height: 16),
+          Row(
+            children: [
+              Expanded(
+                child: _buildInfoColumn(
+                  'Activity',
+                  hr.phoneSensor.rawActivityStatus == "UNKNOWN"
+                      ? "Detecting..."
+                      : hr.phoneSensor.rawActivityStatus,
+                ),
+              ),
+              Expanded(
+                child: _buildInfoColumn(
+                  'Noise',
+                  '${hr.phoneSensor.noiseLeveldB?.toStringAsFixed(1) ?? 'N/A'} dB',
+                ),
+              ),
+            ],
           ),
-          _buildInfoRow(
-            'HRV (SDNN)',
-            '${hr.HRV60s?.sdnn?.toStringAsFixed(1) ?? '-'} ms',
+          const SizedBox(height: 12),
+          Text(
+            "Last Update: ${hr.phoneSensor.time}",
+            style: const TextStyle(
+              fontSize: 10,
+              color: Colors.grey,
+              fontStyle: FontStyle.italic,
+            ),
           ),
 
-          _buildInfoRow('Time', hr.phoneSensor.timeOfDayCategory),
+          //
+          // _buildInfoRow('RHR', '${hr.rhr.toStringAsFixed(1)} BPM'),
+          // _buildInfoRow('Activity', hr.phoneSensor.rawActivityStatus),
+          // _buildInfoRow(
+          //   'Noise',
+          //   '${hr.phoneSensor.noiseLeveldB?.toStringAsFixed(1) ?? 'N/A'} dB',
+          // ),
+          // // 4. HRV Metrics (Tambahkan RMSSD & SDNN)
+          // // Mengambil data dari window 60 detik (HRV60s)
+          // _buildInfoRow(
+          //   'HRV (RMSSD)',
+          //   '${hr.HRV60s?.rmssd?.toStringAsFixed(1) ?? '-'} ms',
+          // ),
+          // _buildInfoRow(
+          //   'HRV (SDNN)',
+          //   '${hr.HRV60s?.sdnn?.toStringAsFixed(1) ?? '-'} ms',
+          // ),
+
+          // _buildInfoRow('Time', hr.phoneSensor.timeOfDayCategory),
 
           // Warning jika RR interval kosong (Sensor BLE tidak kirim data detil)
           if (hr.rrIntervals == null || hr.rrIntervals!.isEmpty)
-            _buildInfoRow(
+            _buildInfoColumn(
               'RR Data',
               'Not available (Wait 1 min)',
-              isWarning: true,
+              // isWarning: true,
             ),
           // _buildInfoRow('Time', hr.phoneSensor.timeOfDayCategory),
           // if (hr.rrIntervals == null || hr.rrIntervals!.isEmpty)
@@ -268,31 +322,45 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildInfoRow(String label, String value, {bool isWarning = false}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              color: isWarning ? Colors.orange : Colors.grey,
-            ),
-          ),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: isWarning ? Colors.orange : Colors.black87,
-            ),
-          ),
-        ],
-      ),
+  Widget _buildInfoColumn(String label, String value) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+        const SizedBox(height: 4),
+        Text(
+          value,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+      ],
     );
   }
+
+  // Widget _buildInfoRow(String label, String value, {bool isWarning = false}) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(vertical: 3.0),
+  //     child: Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children: [
+  //         Text(
+  //           label,
+  //           style: TextStyle(
+  //             fontSize: 12,
+  //             color: isWarning ? Colors.orange : Colors.grey,
+  //           ),
+  //         ),
+  //         Text(
+  //           value,
+  //           style: TextStyle(
+  //             fontSize: 12,
+  //             fontWeight: FontWeight.w500,
+  //             color: isWarning ? Colors.orange : Colors.black87,
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   // Widget _buildHRVCards(BLEProvider ble) {
   //   final Map<int, HRVMetrics> metrics = ble.hrvMetrics;
@@ -846,7 +914,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void dispose() {
-    _hrSubscription?.cancel();
+    // _hrSubscription?.cancel();
     if (_providerListener != null) {
       _bleProvider.removeListener(_providerListener!);
     }

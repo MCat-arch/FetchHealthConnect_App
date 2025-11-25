@@ -1,7 +1,5 @@
 import 'package:aura_bluetooth/firebase_options.dart';
 import 'package:aura_bluetooth/providers/ble_provider.dart';
-import 'package:aura_bluetooth/providers/phoneSensor_provider.dart';
-import 'package:aura_bluetooth/routes/routes.dart';
 import 'package:aura_bluetooth/routes/routes.dart' as route;
 import 'package:aura_bluetooth/services/ble_service.dart';
 import 'package:aura_bluetooth/services/firestore_service.dart';
@@ -10,7 +8,6 @@ import 'package:aura_bluetooth/services/hrv_service.dart';
 import 'package:aura_bluetooth/services/ml_panic_service.dart';
 import 'package:aura_bluetooth/services/notification_service.dart';
 import 'package:aura_bluetooth/services/phone_permission_service.dart';
-import 'package:aura_bluetooth/services/phone_sensor_service.dart';
 import 'package:aura_bluetooth/services/rhr_service.dart';
 import 'package:aura_bluetooth/services/setting_service.dart';
 import 'package:aura_bluetooth/services/workmanager_service.dart';
@@ -24,16 +21,12 @@ void main() async {
   // Ensure Flutter binding is initialized
   WidgetsFlutterBinding.ensureInitialized();
   FlutterForegroundTask.initCommunicationPort();
-
-  // 2. Inisialisasi Plugin
+  await Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   try {
-    print('MAIN : initializing firebase');
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    print('[Main] Initializing services...');
-
     final permissionGranted =
         await PhonePermissionService.requestAllPermission();
 
@@ -45,7 +38,6 @@ void main() async {
 
     // Deklarasikan semua service yang perlu diakses Provider di luar main()
     final BLEService bleService = BLEService();
-    final PhoneSensorService phoneSensorService = PhoneSensorService();
     final SettingsService settingsService = SettingsService();
     final NotificationService notificationService = NotificationService();
     // Tambahkan services lain yang dibutuhkan oleh provider
@@ -53,19 +45,17 @@ void main() async {
     final firestoreService = FirestoreService(); //
     final HRVService hrvService = HRVService();
     final RHRService rhrService = RHRService();
-    final workmanager = WorkmanagerService();
+    // final workmanager = WorkmanagerService();
     final MLPanicService mlService = MLPanicService();
     final ForegroundMonitorService foregroundMonitorService =
         ForegroundMonitorService();
 
     // 5. Init Core Services
     await settingsService.initialize();
-    await phoneSensorService.initialize();
+
     await notificationService.initNotification();
 
-    // Init Workmanager
-    await Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
-    await _registerWorkmanagerTasks();
+    // await _registerWorkmanagerTasks();
 
     await ForegroundMonitorService().init();
 
@@ -76,7 +66,6 @@ void main() async {
         providers: [
           // 1. Providers yang menggunakan Singleton top-level (SUDAH BENAR)
           Provider<BLEService>.value(value: bleService),
-          Provider<PhoneSensorService>.value(value: phoneSensorService),
           Provider<SettingsService>.value(value: settingsService),
           Provider<NotificationService>.value(value: notificationService),
           // ... services lainnya
@@ -85,8 +74,8 @@ void main() async {
           Provider<ForegroundMonitorService>.value(
             value: foregroundMonitorService,
           ),
-          Provider<WorkmanagerService>.value(value: workmanager),
-          ChangeNotifierProvider(create: (_) => PhoneSensorProvider()),
+          // Provider<WorkmanagerService>.value(value: workmanager),
+          // ChangeNotifierProvider(create: (_) => PhoneSensorProvider()),
           ChangeNotifierProvider(
             create: (_) => BLEProvider(),
             // <-- hanya dibuat SEKALI
@@ -104,42 +93,42 @@ void main() async {
   }
 }
 
-Future<void> _registerWorkmanagerTasks() async {
-  try {
-    // Health data sync task
-    await Workmanager().registerPeriodicTask(
-      'health_data_sync',
-      WorkmanagerService.healthDataSyncTask,
-      frequency: const Duration(minutes: 15),
-      initialDelay: const Duration(seconds: 30),
-      constraints: Constraints(networkType: NetworkType.connected),
-      existingWorkPolicy: ExistingWorkPolicy.replace,
-    );
+// Future<void> _registerWorkmanagerTasks() async {
+//   try {
+//     // Health data sync task
+//     await Workmanager().registerPeriodicTask(
+//       'health_data_sync',
+//       WorkmanagerService.healthDataSyncTask,
+//       frequency: const Duration(minutes: 15),
+//       initialDelay: const Duration(seconds: 30),
+//       constraints: Constraints(networkType: NetworkType.connected),
+//       existingWorkPolicy: ExistingWorkPolicy.replace,
+//     );
 
-    // Panic data sync task
-    await Workmanager().registerPeriodicTask(
-      'panic_data_sync',
-      WorkmanagerService.panicDataSyncTask,
-      frequency: const Duration(minutes: 30),
-      initialDelay: const Duration(minutes: 2),
-      constraints: Constraints(networkType: NetworkType.connected),
-      existingWorkPolicy: ExistingWorkPolicy.replace,
-    );
+//     // Panic data sync task
+//     await Workmanager().registerPeriodicTask(
+//       'panic_data_sync',
+//       WorkmanagerService.panicDataSyncTask,
+//       frequency: const Duration(minutes: 30),
+//       initialDelay: const Duration(minutes: 2),
+//       constraints: Constraints(networkType: NetworkType.connected),
+//       existingWorkPolicy: ExistingWorkPolicy.replace,
+//     );
 
-    // Cleanup task (daily)
-    await Workmanager().registerPeriodicTask(
-      'cleanup_task',
-      WorkmanagerService.cleanupTask,
-      frequency: const Duration(hours: 24),
-      initialDelay: const Duration(hours: 1),
-      existingWorkPolicy: ExistingWorkPolicy.replace,
-    );
+//     // Cleanup task (daily)
+//     await Workmanager().registerPeriodicTask(
+//       'cleanup_task',
+//       WorkmanagerService.cleanupTask,
+//       frequency: const Duration(hours: 24),
+//       initialDelay: const Duration(hours: 1),
+//       existingWorkPolicy: ExistingWorkPolicy.replace,
+//     );
 
-    print('[Main] Workmanager tasks registered successfully');
-  } catch (e) {
-    print('[Main] Error registering Workmanager tasks: $e');
-  }
-}
+//     print('[Main] Workmanager tasks registered successfully');
+//   } catch (e) {
+//     print('[Main] Error registering Workmanager tasks: $e');
+//   }
+// }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

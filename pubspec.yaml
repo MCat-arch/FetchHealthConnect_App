@@ -10,7 +10,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_bloc: ^9.1.1
   flutter_blue_plus: ^2.0.0
   permission_handler: ^12.0.1
   sensors_plus: ^7.0.0
@@ -21,6 +20,7 @@ dependencies:
   hive_generator: ^2.0.1
   path_provider: ^2.0.1
   provider: ^6.1.5
+  device_info_plus: ^10.0.0
 
   flutter_local_notifications: ^19.4.0
   firebase_auth: ^5.7.0

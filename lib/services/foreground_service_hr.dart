@@ -10,8 +10,6 @@ import 'package:aura_bluetooth/services/firestore_service.dart';
 import 'package:aura_bluetooth/services/hrv_service.dart';
 import 'package:aura_bluetooth/services/ml_panic_service.dart';
 import 'package:aura_bluetooth/services/rhr_service.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import '../services/ble_service.dart';
@@ -28,6 +26,7 @@ class ForegroundMonitorService {
 
   bool get isRunning => _isRunning;
   int get dataPointsCollected => _dataPointsCollected;
+
 
   ForegroundMonitorService._internal();
 
@@ -151,10 +150,6 @@ class HealthMonitoringTaskHandler extends TaskHandler {
     _debugLog('🚀 STARTING Background Handler...');
 
     try {
-      // 1. Init Firebase & Plugins
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
       await Hive.initFlutter();
       await Hive.openBox('hr_box');
       await Hive.openBox('sync_queue');
@@ -166,10 +161,26 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       _firestoreService = FirestoreService();
       _mlService = MLPanicService();
       _bleService = BLEService();
-      _phoneSensorService = PhoneSensorService();
+
+      // _phoneSensorService = PhoneSensorService();
 
       // 3. Init Hardware
-      await _phoneSensorService!.initialize();
+      _debugLog('📱 Initializing PhoneSensorService...');
+      try {
+        await _phoneSensorService!.initialize(label: 'BG-THREAD');
+        // await _phoneSensorService!.initialize(label: "BG-THREAD");
+        _phoneSensorService!.contextStream.listen((spatioData) {
+          _debugLog(
+            '📡 [SENSOR-DATA] Act: ${spatioData.rawActivityStatus} | Noise: ${spatioData.noiseLeveldB?.toStringAsFixed(1) ?? "N/A"}dB',
+          );
+          FlutterForegroundTask.sendDataToMain({
+            'type': 'sensor_update',
+            'data': spatioData.toJson(),
+          });
+        });
+      } catch (e) {
+        _debugLog('⚠️ Sensor Init Failed: $e');
+      }
 
       // 4. Start Bluetooth
       _debugLog('🎧 Starting BLE Scan & Listen...');
@@ -364,13 +375,26 @@ class HealthMonitoringTaskHandler extends TaskHandler {
         spatio,
       );
 
+      // 🔍 TAMBAHAN: Log Data Terperinci
+      _debugLog('''
+      📊 AGGREGATION REPORT:
+      ┌──────────────────────────────────────────
+      │ BPM      : $bpm
+      │ RHR      : ${rhr.toStringAsFixed(1)}
+      │ HRV(60s) : RMSSD=${hrvMetrics[60]?.rmssd?.toStringAsFixed(1) ?? '-'} | SDNN=${hrvMetrics[60]?.sdnn?.toStringAsFixed(1) ?? '-'}
+      │ Activity : ${spatio.rawActivityStatus} (${spatio.timeOfDayCategory})
+      │ Noise    : ${spatio.noiseLeveldB?.toStringAsFixed(1) ?? 'N/A'} dB
+      │ Samples  : ${rrSnapshot.length} RR intervals
+      └──────────────────────────────────────────
+      ''');
+
       // 5. Kirim ke UI & Simpan
       FlutterForegroundTask.sendDataToMain(hrData.toJson());
 
       _history.add(hrData);
       _pruneHistory();
       await _saveToHive(hrData);
-      await _firestoreService!.syncHeartRateData(hrData);
+      // await _firestoreService!.syncHeartRateData(hrData);
 
       // 6. Cek Panik
       final prediction = await _mlService!.predictPanicAttack(hrData);
@@ -726,460 +750,3 @@ class HealthMonitoringTaskHandler extends TaskHandler {
     _debugLog('❌ Notification dismissed by user');
   }
 }
-
-// class HealthMonitoringTaskHandler extends TaskHandler {
-//   int _monitoringCount = 0;
-//   Timer? _monitoringTimer;
-
-//   // STATE DAN INSTANCE YANG DIPERLUKAN UNTUK AGREGASI
-//   final HRVService _hrvService = HRVService(); // Instance baru di isolate ini
-//   final RHRService _rhrService = RHRService(); // Instance baru
-//   final FirestoreService _firestoreService =
-//       FirestoreService(); // Instance baru
-//   final MLPanicService _mlService = MLPanicService(); // Instance baru
-//   final PhoneSensorService _phoneSensorService =
-//       PhoneSensorService(); // Singleton (aman)
-//   final BLEService _bleService = BLEService();
-
-//   final List<double> _accumulateRR = [];
-//   final List<HeartRateData> _history = [];
-
-//   StreamSubscription? _bleSub;
-//   Timer? _aggregationTimer; // Timer 1 menit
-
-//   // Timers untuk maintenance/watchdog
-//   Timer? _watchdogTimer;
-//   Timer? _dataSyncTimer;
-//   Timer? _panicCheckTimer;
-
-//   // Output Stream (hanya jika Anda ingin mengirim data ke Main Isolate/UI)
-//   // Jika tidak, Anda bisa hapus
-//   final StreamController<HeartRateData> _finalHrCtrl =
-//       StreamController<HeartRateData>.broadcast();
-
-//   // Debug counters
-//   int _totalDataPoints = 0;
-//   int _successfulAggregations = 0;
-//   int _failedAggregations = 0;
-//   int _panicDetections = 0;
-
-//   void _debugLog(String message, {String type = "INFO"}) {
-//     final timestamp = DateTime.now().toIso8601String();
-//     final logMessage = '[$timestamp] [BackgroundTask-$type] $message';
-
-//     print('🔵 $logMessage');
-
-//     // Send to main isolate for UI debugging if needed
-//     try {
-//       FlutterForegroundTask.sendDataToMain({
-//         'type': 'debug_log',
-//         'message': message,
-//         'timestamp': timestamp,
-//       });
-//     } catch (e) {
-//       print('❌ Failed to send debug log to main isolate: $e');
-//     }
-//   }
-
-//   @override
-//   Future<void> onStart(DateTime timestamp, TaskStarter starter) async {
-//     try {
-//       print('[TaskHandler] Health monitoring started at $timestamp');
-
-//       await PhoneSensorService().initialize();
-//       await BLEService().startScan();
-
-//       // Initialize minimal services in background
-//       _debugLog('💾 Initializing Hive storage...');
-//       await Hive.initFlutter();
-//       if (!Hive.isBoxOpen('hr_box')) {
-//         await Hive.openBox('hr_box');
-//         _debugLog('✅ Hive hr_box opened');
-//       }
-//       if (!Hive.isBoxOpen('sync_queue')) await Hive.openBox('sync_queue');
-//       _debugLog('✅ Hive sync_queue opened');
-//       if (!Hive.isBoxOpen('panic_events')) await Hive.openBox('panic_events');
-
-//       _debugLog('🎯 Starting BLE listening and maintenance timers...');
-//       _startListeningToBLE();
-//       _startMaintenanceTimers();
-
-//       _debugLog('🎉 Health monitoring task STARTED SUCCESSFULLY');
-//     } catch (e, stackTrace) {
-//       _debugLog('💥 CRITICAL ERROR during task startup: $e', type: 'ERROR');
-//       _debugLog('Stack trace: $stackTrace', type: 'ERROR');
-//       rethrow;
-//     }
-//   }
-
-//   void _startMaintenanceTimers() {
-//     // Watchdog timer - ensure BLE connection
-//     _watchdogTimer = Timer.periodic(const Duration(seconds: 30), (_) async {
-//       if (!_bleService.isConnected) {
-//         print('[TaskHandler] Watchdog: BLE disconnected, restarting scan...');
-//         await _bleService.startScan();
-//       }
-//     });
-
-//     // Data sync timer - sync cached data to Firestore
-//     _dataSyncTimer = Timer.periodic(const Duration(minutes: 5), (_) async {
-//       await _syncCachedData();
-//     });
-
-//     // Panic check timer - additional safety check
-//     _panicCheckTimer = Timer.periodic(const Duration(seconds: 60), (_) async {
-//       await _performPeriodicPanicCheck();
-//     });
-//   }
-
-//   Future<void> _cacheDataForSync(HeartRateData hrData) async {
-//     try {
-//       final box = await Hive.openBox('sync_queue');
-//       final key = 'hr_${hrData.timestamp.millisecondsSinceEpoch}';
-
-//       final data = {
-//         'bpm': hrData.bpm,
-//         'timestamp': hrData.timestamp.millisecondsSinceEpoch,
-//         'rrIntervals': hrData.rrIntervals,
-//         'hrv10s': hrData.HRV10s?.toJson(),
-//         'hrv30s': hrData.HRV30s?.toJson(),
-//         'hrv60s': hrData.HRV60s?.toJson(),
-//         'rhr': hrData.rhr,
-//         'phoneSensor': hrData.phoneSensor.toJson(),
-//         'type': 'heart_rate',
-//       };
-
-//       await box.put(key, data);
-//     } catch (e) {
-//       print('[ForegroundService] Error caching data: $e');
-//     }
-//   }
-
-//   Future<void> _syncCachedData() async {
-//     try {
-//       final box = await Hive.openBox('sync_queue');
-//       final keys = box.keys.toList();
-
-//       if (keys.isEmpty) return;
-
-//       print('[ForegroundService] Syncing ${keys.length} cached data points...');
-
-//       int successCount = 0;
-//       for (final key in keys) {
-//         try {
-//           final data = box.get(key);
-//           if (data != null && data['type'] == 'heart_rate') {
-//             final hrData = _convertToHeartRateData(data);
-//             if (hrData != null) {
-//               await _firestoreService.syncHeartRateData(hrData);
-//               await box.delete(key);
-//               successCount++;
-//             }
-//           }
-//         } catch (e) {
-//           print('[ForegroundService] Error syncing item $key: $e');
-//         }
-//       }
-
-//       print(
-//         '[ForegroundService] Sync completed: $successCount/${keys.length} items synced',
-//       );
-//     } catch (e) {
-//       print('[ForegroundService] Error syncing data: $e');
-//     }
-//   }
-
-//   HeartRateData? _convertToHeartRateData(Map<dynamic, dynamic> data) {
-//     try {
-//       return HeartRateData(
-//         data['bpm'] as int,
-//         DateTime.fromMillisecondsSinceEpoch(data['timestamp'] as int),
-//         (data['rrIntervals'] as List?)?.cast<double>(),
-//         data['hrv10s'] != null
-//             ? HRVMetrics.fromJson(Map<String, dynamic>.from(data['hrv10s']))
-//             : null,
-//         data['hrv30s'] != null
-//             ? HRVMetrics.fromJson(Map<String, dynamic>.from(data['hrv30s']))
-//             : null,
-//         data['hrv60s'] != null
-//             ? HRVMetrics.fromJson(Map<String, dynamic>.from(data['hrv60s']))
-//             : null,
-//         (data['rhr'] as num).toDouble(),
-//         SpatioTemporal.fromJson(Map<String, dynamic>.from(data['phoneSensor'])),
-//       );
-//     } catch (e) {
-//       print('[ForegroundService] Error converting data: $e');
-//       return null;
-//     }
-//   }
-
-//   Future<void> _performPeriodicPanicCheck() async {
-//     try {
-//       final box = await Hive.openBox('hr_box');
-//       final recentKeys = box.keys
-//           .where((key) => key.toString().startsWith('hr_'))
-//           .toList()
-//           .reversed
-//           .take(10)
-//           .toList();
-
-//       if (recentKeys.length < 5) return;
-
-//       final recentData = <HeartRateData>[];
-//       for (final key in recentKeys) {
-//         final data = box.get(key);
-//         if (data != null) {
-//           final hrData = _convertToHeartRateData(data);
-//           if (hrData != null) {
-//             recentData.add(hrData);
-//           }
-//         }
-//       }
-
-//       await _checkForPanicPatterns(recentData);
-//     } catch (e) {
-//       print('[ForegroundService] Error in periodic panic check: $e');
-//     }
-//   }
-
-//   Future<void> _checkForPanicPatterns(List<HeartRateData> recentData) async {
-//     if (recentData.length < 5) return;
-
-//     // Check for rapid heart rate increase
-//     final recentBPM = recentData.map((d) => d.bpm).toList();
-//     final avgBPM = recentBPM.reduce((a, b) => a + b) / recentBPM.length;
-
-//     if (avgBPM > 100) {
-//       // High heart rate detected - run ML prediction
-//       final prediction = await _mlService.predictPanicAttack(recentData.last);
-//       if (prediction.isPanic) {
-//         _handlePanicDetection(prediction, recentData.last);
-//       }
-//     }
-//   }
-
-//   void _handlePanicDetection(
-//     PanicPrediction prediction,
-//     HeartRateData? hrData,
-//   ) {
-//     print(
-//       '[ForegroundService] 🚨 Panic detected: ${(prediction.confidence * 100).toStringAsFixed(1)}%',
-//     );
-
-//     // Update notification for panic alert
-//     FlutterForegroundTask.updateService(
-//       notificationTitle: '🚨 Panic Alert!',
-//       notificationText: 'High probability of panic attack detected',
-//     );
-
-//     // Log panic event
-//     _logPanicEvent(prediction, hrData);
-//   }
-
-//   Future<void> _logPanicEvent(
-//     PanicPrediction prediction,
-//     HeartRateData? hrData,
-//   ) async {
-//     try {
-//       final box = await Hive.openBox('panic_events');
-//       final key = 'panic_${DateTime.now().millisecondsSinceEpoch}';
-
-//       final eventData = {
-//         'timestamp': DateTime.now().millisecondsSinceEpoch,
-//         'confidence': prediction.confidence,
-//         'features': prediction.features,
-//         'heart_rate': hrData?.bpm,
-//         'hrv': hrData?.HRV60s?.rmssd,
-//         'activity': hrData?.phoneSensor.rawActivityStatus,
-//       };
-
-//       FlutterForegroundTask.sendDataToMain(prediction.toJson());
-
-//       await box.put(key, eventData);
-//     } catch (e) {
-//       print('[ForegroundService] Error logging panic event: $e');
-//     }
-//   }
-
-//   void _updateNotification() {
-//     FlutterForegroundTask.updateService(
-//       notificationTitle: 'AURA Health Monitor',
-//       notificationText: 'Active for ${_monitoringCount ~/ 2} minutes',
-//     );
-//   }
-
-//   @override
-//   void onRepeatEvent(DateTime timestamp) {
-//     // This runs every 30 seconds based on our ForegroundTaskEventAction.repeat(30000)
-//     _monitoringCount++;
-//     _updateNotification();
-
-//     // Send data to UI if needed
-//     FlutterForegroundTask.sendDataToMain(_monitoringCount);
-//   }
-
-//   @override
-//   void onReceiveData(Object data) {
-//     print('[TaskHandler] Received data: $data');
-//     // Handle data sent from main isolate
-//   }
-
-//   @override
-//   void onNotificationButtonPressed(String id) {
-//     print('[TaskHandler] Notification button pressed: $id');
-
-//     switch (id) {
-//       case 'panic_help':
-//         // Open breathing guide or emergency contact
-//         FlutterForegroundTask.launchApp('/breathing');
-//         break;
-//       case 'stop_service':
-//         // Stop the service when user requests
-//         FlutterForegroundTask.stopService();
-//         break;
-//     }
-//   }
-
-//   void _startListeningToBLE() {
-//     _aggregationTimer = Timer.periodic(const Duration(minutes: 1), (timer) {
-//       _processAndAggregateData();
-//     });
-
-//     _bleSub = _bleService.rawHrStream.listen((rawData) {
-//       // Cukup akumulasi RR interval
-//       if (rawData.rrIntervals != null) {
-//         _accumulateRR.addAll(rawData.rrIntervals!.cast<double>());
-//       }
-//     });
-//   }
-
-//   Future<void> _processAndAggregateData() async {
-//     final List<double> rrSnapshot = List.from(_accumulateRR);
-//     _accumulateRR.clear();
-
-//     if (rrSnapshot.isEmpty) {
-//       print(
-//         '[Aggregator] No RR data received in the last minute. Skipping sync.',
-//       );
-//       return;
-//     }
-
-//     final int currentTimeMs =
-//         DateTime.now().millisecondsSinceEpoch; // ⭐️ Tentukan waktu sekali
-//     // 2. Hitung BPM rata-rata
-//     // Untuk data 1 menit, BPM terbaik dihitung dari RR snapshot.
-//     final double averageRR =
-//         rrSnapshot.reduce((a, b) => a + b) / rrSnapshot.length;
-//     // BPM = 60000 / Rata-rata RR (dalam ms)
-//     final int aggregatedBPM = (60000 / averageRR).round();
-
-//     rrSnapshot.forEach((r) {
-//       _hrvService.addRR(r, currentTimeMs);
-//     });
-//     final hrvMetrics = _hrvService.computeForStandardWindows(
-//       nowMs: currentTimeMs,
-//     );
-
-//     // Ambil Data Sensor Ponsel
-//     // **ASUMSI:** PhoneSensorService mengelola statusnya sendiri dan `latestContext` aman diakses.
-//     final SpatioTemporal spatio =
-//         _phoneSensorService.latestContext ?? SpatioTemporal.empty();
-
-//     // 3. Hitung RHR (dari history di kelas ini)
-//     final double rhr = _rhrService.computeRHR(_history) ?? 0.0;
-
-//     // 4. Gabungkan menjadi model HeartRateData FINAL
-//     final hrFinal = HeartRateData(
-//       aggregatedBPM,
-//       DateTime.now(),
-//       rrSnapshot,
-//       hrvMetrics[10],
-//       hrvMetrics[30],
-//       hrvMetrics[60],
-//       rhr,
-//       spatio,
-//     );
-
-//     // Kirim sebagai JSON Map agar aman menyeberang Isolate
-//     FlutterForegroundTask.sendDataToMain(hrFinal.toJson());
-
-//     // 5. Simpan ke History dan Hive
-//     _history.add(hrFinal);
-//     _pruneHistory();
-//     await _saveToHive(hrFinal);
-
-//     // 6. Sinkronisasi ke Firestore
-//     await _firestoreService.syncHeartRateData(hrFinal);
-
-//     // 7. Deteksi ML
-//     final prediction = await _mlService.predictPanicAttack(hrFinal);
-//     if (prediction.isPanic && prediction.confidence > 0.7) {
-//       // Trigger notifikasi, alert, dll.
-//       _handlePanicDetection(prediction, hrFinal);
-//     }
-
-//     // 8. Emit data final ke UI
-//     _finalHrCtrl.add(hrFinal);
-//   }
-
-//   // Pindahkan fungsi pruning history ke sini
-//   void _pruneHistory() {
-//     final cutoff = DateTime.now().millisecondsSinceEpoch - (60 * 60 * 1000);
-//     _history.removeWhere((h) => h.timestamp.millisecondsSinceEpoch < cutoff);
-//   }
-
-//   // Pindahkan fungsi Hive ke sini
-//   Future<void> _saveToHive(HeartRateData hr) async {
-//     try {
-//       final box = Hive.box('hr_box');
-//       final key = hr.timestamp.millisecondsSinceEpoch.toString();
-//       final jsonMap = hr
-//           .toJson(); // Pastikan HeartRateData memiliki method toJson()
-//       await box.put(key, jsonMap);
-//     } catch (e) {
-//       print('Error saving to Hive: $e');
-//     }
-//   }
-
-//   @override
-//   Future<void> onDestroy(DateTime timestamp) async {
-//     print('[TaskHandler] Health monitoring destroyed...');
-
-//     // 1. Cancel semua timers
-//     _monitoringTimer?.cancel();
-//     _aggregationTimer?.cancel(); // Wajib
-//     _watchdogTimer?.cancel(); // Wajib
-//     _dataSyncTimer?.cancel(); // Wajib
-//     _panicCheckTimer?.cancel(); // Wajib
-
-//     // 2. Cancel subscriptions
-//     _bleSub?.cancel(); // Wajib
-
-//     // 3. Stop Core Services
-//     await _bleService.disconnect();
-//     _phoneSensorService.stop();
-
-//     // 4. Close Hive
-//     await Hive.close();
-//   }
-
-//   // @override
-//   // void dispose() {
-//   //   _bleSub?.cancel();
-//   //   _aggregationTimer?.cancel();
-//   //   _finalHrCtrl.close();
-//   //   super.dispose();
-//   // }
-
-//   @override
-//   void onNotificationPressed() {
-//     print('[TaskHandler] Notification pressed');
-//     // Bring app to foreground when notification is tapped
-//     FlutterForegroundTask.launchApp();
-//   }
-
-//   @override
-//   void onNotificationDismissed() {
-//     print('[TaskHandler] Notification dismissed');
-//   }
-// }
