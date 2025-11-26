@@ -39,10 +39,10 @@ class PhoneSensorService {
     _debugLabel = label;
 
     // Force re-init jika dipanggil lagi dengan label berbeda (misal retry di BG)
-    if (_isInitialized) {
-      print('[$_debugLabel] ⚠️ Already initialized. Skipping.');
-      return;
-    }
+    // if (_isInitialized) {
+    //   print('[$_debugLabel] ⚠️ Already initialized. Skipping.');
+    //   return;
+    // }
     // 1. Cek Permission (Hanya untuk Log, JANGAN RETURN)
     final permissionsGranted =
         await PhonePermissionService.arePermissionGranted();

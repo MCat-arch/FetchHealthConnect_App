@@ -1,3 +1,4 @@
+import 'package:aura_bluetooth/utils/dummy_data_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -29,7 +30,8 @@ class _LoginPageState extends State<LoginPage> {
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
           );
-      print(userCredential);
+      // await DummyDataHelper.uploadDummyData();
+      print("LOGIN : BERHASIL MENAMBAHKAN DUMMY DAN LOGIN $userCredential");
     } on FirebaseAuthException catch (e) {
       print(e.message);
     }

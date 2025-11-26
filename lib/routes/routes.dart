@@ -67,7 +67,7 @@ final router = GoRouter(
     GoRoute(path: '/signup', builder: (_, __) => const SignUpPage()),
     GoRoute(path: '/login', builder: (_, __) => const LoginPage()),
     GoRoute(path: '/setting', builder: (_, __) => const SettingPage()),
-    GoRoute(path: '/stats', builder: (_, __) => const StatisticsWidget()),
+    // GoRoute(path: '/stats', builder: (_, __) => const StatisticsWidget()),
     GoRoute(path: '/breathing', builder: (_, __) => const BreathingGuidePage()),
   ],
 );

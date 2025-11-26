@@ -1,15 +1,15 @@
 // services/foreground_service_hr.dart
 import 'dart:async';
-import 'dart:io';
 import 'package:aura_bluetooth/firebase_options.dart';
 import 'package:aura_bluetooth/models/heart_rate_model.dart';
 import 'package:aura_bluetooth/models/hrv_metric.dart';
 import 'package:aura_bluetooth/models/spatio.model.dart';
-import 'package:aura_bluetooth/providers/ble_provider.dart';
 import 'package:aura_bluetooth/services/firestore_service.dart';
 import 'package:aura_bluetooth/services/hrv_service.dart';
 import 'package:aura_bluetooth/services/ml_panic_service.dart';
 import 'package:aura_bluetooth/services/rhr_service.dart';
+import 'package:aura_bluetooth/utils/storage_helper.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import '../services/ble_service.dart';
@@ -26,7 +26,6 @@ class ForegroundMonitorService {
 
   bool get isRunning => _isRunning;
   int get dataPointsCollected => _dataPointsCollected;
-
 
   ForegroundMonitorService._internal();
 
@@ -127,6 +126,7 @@ class HealthMonitoringTaskHandler extends TaskHandler {
   MLPanicService? _mlService;
   PhoneSensorService? _phoneSensorService;
   BLEService? _bleService;
+  StorageService? _storageService;
 
   // State Variables
   final List<double> _accumulateRR = [];
@@ -150,10 +150,13 @@ class HealthMonitoringTaskHandler extends TaskHandler {
     _debugLog('🚀 STARTING Background Handler...');
 
     try {
-      await Hive.initFlutter();
-      await Hive.openBox('hr_box');
-      await Hive.openBox('sync_queue');
-      await Hive.openBox('panic_events');
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      // await Hive.initFlutter();
+      // // await Hive.openBox('hr_box');
+      // // await Hive.openBox('sync_queue');
+      // await Hive.openBox('panic_events');
 
       // 2. Init Services
       _hrvService = HRVService();
@@ -161,9 +164,12 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       _firestoreService = FirestoreService();
       _mlService = MLPanicService();
       _bleService = BLEService();
+      _storageService = StorageService();
 
-      // _phoneSensorService = PhoneSensorService();
-
+      await _storageService!.init();
+      await Hive.openBox('panic_events');
+      _debugLog('💾 Storage & Hive initialized');
+      _phoneSensorService = PhoneSensorService();
       // 3. Init Hardware
       _debugLog('📱 Initializing PhoneSensorService...');
       try {
@@ -364,7 +370,7 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       final rhr = _rhrService!.computeRHR(_history) ?? 0.0;
 
       // 4. Buat Model
-      final hrData = HeartRateData(
+      HeartRateData hrData = HeartRateData(
         bpm,
         DateTime.now(),
         rrSnapshot,
@@ -373,6 +379,24 @@ class HealthMonitoringTaskHandler extends TaskHandler {
         hrvMetrics[60],
         rhr,
         spatio,
+        null,
+      );
+
+      final prediction = await _mlService!.predictPanicAttack(hrData);
+      if (prediction.isPanic && prediction.confidence > 0.7) {
+        _handlePanicDetection(prediction, hrData);
+      }
+
+      final hrDataFinal = HeartRateData(
+        bpm,
+        DateTime.now(),
+        rrSnapshot,
+        hrvMetrics[10],
+        hrvMetrics[30],
+        hrvMetrics[60],
+        rhr,
+        spatio,
+        prediction,
       );
 
       // 🔍 TAMBAHAN: Log Data Terperinci
@@ -393,19 +417,31 @@ class HealthMonitoringTaskHandler extends TaskHandler {
 
       _history.add(hrData);
       _pruneHistory();
-      await _saveToHive(hrData);
+      // await _saveToHive(hrData);
+      await _storageService!.saveHeartRateData(hrDataFinal);
+
+      await _syncSingleDataToFirestore(hrDataFinal);
+
       // await _firestoreService!.syncHeartRateData(hrData);
 
       // 6. Cek Panik
-      final prediction = await _mlService!.predictPanicAttack(hrData);
-      if (prediction.isPanic && prediction.confidence > 0.7) {
-        _handlePanicDetection(prediction, hrData);
-      }
-
       _debugLog('✅ Aggregation Success: $bpm BPM');
     } catch (e, s) {
       _debugLog('❌ Aggregation Error: $e', type: 'ERROR');
       print(s);
+    }
+  }
+
+  Future<void> _syncSingleDataToFirestore(HeartRateData data) async {
+    try {
+      // Asumsi kita hanya perlu userId dari tempat lain
+      await _firestoreService!.syncHeartRateData(data, userId: "BG_USER");
+    } catch (e) {
+      _debugLog(
+        '⚠️ Real-time Firestore sync failed: $e. Will retry via Workmanager.',
+        type: 'WARNING',
+      );
+      // Jika gagal, data aman di Hive sync_queue dan akan diurus oleh Workmanager.
     }
   }
 
@@ -491,6 +527,7 @@ class HealthMonitoringTaskHandler extends TaskHandler {
             : null,
         (data['rhr'] as num).toDouble(),
         SpatioTemporal.fromJson(Map<String, dynamic>.from(data['phoneSensor'])),
+        PanicPrediction.fromJson(Map<String, dynamic>.from(data['prediction'])),
       );
     } catch (e) {
       _debugLog('❌ Error converting cached data: $e', type: 'ERROR');

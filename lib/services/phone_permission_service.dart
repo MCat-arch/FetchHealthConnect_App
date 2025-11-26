@@ -1,10 +1,10 @@
 import 'dart:io';
+import 'package:aura_bluetooth/utils/storage_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:device_info_plus/device_info_plus.dart'; // Tambahkan paket ini untuk cek versi Android
 
 class PhonePermissionService {
-  
   /// Meminta semua izin yang diperlukan sekaligus
   static Future<bool> requestAllPermission() async {
     try {
@@ -44,21 +44,25 @@ class PhonePermissionService {
 
       // 2. Cek apakah izin KRUSIAL diberikan
       // Kita filter ignoreBatteryOptimizations dari cek ini karena dia spesial
-      bool allEssentialGranted = statuses.values.every((status) => status.isGranted);
+      bool allEssentialGranted = statuses.values.every(
+        (status) => status.isGranted,
+      );
 
       if (allEssentialGranted) {
         debugPrint("[PermissionService] ✅ All core permissions granted");
-        
+
+
         // 3. Request Battery Optimization Terpisah (Opsional & Hati-hati)
         // Lakukan ini hanya jika benar-benar perlu agar tidak mengganggu flow user
-        await _requestBatteryOptimization(); 
-        
+        await _requestBatteryOptimization();
+        await StorageService().savePermissionStatus(true);
+
         return true;
       } else {
         debugPrint("[PermissionService] ❌ Some permissions denied: $statuses");
+        await StorageService().savePermissionStatus(false);
         return false;
       }
-
     } catch (e) {
       debugPrint("[PermissionService] Error requesting permissions: $e");
       return false;
@@ -69,33 +73,41 @@ class PhonePermissionService {
     // Battery optimization behaves differently. It opens a system dialog directly.
     // Only request if strictly necessary.
     if (await Permission.ignoreBatteryOptimizations.isDenied) {
-       await Permission.ignoreBatteryOptimizations.request();
+      await Permission.ignoreBatteryOptimizations.request();
     }
   }
 
   static Future<bool> arePermissionGranted() async {
+    final bool isStoredGranted = StorageService().getStoredPermissionStatus();
+
+    if (isStoredGranted) {
+      // Jika di storage sudah true, kita asumsikan granted.
+      // Ini mencegah sensor service return false di background.
+      return true;
+    }
     try {
       bool activity = await Permission.activityRecognition.isGranted;
       bool mic = await Permission.microphone.isGranted;
       bool notif = await Permission.notification.isGranted;
-      
+
       bool ble = false;
       if (Platform.isAndroid) {
-         final androidInfo = await DeviceInfoPlugin().androidInfo;
-         if (androidInfo.version.sdkInt >= 31) {
-            ble = await Permission.bluetoothScan.isGranted && 
-                  await Permission.bluetoothConnect.isGranted;
-         } else {
-            // Untuk Android lama, Location = BLE Permission
-            ble = await Permission.locationWhenInUse.isGranted;
-         }
+        final androidInfo = await DeviceInfoPlugin().androidInfo;
+        if (androidInfo.version.sdkInt >= 31) {
+          ble =
+              await Permission.bluetoothScan.isGranted &&
+              await Permission.bluetoothConnect.isGranted;
+        } else {
+          // Untuk Android lama, Location = BLE Permission
+          ble = await Permission.locationWhenInUse.isGranted;
+        }
       } else {
-         ble = await Permission.bluetooth.isGranted;
+        ble = await Permission.bluetooth.isGranted;
       }
 
       // Catatan: Permission.sensors biasanya TIDAK PERLU untuk activity recognition standar
       // kecuali Anda mengakses sensor raw (gyroscope/accelerometer) secara manual.
-      
+
       return ble && mic && activity && notif;
     } catch (e) {
       print('[PermissionService] Error checking permissions: $e');
@@ -107,7 +119,7 @@ class PhonePermissionService {
     try {
       // Panggil fungsi global dari package permission_handler
       // Jangan panggil nama fungsi kelas ini sendiri (Recursion!)
-      await openAppSettings(); 
+      await openAppSettings();
     } catch (e) {
       debugPrint("[PermissionService] Error opening app settings: $e");
     }

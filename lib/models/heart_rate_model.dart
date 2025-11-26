@@ -2,6 +2,8 @@ import 'package:aura_bluetooth/models/hrv_metric.dart';
 import 'package:aura_bluetooth/models/spatio.model.dart';
 import 'dart:convert';
 
+import 'package:aura_bluetooth/services/ml_panic_service.dart';
+
 class HeartRateData {
   final int bpm;
   final DateTime timestamp;
@@ -11,7 +13,7 @@ class HeartRateData {
   final HRVMetrics? HRV60s;
   final double rhr;
   SpatioTemporal phoneSensor;
-
+  PanicPrediction? prediction;
 
   HeartRateData(
     this.bpm,
@@ -22,6 +24,7 @@ class HeartRateData {
     this.HRV60s,
     this.rhr,
     this.phoneSensor,
+    this.prediction,
   );
 
   factory HeartRateData.fromJson(Map<String, dynamic> json) {
@@ -47,11 +50,15 @@ class HeartRateData {
           ? HRVMetrics.fromJson(Map<String, dynamic>.from(json['HRV60s']))
           : null,
       json['rhr'] != null ? (json['rhr'] as num).toDouble() : 0.0,
-      json['phoneSensor'] != null ? SpatioTemporal.fromJson(
-        Map<String, dynamic>.from(json['phoneSensor']),
-      ) : SpatioTemporal.empty(), // asumsi konstruktor default ada
+      json['phoneSensor'] != null
+          ? SpatioTemporal.fromJson(
+              Map<String, dynamic>.from(json['phoneSensor']),
+            )
+          : SpatioTemporal.empty(), // asumsi konstruktor default ada
+
+      json['prediction'] != null ? PanicPrediction.fromJson(json['prediction']) : null
     );
-  }
+    }
 
   Map<String, dynamic> toJson() {
     return {
@@ -63,6 +70,7 @@ class HeartRateData {
       'HRV60s': HRV60s?.toJson(),
       'rhr': rhr,
       'phoneSensor': phoneSensor.toJson(),
+      'prediction': prediction?.toJson(),
     };
   }
 

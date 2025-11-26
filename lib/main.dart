@@ -8,9 +8,12 @@ import 'package:aura_bluetooth/services/hrv_service.dart';
 import 'package:aura_bluetooth/services/ml_panic_service.dart';
 import 'package:aura_bluetooth/services/notification_service.dart';
 import 'package:aura_bluetooth/services/phone_permission_service.dart';
+import 'package:aura_bluetooth/services/phone_sensor_service.dart';
 import 'package:aura_bluetooth/services/rhr_service.dart';
 import 'package:aura_bluetooth/services/setting_service.dart';
 import 'package:aura_bluetooth/services/workmanager_service.dart';
+import 'package:aura_bluetooth/utils/dummy_data_helper.dart';
+import 'package:aura_bluetooth/utils/storage_helper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
@@ -22,9 +25,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FlutterForegroundTask.initCommunicationPort();
   await Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  final storageService = StorageService();
+  await storageService.init();
 
   try {
     final permissionGranted =
@@ -37,18 +41,19 @@ void main() async {
     }
 
     // Deklarasikan semua service yang perlu diakses Provider di luar main()
-    final BLEService bleService = BLEService();
-    final SettingsService settingsService = SettingsService();
-    final NotificationService notificationService = NotificationService();
+    // final bleService = BLEService();
+    final settingsService = SettingsService();
+    final notificationService = NotificationService();
     // Tambahkan services lain yang dibutuhkan oleh provider
     // Asumsi services ini juga Singleton:
-    final firestoreService = FirestoreService(); //
-    final HRVService hrvService = HRVService();
-    final RHRService rhrService = RHRService();
+    // final firestoreService = FirestoreService(); //
+    // final hrvService = HRVService();
+    // final RHRService rhrService = RHRService();
     // final workmanager = WorkmanagerService();
-    final MLPanicService mlService = MLPanicService();
+    // final MLPanicService mlService = MLPanicService();
     final ForegroundMonitorService foregroundMonitorService =
         ForegroundMonitorService();
+    // final phonesensor = PhoneSensorService();
 
     // 5. Init Core Services
     await settingsService.initialize();
@@ -65,11 +70,13 @@ void main() async {
       MultiProvider(
         providers: [
           // 1. Providers yang menggunakan Singleton top-level (SUDAH BENAR)
-          Provider<BLEService>.value(value: bleService),
+          // Provider<BLEService>.value(value: bleService),
+          Provider<StorageService>.value(value: storageService),
           Provider<SettingsService>.value(value: settingsService),
           Provider<NotificationService>.value(value: notificationService),
+
           // ... services lainnya
-          Provider<HRVService>.value(value: hrvService),
+          // Provider<HRVService>.value(value: hrvService),
           // ... dan seterusnya untuk semua service yang Anda definisikan di atas.
           Provider<ForegroundMonitorService>.value(
             value: foregroundMonitorService,
@@ -156,3 +163,10 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+// got storage, workmanager, and firestore service new
+// i think it is not yet connected with task handler
+// added new field prediction on heartRateModel
+
+
+// memperbaiki statistikanya, bpm di hitung bukan dari rrInterval (fungsi nya kurang)

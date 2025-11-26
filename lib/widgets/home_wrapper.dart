@@ -54,11 +54,11 @@ class _HomeWrapperState extends State<HomeWrapper> with WidgetsBindingObserver {
 
       if (!mounted) return; // Cek mounted setelah await
       final settingsService = context.read<SettingsService>();
-      final workmanagerService = context.read<WorkmanagerService>();
+      // final workmanagerService = context.read<WorkmanagerService>();
       final foregroundService = context.read<ForegroundMonitorService>();
       // 3. Initialize Logic Services
       print('[HomeWrapper] Initializing Logic Services...');
-      await workmanagerService.initialize();
+      // await workmanagerService.initialize();
       print('[HomeWrapper] Initializing Workamanger Services success');
       await settingsService.initialize();
 

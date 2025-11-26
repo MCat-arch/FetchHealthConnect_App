@@ -758,13 +758,13 @@ class _HomePageState extends State<HomePage> {
                   'Health Statistics',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
-                TextButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const StatisticsWidget()),
-                  ),
-                  child: const Text('View Details'),
-                ),
+                // TextButton(
+                //   onPressed: () => Navigator.push(
+                //     context,
+                //     // MaterialPageRoute(builder: (_) => const StatisticsWidget()),
+                //   ),
+                //   child: const Text('View Details'),
+                // ),
               ],
             ),
             const SizedBox(height: 12),
