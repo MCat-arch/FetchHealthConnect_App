@@ -13,7 +13,7 @@ class Navbar extends StatelessWidget {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.wind_power_outlined), label: "Breath"),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Setting"),
+          // BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Setting"),
       ]
       //home,
         //breath

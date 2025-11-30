@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:aura_bluetooth/routes/routes.dart' as route;
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -9,8 +11,13 @@ class NotificationService {
   factory NotificationService() => _instance;
   NotificationService._internal();
 
-  static final FlutterLocalNotificationsPlugin _notification =
+  static final FlutterLocalNotificationsPlugin notification =
       FlutterLocalNotificationsPlugin();
+
+  final StreamController<String?> _onNotificationClick =
+      StreamController<String?>.broadcast();
+
+  Stream<String?> get onNotificationClick => _onNotificationClick.stream;
 
   static bool _initialized = false;
 
@@ -22,10 +29,11 @@ class NotificationService {
     );
     const initSetting = InitializationSettings(android: androidSettings);
 
-    await _notification.initialize(
+    await notification.initialize(
       initSetting,
-      onDidReceiveNotificationResponse: (response) {
-        route.router.go('/breathing');
+      onDidReceiveNotificationResponse: (NotificationResponse response) async {
+        //payload di ui
+        _onNotificationClick.add(response.payload);
       },
     );
 
@@ -39,28 +47,34 @@ class NotificationService {
     }
   }
 
-  Future<void> showNotification(
-    { int id = 1,
-    String title = 'Panic Alert',
-    String body = 'Hei its okay, tell yourself what emotion you going through now. Its okay to calm down',}
-  ) async {
+  Future<void> showNotification({
+    required int id,
+    required String title,
+    required String body,
+    String? payload,
+  }) async {
     const androidDetails = AndroidNotificationDetails(
-      'panic_channel_id',
-      'panic_channel_name',
+      'aura_alert',
+      'AURA Alerts',
+      channelDescription: 'important alerts for connection and health',
       importance: Importance.max,
       priority: Priority.high,
       playSound: true,
       enableVibration: true,
       enableLights: true,
-      );
+      showWhen: true,
+    );
 
-    const notificationDetails = NotificationDetails(android: androidDetails);
+    const NotificationDetails notificationDetails = NotificationDetails(
+      android: androidDetails,
+    );
 
-    await _notification.show(
-      1,
-      'Calm budy',
-      'Lets breath',
+    await notification.show(
+      id,
+      title,
+      body,
       notificationDetails,
+      payload: payload,
     );
   }
 }

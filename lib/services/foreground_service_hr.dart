@@ -7,6 +7,7 @@ import 'package:aura_bluetooth/models/spatio.model.dart';
 import 'package:aura_bluetooth/services/firestore_service.dart';
 import 'package:aura_bluetooth/services/hrv_service.dart';
 import 'package:aura_bluetooth/services/ml_panic_service.dart';
+import 'package:aura_bluetooth/services/notification_service.dart';
 import 'package:aura_bluetooth/services/rhr_service.dart';
 import 'package:aura_bluetooth/utils/storage_helper.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -127,10 +128,12 @@ class HealthMonitoringTaskHandler extends TaskHandler {
   PhoneSensorService? _phoneSensorService;
   BLEService? _bleService;
   StorageService? _storageService;
+  NotificationService? _notificationService;
 
   // State Variables
   final List<double> _accumulateRR = [];
   final List<HeartRateData> _history = [];
+  bool isHardwareConnected = false;
 
   StreamSubscription? _bleSub;
   Timer? _aggregationTimer;
@@ -162,6 +165,7 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       _hrvService = HRVService();
       _rhrService = RHRService();
       _firestoreService = FirestoreService();
+      _notificationService = NotificationService();
       _mlService = MLPanicService();
       _bleService = BLEService();
       _storageService = StorageService();
@@ -192,6 +196,10 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       _debugLog('🎧 Starting BLE Scan & Listen...');
       _startListeningToBLE(); // Setup listener dulu
       await _bleService!.startScan(); // Baru start scan
+
+      _debugLog("init notifikasi");
+      await _notificationService!.initNotification();
+      _debugLog("berhasil init notifikasi");
 
       // 5. Start Timers
       _startMaintenanceTimers();
@@ -294,12 +302,25 @@ class HealthMonitoringTaskHandler extends TaskHandler {
     _watchdogTimer = Timer.periodic(const Duration(seconds: 30), (_) async {
       if (_bleService == null) return;
 
+      final time = DateTime.now();
+
       final connectedDevices = await FlutterBluePlus.connectedDevices;
-      final bool isHardwareConnected = connectedDevices.isNotEmpty;
+      final bool isConnect = connectedDevices.isNotEmpty;
+      if (isHardwareConnected != isConnect) {
+        isHardwareConnected = isConnect;
+        _updateNotification();
+      }
 
       _debugLog('🔍 Watchdog: Hardware Connected = $isHardwareConnected');
 
       if (!isHardwareConnected) {
+        isHardwareConnected = false;
+        _notificationService!.showNotification(
+          id: 1,
+          title: 'Device Disconnected',
+          body: 'Plase Reconnect the Armband',
+          payload: time.toString(),
+        );
         // KASUS 1: Tidak ada koneksi hardware -> SCAN ULANG
         _debugLog('⚠️ Disconnected. Restarting Scan...');
         if (!FlutterBluePlus.isScanningNow) {
@@ -353,9 +374,32 @@ class HealthMonitoringTaskHandler extends TaskHandler {
 
     try {
       // 1. Hitung BPM
-      final double averageRR =
-          rrSnapshot.reduce((a, b) => a + b) / rrSnapshot.length;
-      final int bpm = (60000 / averageRR).round();
+      double totalRR = 0;
+      int count = 0;
+
+      for (var rr in rrSnapshot) {
+        if (rr > 0) {
+          totalRR += rr;
+          count++;
+        }
+      }
+
+      // Default BPM jika data kosong (safety)
+      int bpm = 0;
+
+      if (count > 0) {
+        final double averageRR = totalRR / count;
+        bpm = (60000 / averageRR).round();
+      }
+
+      // double totalBpm = 0;
+      // for (var rr in rrSnapshot) {
+      //   if (rr > 0) totalBpm += 60000 / rr;
+      // }
+      // final int bpm = (totalBpm / rrSnapshot.length).round();
+      // final double averageRR =
+      //     rrSnapshot.reduce((a, b) => a + b) / rrSnapshot.length;
+      // final int bpm = (60000 / averageRR).round();
 
       // 2. Hitung HRV
       final nowMs = DateTime.now().millisecondsSinceEpoch;
@@ -365,10 +409,18 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       final hrvMetrics = _hrvService!.computeForStandardWindows(nowMs: nowMs);
 
       // 3. Ambil Sensor Lain
-      final spatio =
+      final oldspatio =
           _phoneSensorService!.latestContext ?? SpatioTemporal.empty();
-      final rhr = _rhrService!.computeRHR(_history) ?? 0.0;
 
+      final now = DateTime.now();
+      final timeString =
+          "${now.hour.toString().padLeft(2, '0')}:${now.minute.toString().padLeft(2, '0')}:${now.second.toString().padLeft(2, '0')}";
+
+      final rhr = _rhrService!.computeRHR(_history) ?? 0.0;
+      final spatio = oldspatio.copyWith(
+        time: timeString,
+        timeOfDayCategory: timeString,
+      );
       // 4. Buat Model
       HeartRateData hrData = HeartRateData(
         bpm,
@@ -383,7 +435,7 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       );
 
       final prediction = await _mlService!.predictPanicAttack(hrData);
-      if (prediction.isPanic && prediction.confidence > 0.7) {
+      if (prediction.isPanic && prediction.confidence > 0.5) {
         _handlePanicDetection(prediction, hrData);
       }
 
@@ -420,7 +472,23 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       // await _saveToHive(hrData);
       await _storageService!.saveHeartRateData(hrDataFinal);
 
-      await _syncSingleDataToFirestore(hrDataFinal);
+      try {
+        await _firestoreService!.syncHeartRateData(
+          hrDataFinal,
+          userId: "BG_USER",
+        );
+
+        final key = hrDataFinal.timestamp.microsecondsSinceEpoch.toString();
+        await _storageService!.clearSyncedData([key]);
+      } catch (e) {
+        // 2. Masukkan ke Antrian Sync (sync_queue)
+        await _cacheDataForSync(hrDataFinal);
+      }
+
+      // // 2. Masukkan ke Antrian Sync (sync_queue)
+      // await _cacheDataForSync(hrDataFinal);
+
+      // await _syncSingleDataToFirestore(hrDataFinal);
 
       // await _firestoreService!.syncHeartRateData(hrData);
 
@@ -434,8 +502,12 @@ class HealthMonitoringTaskHandler extends TaskHandler {
 
   Future<void> _syncSingleDataToFirestore(HeartRateData data) async {
     try {
-      // Asumsi kita hanya perlu userId dari tempat lain
+      if (_firestoreService == null) return;
       await _firestoreService!.syncHeartRateData(data, userId: "BG_USER");
+
+      final box = await Hive.openBox('sync_queue');
+      final key = 'hr_${data.timestamp.millisecondsSinceEpoch}';
+      await box.delete(key);
     } catch (e) {
       _debugLog(
         '⚠️ Real-time Firestore sync failed: $e. Will retry via Workmanager.',
@@ -470,40 +542,52 @@ class HealthMonitoringTaskHandler extends TaskHandler {
   }
 
   Future<void> _syncCachedData() async {
+    if (_storageService == null || _firestoreService == null) return;
     try {
-      final box = await Hive.openBox('sync_queue');
-      final keys = box.keys.toList();
+      _debugLog('🔄 Starting scheduled data sync...');
 
-      _debugLog('📤 Found ${keys.length} cached items to sync');
+      // 1. Ambil data menggunakan Helper StorageService
+      // Tidak perlu openBox manual atau parsing JSON manual di sini
+      final pendingData = _storageService!.getUnsyncedData();
 
-      if (keys.isEmpty) {
+      if (pendingData.isEmpty) {
         _debugLog('ℹ️ No cached data to sync');
         return;
       }
 
-      int successCount = 0;
+      _debugLog('📤 Found ${pendingData.length} cached items to sync');
+
+      final List<String> successKeys = [];
       int errorCount = 0;
 
-      for (final key in keys) {
+      // 2. Loop Upload
+      for (final hrData in pendingData) {
         try {
-          final data = box.get(key);
-          if (data != null && data['type'] == 'heart_rate') {
-            final hrData = _convertToHeartRateData(data);
-            if (hrData != null) {
-              await _firestoreService!.syncHeartRateData(hrData);
-              await box.delete(key);
-              successCount++;
-              _debugLog('✅ Synced item: ${hrData.bpm} BPM');
-            }
-          }
+          // Asumsi: syncHeartRateData bisa menerima userId opsional, atau ambil dari auth
+          // Sesuaikan dengan signature method di FirestoreService Anda
+          await _firestoreService!.syncHeartRateData(hrData, userId: "BG_USER");
+
+          // Sukses? Simpan Key untuk dihapus nanti
+          // Key harus konsisten: timestamp string
+          successKeys.add(hrData.timestamp.millisecondsSinceEpoch.toString());
+
+          _debugLog('✅ Synced item: ${hrData.bpm} BPM');
         } catch (e) {
           errorCount++;
-          _debugLog('❌ Error syncing item $key: $e', type: 'ERROR');
+          _debugLog(
+            '❌ Error syncing item ${hrData.timestamp}: $e',
+            type: 'ERROR',
+          );
         }
       }
 
+      // 3. Batch Delete menggunakan Helper
+      if (successKeys.isNotEmpty) {
+        await _storageService!.clearSyncedData(successKeys);
+      }
+
       _debugLog(
-        '📊 Sync completed: $successCount success, $errorCount errors, ${keys.length - successCount - errorCount} remaining',
+        '📊 Sync completed: ${successKeys.length} success, $errorCount errors',
       );
     } catch (e) {
       _debugLog('❌ Error in sync process: $e', type: 'ERROR');
@@ -616,11 +700,21 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       type: 'ALERT',
     );
 
-    // Update notification for panic alert
-    FlutterForegroundTask.updateService(
-      notificationTitle: '🚨 Panic Alert!',
-      notificationText: 'High probability of panic attack detected',
+    final String timestamp =
+        hrData?.timestamp.toIso8601String() ?? DateTime.now().toIso8601String();
+
+    _notificationService!.showNotification(
+      id: 2,
+      title: 'Panic Attack Detected!',
+      body: 'Tap to start validation and relaxation.',
+      payload: timestamp, // Payload untuk navigasi
     );
+
+    FlutterForegroundTask.sendDataToMain({
+      'event': 'PANIC_DETECTED',
+      'timestamp': timestamp,
+      'confidence': prediction.confidence,
+    });
 
     // Log panic event
     _logPanicEvent(prediction, hrData);
@@ -654,10 +748,11 @@ class HealthMonitoringTaskHandler extends TaskHandler {
 
   void _updateNotification() {
     final minutesActive = _monitoringCount ~/ 2;
+    String conStatus = isHardwareConnected ? 'Connected' : 'Disconnected';
     FlutterForegroundTask.updateService(
-      notificationTitle: 'AURA Health Monitor',
+      notificationTitle: 'AURA',
       notificationText:
-          'Active for $minutesActive minutes | Data: $_totalDataPoints',
+          'Armband connection : $conStatus',
     );
 
     _debugLog(
@@ -686,11 +781,6 @@ class HealthMonitoringTaskHandler extends TaskHandler {
     });
   }
 
-  // @override
-  // void onReceiveData(Object data) {
-  //   _debugLog('📨 Received data from main isolate: $data');
-  // }
-
   @override
   void onNotificationButtonPressed(String id) {
     _debugLog('🔘 Notification button pressed: $id');
@@ -715,18 +805,6 @@ class HealthMonitoringTaskHandler extends TaskHandler {
 
     if (removed > 0) {
       _debugLog('🧹 Pruned $removed old data points from history');
-    }
-  }
-
-  Future<void> _saveToHive(HeartRateData hr) async {
-    try {
-      final box = Hive.box('hr_box');
-      final key = hr.timestamp.millisecondsSinceEpoch.toString();
-      final jsonMap = hr.toJson();
-      await box.put(key, jsonMap);
-      _debugLog('💾 Saved to Hive: key=$key, BPM=${hr.bpm}');
-    } catch (e) {
-      _debugLog('❌ Error saving to Hive: $e', type: 'ERROR');
     }
   }
 

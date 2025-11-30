@@ -69,6 +69,26 @@ class SpatioTemporal {
     required this.timeOfDayCategory,
   });
 
+  SpatioTemporal copyWith({
+    String? rawActivityStatus,
+    String? time,
+    double? noiseLeveldB,
+    bool? isWalking,
+    bool? isRunning,
+    bool? isStill,
+    String? timeOfDayCategory,
+  }) {
+    return SpatioTemporal._internal(
+      rawActivityStatus: rawActivityStatus ?? this.rawActivityStatus,
+      time: time ?? this.time,
+      noiseLeveldB: noiseLeveldB ?? this.noiseLeveldB,
+      isWalking: isWalking ?? this.isWalking,
+      isRunning: isRunning ?? this.isRunning,
+      isStill: isStill ?? this.isStill,
+      timeOfDayCategory: timeOfDayCategory ?? this.timeOfDayCategory,
+    );
+  }
+
   // -----------------------------------------------------------
   // 3. PUBLIC FACTORY: Entry point for construction from raw sensor data
   // -----------------------------------------------------------

@@ -80,6 +80,27 @@ class FirestoreService {
     print('✅ Batch synced ${successfulKeys.length} records');
     return successfulKeys;
   }
+
+  Future<void> updatePanicValidation(String timestamp, String status) async {
+    try {
+      final user = _auth.currentUser;
+
+      final String userId = user!.uid;
+      final docId = timestamp;
+
+      await _firestore
+          .collection('users')
+          .doc(userId)
+          .collection(collectionName)
+          .doc(docId)
+          .update({
+            'prediction.userFeedback': status,
+            'prediction.validated_at': FieldValue.serverTimestamp(),
+          });
+    } catch (e) {
+      print('Gagal update validasi: $e');
+    }
+  }
 }
 
 // // services/firestore_service.dart

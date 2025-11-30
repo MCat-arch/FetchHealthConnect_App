@@ -1,8 +1,6 @@
 import 'package:aura_bluetooth/firebase_options.dart';
 import 'package:aura_bluetooth/providers/ble_provider.dart';
 import 'package:aura_bluetooth/routes/routes.dart' as route;
-import 'package:aura_bluetooth/services/ble_service.dart';
-import 'package:aura_bluetooth/services/firestore_service.dart';
 import 'package:aura_bluetooth/services/foreground_service_hr.dart';
 import 'package:aura_bluetooth/services/hrv_service.dart';
 import 'package:aura_bluetooth/services/ml_panic_service.dart';
@@ -12,13 +10,13 @@ import 'package:aura_bluetooth/services/phone_sensor_service.dart';
 import 'package:aura_bluetooth/services/rhr_service.dart';
 import 'package:aura_bluetooth/services/setting_service.dart';
 import 'package:aura_bluetooth/services/workmanager_service.dart';
-import 'package:aura_bluetooth/utils/dummy_data_helper.dart';
 import 'package:aura_bluetooth/utils/storage_helper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:provider/provider.dart';
 import 'package:workmanager/workmanager.dart';
+
 
 void main() async {
   // Ensure Flutter binding is initialized
@@ -46,7 +44,7 @@ void main() async {
     final notificationService = NotificationService();
     // Tambahkan services lain yang dibutuhkan oleh provider
     // Asumsi services ini juga Singleton:
-    // final firestoreService = FirestoreService(); //
+    // final firestoreService = FirestoreService();
     // final hrvService = HRVService();
     // final RHRService rhrService = RHRService();
     // final workmanager = WorkmanagerService();
@@ -168,5 +166,9 @@ class MyApp extends StatelessWidget {
 // i think it is not yet connected with task handler
 // added new field prediction on heartRateModel
 
-
 // memperbaiki statistikanya, bpm di hitung bukan dari rrInterval (fungsi nya kurang)
+// menambahkan feedback jika disconnect dengan bluetooth
+// masalah pada time of the day dan time di phone sersor service
+
+
+

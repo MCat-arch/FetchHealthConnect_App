@@ -7,17 +7,20 @@ class BreathingService {
   factory BreathingService() => _instance;
 
   final AudioPlayer _audioPlayer = AudioPlayer();
-  Timer? _breathingTimer;
-  Timer? _countdownTimer;
-  int _remainingSeconds = 300; // 5 minutes default
+  Timer? _sessionTimer;
+
+  int _sessionDurationSeconds = 300;
+  int _remainingSeconds = 300;
   bool _isPlaying = false;
 
+  int _phaseIndex = 0;
+  int _secondsInCurrentPhase = 0;
   // Breathing pattern for panic attack: 4-7-8 technique
-  final Map<String, int> _breathingPattern = {
-    'inhale': 4, // Inhale for 4 seconds
-    'hold': 7, // Hold for 7 seconds
-    'exhale': 8, // Exhale for 8 seconds
-  };
+  final List<Map<String, dynamic>> _phase = [
+    {'name': 'inhale', 'duration': 4},
+    {'name': 'hold', 'duration': 7},
+    {'name': 'exhale', 'duration': 8},
+  ];
 
   final StreamController<String> _instructionCtrl =
       StreamController<String>.broadcast();
@@ -39,54 +42,81 @@ class BreathingService {
     await session.configure(const AudioSessionConfiguration.speech());
 
     await _audioPlayer.setAsset('/assets/beep.mp3');
+    await _audioPlayer.setVolume(1.0);
   }
 
   bool get isPlaying => _isPlaying;
   int get remainingSeconds => _remainingSeconds;
 
-  Future<void> startBreathing({int durationMinutes = 5}) async {
+  void setDuration(int minutes) {
+    if (_isPlaying) return; // Jangan ubah jika sedang jalan
+
+    _sessionDurationSeconds = minutes * 60;
+    _remainingSeconds = _sessionDurationSeconds;
+
+    // Update UI segera agar angka timer berubah
+    _countdownCtrl.add(_remainingSeconds);
+  }
+
+  Future<void> startBreathing() async {
     if (_isPlaying) return;
 
     _isPlaying = true;
-    _remainingSeconds = durationMinutes * 60;
     _playingStateCtrl.add(true);
 
-    // Start the main breathing cycle
-    _startBreathingCycle();
-    // Start countdown timer
-    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      _remainingSeconds--;
-      _countdownCtrl.add(_remainingSeconds);
+    // Reset state siklus napas
+    _phaseIndex = 0; // Mulai dari inhale
+    _secondsInCurrentPhase = 0;
 
+    // Jika sisa waktu 0 (misal habis stop), reset ke durasi yang dipilih
+    if (_remainingSeconds <= 0) {
+      _remainingSeconds = _sessionDurationSeconds;
+    }
+
+    // Play suara pertama segera
+    _processTick();
+
+    // Mulai Timer 1 detik
+    _sessionTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_remainingSeconds <= 0) {
         stopBreathing();
+      } else {
+        _processTick();
       }
     });
   }
 
-  void _startBreathingCycle() {
-    _breathingTimer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-      final cycleTime =
-          timer.tick % (_breathingPattern.values.reduce((a, b) => a + b));
-      var accumulatedTime = 0;
+  // Logika inti yang dijalankan setiap detik
+  void _processTick() {
+    _remainingSeconds--;
+    _countdownCtrl.add(_remainingSeconds);
 
-      for (var phase in _breathingPattern.entries) {
-        if (cycleTime < accumulatedTime + phase.value) {
-          final phaseProgress = cycleTime - accumulatedTime + 1;
-          _instructionCtrl.add('${phase.key}|$phaseProgress|${phase.value}');
-          // Play beep on phase start
-          if (phaseProgress == 1) {
-            await _playBeep();
-          }
-          break;
-        }
-        accumulatedTime += phase.value;
-      }
-    });
+    // 1. Ambil data fase saat ini
+    final currentPhaseData = _phase[_phaseIndex];
+    final String phaseName = currentPhaseData['name'];
+    final int phaseDuration = currentPhaseData['duration'];
+
+    // 2. Increment detik dalam fase ini (1, 2, 3...)
+    _secondsInCurrentPhase++;
+
+    // 3. Kirim instruksi ke UI: "nama|detik_sekarang|total_detik"
+    // Contoh: "inhale|1|4", "inhale|2|4"
+    _instructionCtrl.add('$phaseName|$_secondsInCurrentPhase|$phaseDuration');
+
+    // 4. Mainkan suara Metronom (Setiap detik)
+    _playBeep();
+
+    // 5. Cek apakah fase sudah selesai?
+    if (_secondsInCurrentPhase >= phaseDuration) {
+      // Pindah ke fase berikutnya
+      _phaseIndex = (_phaseIndex + 1) % _phase.length; // Loop 0 -> 1 -> 2 -> 0
+      _secondsInCurrentPhase = 0; // Reset hitungan detik fase
+    }
   }
 
   Future<void> _playBeep() async {
     try {
+      // Seek ke awal agar bisa diputar ulang cepat (metronom style)
       await _audioPlayer.seek(Duration.zero);
       await _audioPlayer.play();
     } catch (e) {
@@ -95,12 +125,15 @@ class BreathingService {
   }
 
   Future<void> stopBreathing() async {
-    _breathingTimer?.cancel();
-    _countdownTimer?.cancel();
+    _sessionTimer?.cancel();
     _isPlaying = false;
 
-    _instructionCtrl.add('stopped');
+    _instructionCtrl.add('stopped|0|0');
     _playingStateCtrl.add(false);
+
+    // Reset timer display ke durasi awal agar rapi
+    _remainingSeconds = _sessionDurationSeconds;
+    _countdownCtrl.add(_remainingSeconds);
 
     await _audioPlayer.stop();
   }
@@ -112,4 +145,5 @@ class BreathingService {
     _countdownCtrl.close();
     _playingStateCtrl.close();
   }
+
 }

@@ -7,22 +7,38 @@ import '../models/spatio.model.dart';
 class RHRService {
   /// Compute resting HR from last N heart rate samples
   /// Only considers samples where phoneSensor.isStill == true
-  double? computeRHR(List<HeartRateData> data, {int windowMinutes = 5}) {
+  double? computeRHR(List<HeartRateData> data, {int windowMinutes = 10}) {
     if (data.isEmpty) return null;
 
     final now = DateTime.now();
     final cutoff = now.subtract(Duration(minutes: windowMinutes));
 
     final restingSamples = data
-        .where((d) =>
-            d.timestamp.isAfter(cutoff) && d.phoneSensor.isStill && d.bpm > 30)
+        .where(
+          (d) =>
+              d.timestamp.isAfter(cutoff) &&
+              d.phoneSensor.isStill &&
+              d.bpm > 30 &&
+              d.bpm <= 120,
+        )
         .map((d) => d.bpm)
         .toList();
 
-    if (restingSamples.length < 5) return null; // not enough data
+    if (restingSamples.length < 7) return null; // not enough data
+    restingSamples.sort();
 
-    final mean = restingSamples.reduce((a, b) => a + b) / restingSamples.length;
-    return mean;
+    double rhr;
+    final int middle = restingSamples.length ~/ 2;
+
+    if (restingSamples.length % 2 == 1) {
+      // Ganjil: Ambil nilai tengah
+      rhr = restingSamples[middle].toDouble();
+    } else {
+      // Genap: Rata-rata dua nilai tengah
+      rhr = (restingSamples[middle - 1] + restingSamples[middle]) / 2.0;
+    }
+
+    return rhr;
   }
 
   /// Optionally: lowest 1-minute rolling mean of still data (more stable RHR)
@@ -37,12 +53,15 @@ class RHRService {
     for (int i = 0; i < still.length; i++) {
       final start = still[i].timestamp;
       final segment = still
-          .where((s) =>
-              s.timestamp.isAfter(start) &&
-              s.timestamp.isBefore(start.add(window)))
+          .where(
+            (s) =>
+                s.timestamp.isAfter(start) &&
+                s.timestamp.isBefore(start.add(window)),
+          )
           .toList();
       if (segment.length < 3) continue;
-      final mean = segment.map((s) => s.bpm).reduce((a, b) => a + b) / segment.length;
+      final mean =
+          segment.map((s) => s.bpm).reduce((a, b) => a + b) / segment.length;
       lowestMean = (lowestMean == null) ? mean : min(lowestMean!, mean);
     }
 

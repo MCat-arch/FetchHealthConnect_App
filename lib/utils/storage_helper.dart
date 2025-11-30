@@ -1,4 +1,8 @@
 import 'package:aura_bluetooth/models/heart_rate_model.dart';
+import 'package:aura_bluetooth/models/hrv_metric.dart';
+import 'package:aura_bluetooth/models/spatio.model.dart';
+import 'package:aura_bluetooth/services/firestore_service.dart';
+import 'package:aura_bluetooth/services/ml_panic_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class StorageService {
@@ -14,7 +18,8 @@ class StorageService {
     await Hive.initFlutter();
 
     if (!Hive.isBoxOpen(_dataBoxName)) await Hive.openBox(_dataBoxName);
-    if (!Hive.isBoxOpen(_syncQueueBoxName)) await Hive.openBox(_syncQueueBoxName);
+    if (!Hive.isBoxOpen(_syncQueueBoxName))
+      await Hive.openBox(_syncQueueBoxName);
     if (!Hive.isBoxOpen(_settingsBoxName)) await Hive.openBox(_settingsBoxName);
   }
 
@@ -67,6 +72,7 @@ class StorageService {
   }
 
   Box get syncBox => Hive.box(_syncQueueBoxName);
+
 }
 
 // import 'package:hive_flutter/hive_flutter.dart';
