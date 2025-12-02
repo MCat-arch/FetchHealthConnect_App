@@ -466,23 +466,27 @@ class HealthMonitoringTaskHandler extends TaskHandler {
 
       // 5. Kirim ke UI & Simpan
       FlutterForegroundTask.sendDataToMain(hrData.toJson());
+      await _storageService!.saveHeartRateData(hrDataFinal);
 
       _history.add(hrData);
       _pruneHistory();
       // await _saveToHive(hrData);
-      await _storageService!.saveHeartRateData(hrDataFinal);
 
       try {
-        await _firestoreService!.syncHeartRateData(
-          hrDataFinal,
-          userId: "BG_USER",
-        );
-
+        await _firestoreService!.syncHeartRateData(hrDataFinal);
         final key = hrDataFinal.timestamp.microsecondsSinceEpoch.toString();
         await _storageService!.clearSyncedData([key]);
       } catch (e) {
         // 2. Masukkan ke Antrian Sync (sync_queue)
         await _cacheDataForSync(hrDataFinal);
+      }
+
+      if (prediction.isPanic && prediction.confidence > 0.5) {
+        _debugLog('🚨 Panic detected. Triggering User Validation...');
+
+        // Panggil handler notifikasi
+        // Payload: Timestamp ISO String (Kunci untuk update nanti)
+        _handlePanicDetection(prediction, hrDataFinal);
       }
 
       // // 2. Masukkan ke Antrian Sync (sync_queue)
@@ -700,21 +704,21 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       type: 'ALERT',
     );
 
-    final String timestamp =
-        hrData?.timestamp.toIso8601String() ?? DateTime.now().toIso8601String();
+    // final String timestamp =
+    //     hrData?.timestamp.toIso8601String() ?? DateTime.now().toIso8601String();
 
     _notificationService!.showNotification(
       id: 2,
       title: 'Panic Attack Detected!',
       body: 'Tap to start validation and relaxation.',
-      payload: timestamp, // Payload untuk navigasi
+      payload: hrData!.timestamp.toIso8601String(),
     );
 
-    FlutterForegroundTask.sendDataToMain({
-      'event': 'PANIC_DETECTED',
-      'timestamp': timestamp,
-      'confidence': prediction.confidence,
-    });
+    // FlutterForegroundTask.sendDataToMain({
+    //   'event': 'PANIC_DETECTED',
+    //   'timestamp': timestamp,
+    //   'confidence': prediction.confidence,
+    // });
 
     // Log panic event
     _logPanicEvent(prediction, hrData);
@@ -751,8 +755,7 @@ class HealthMonitoringTaskHandler extends TaskHandler {
     String conStatus = isHardwareConnected ? 'Connected' : 'Disconnected';
     FlutterForegroundTask.updateService(
       notificationTitle: 'AURA',
-      notificationText:
-          'Armband connection : $conStatus',
+      notificationText: 'Armband connection : $conStatus',
     );
 
     _debugLog(

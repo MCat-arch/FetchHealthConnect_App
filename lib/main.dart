@@ -169,6 +169,6 @@ class MyApp extends StatelessWidget {
 // memperbaiki statistikanya, bpm di hitung bukan dari rrInterval (fungsi nya kurang)
 // menambahkan feedback jika disconnect dengan bluetooth
 // masalah pada time of the day dan time di phone sersor service
-
+// data di sync ke firestore dulu baru deteksi panic yang call notif. jadi gagal menemukan data yg sama di firestore, karena belum ada
 
 

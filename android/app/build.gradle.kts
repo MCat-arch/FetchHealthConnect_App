@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     // START: FlutterFire Configuration
@@ -6,6 +9,13 @@ plugins {
     id("kotlin-android")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
+}
+
+// 1. Load Keystore Properties (Cara Kotlin DSL)
+val keystoreProperties = Properties()
+val keystorePropertiesFile = rootProject.file("key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
 android {
@@ -20,33 +30,47 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = "11"
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.example.aura_bluetooth"
-        // You can update the following values to match your application needs.
-        // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        // Anda bisa ubah ini ke angka (misal 23) jika flutter.minSdkVersion bermasalah
+        minSdk = flutter.minSdkVersion 
         targetSdk = 34
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-
-        manifestPlaceholders.putAll(
-        mapOf(
-            "appAuthRedirectScheme" to "com.example.aura_bluetooth"
-        )
-)
-
-       
     }
 
+    // 2. Konfigurasi Signing (Harus didefinisikan SEBELUM buildTypes)
+    signingConfigs {
+        create("release") {
+            // Perhatikan casting 'as String' karena Properties mengembalikan Object
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+            storeFile = if (keystoreProperties["storeFile"] != null) {
+                file(keystoreProperties["storeFile"] as String)
+            } else {
+                null
+            }
+            storePassword = keystoreProperties["storePassword"] as String
+        }
+    }
+
+    // 3. Tipe Build
     buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+        getByName("release") {
+            // Mengaktifkan signing config yang dibuat di atas
+            signingConfig = signingConfigs.getByName("release")
+            
+            // Opsional: Mengecilkan ukuran APK (Proguard/R8)
+            // Jika nanti error saat run release, ubah jadi false
+            isMinifyEnabled = true 
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 }

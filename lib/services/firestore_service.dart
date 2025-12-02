@@ -1,3 +1,4 @@
+import 'package:aura_bluetooth/utils/storage_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:aura_bluetooth/models/heart_rate_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -84,21 +85,42 @@ class FirestoreService {
   Future<void> updatePanicValidation(String timestamp, String status) async {
     try {
       final user = _auth.currentUser;
+      if (user == null) return;
+      String isoString;
 
-      final String userId = user!.uid;
-      final docId = timestamp;
+      if (timestamp.contains('T')) {
+        // Case 1: It's already "2025-12-01T..."
+        isoString = timestamp;
+      } else {
+        // Case 2: It's a timestamp integer "17645..." (from Notification payload)
+        final int ms = int.parse(timestamp);
+        final DateTime dt = DateTime.fromMillisecondsSinceEpoch(ms);
+        isoString = dt.toIso8601String();
+      }
 
-      await _firestore
+      print("🔍 Mencari dokumen dengan timestamp: $isoString ($timestamp)...");
+
+      final querySnapshot = await _firestore
           .collection('users')
-          .doc(userId)
+          .doc(user.uid)
           .collection(collectionName)
-          .doc(docId)
-          .update({
-            'prediction.userFeedback': status,
-            'prediction.validated_at': FieldValue.serverTimestamp(),
-          });
+          .where('timestamp', isEqualTo: isoString)
+          .limit(1)
+          .get();
+
+      // 3. Cek apakah dokumen ditemukan
+      if (querySnapshot.docs.isEmpty) {
+        throw Exception("❌ Dokumen tidak ditemukan untuk timestamp tersebut.");
+      }
+
+      final docRef = querySnapshot.docs.first.reference;
+      await docRef.update({'prediction.userFeedback': status});
+      print(
+        '✅ Validasi ($status) berhasil di-update pada doc ID: ${docRef.id}',
+      );
     } catch (e) {
       print('Gagal update validasi: $e');
+      await StorageService().savePendingFeedback(timestamp, status);
     }
   }
 }

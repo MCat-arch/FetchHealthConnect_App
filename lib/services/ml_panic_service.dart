@@ -39,7 +39,7 @@ class MLPanicService {
       return _createResult(data, false, 0.0, "Skipped: Moving", 0.0);
     }
 
-    // 2. COLD START 
+    // 2. COLD START
     if (_calibrationBuffer.length < _minSamplesForCalibration) {
       _calibrationBuffer.add(data.bpm.toDouble());
 
@@ -177,7 +177,7 @@ class MLPanicService {
       confidence: confidence,
       features: {'z_score': zScore, 'baseline': _movingMean, 'reason': reason},
       timestamp: DateTime.now(),
-      userFeedback: ''
+      userFeedback: '',
     );
   }
 }
@@ -214,7 +214,7 @@ class PanicPrediction {
       'isPanic': isPanic,
       'confidence': confidence,
       'features': features,
-      'timestamp': timestamp.millisecondsSinceEpoch,
+      'timestamp': timestamp.toIso8601String(),
       'userFeedback': userFeedback,
     };
   }

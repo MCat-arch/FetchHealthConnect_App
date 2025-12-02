@@ -131,7 +131,10 @@ class _BreathingGuidePageState extends State<BreathingGuidePage>
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Center(child: const Text('Breathing Guide'))),
+      appBar: AppBar(
+        title: Center(child: const Text('Breathing Guide')),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -247,7 +250,7 @@ class _BreathingGuidePageState extends State<BreathingGuidePage>
                 child: ChoiceChip(
                   label: Text('$minutes min'),
                   selected: isSelected,
-                  selectedColor: Colors.blue.shade100,
+                  selectedColor: Color(0xFF1F71B4),
                   onSelected: (selected) {
                     if (selected) _onDurationSelected(minutes);
                   },

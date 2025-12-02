@@ -1,4 +1,5 @@
 import 'package:aura_bluetooth/services/firestore_service.dart';
+import 'package:aura_bluetooth/utils/storage_helper.dart';
 import 'package:aura_bluetooth/views/breathing_page.dart';
 import 'package:flutter/material.dart';
 
@@ -18,14 +19,36 @@ class _ValidationPageState extends State<ValidationPage> {
       _isUpdating = true;
     });
 
-    await FirestoreService().updatePanicValidation(
-      widget.eventTimestamp,
-      status,
-    );
+    try {
+      // final int ms = int.parse(widget.eventTimestamp);
+      // final DateTime dt = DateTime.fromMillisecondsSinceEpoch(ms);
 
-    if (mounted) {
-      setState(() => _isUpdating = false);
-      onSuccess();
+      final String isoString;
+      // CHECK: Is the input already an ISO Date string (contains 'T')?
+      if (widget.eventTimestamp.contains('T')) {
+        // Case 1: It's already "2025-12-01T..."
+        isoString = widget.eventTimestamp;
+      } else {
+        // Case 2: It's a timestamp integer "17645..." (from Notification payload)
+        final int ms = int.parse(widget.eventTimestamp);
+        final DateTime dt = DateTime.fromMillisecondsSinceEpoch(ms);
+        isoString = dt.toIso8601String();
+      }
+
+      await FirestoreService().updatePanicValidation(isoString, status);
+
+      if (mounted) {
+        setState(() => _isUpdating = false);
+        onSuccess();
+      }
+    } catch (e) {
+      print("Error submitting feedback: $e");
+      if (mounted) {
+        setState(() => _isUpdating = false);
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Gagal menyimpan: $e")));
+      }
     }
   }
 
@@ -38,7 +61,7 @@ class _ValidationPageState extends State<ValidationPage> {
       ),
       body: Center(
         child: _isUpdating
-            ? const CircularProgressIndicator() 
+            ? const CircularProgressIndicator()
             : Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

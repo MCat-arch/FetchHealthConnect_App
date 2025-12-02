@@ -13,6 +13,7 @@ class StorageService {
   static const String _dataBoxName = 'hr_box';
   static const String _syncQueueBoxName = 'sync_queue';
   static const String _settingsBoxName = 'app_settings';
+  static const String _feedbackQueueBoxName = 'feedback queue';
 
   Future<void> init() async {
     await Hive.initFlutter();
@@ -21,6 +22,8 @@ class StorageService {
     if (!Hive.isBoxOpen(_syncQueueBoxName))
       await Hive.openBox(_syncQueueBoxName);
     if (!Hive.isBoxOpen(_settingsBoxName)) await Hive.openBox(_settingsBoxName);
+    if (!Hive.isBoxOpen(_feedbackQueueBoxName))
+      await Hive.openBox(_feedbackQueueBoxName);
   }
 
   Future<void> savePermissionStatus(bool isGranted) async {
@@ -73,6 +76,22 @@ class StorageService {
 
   Box get syncBox => Hive.box(_syncQueueBoxName);
 
+  Future<void> savePendingFeedback(String isoTimestamp, String status) async {
+    final feedbackBox = Hive.box(_feedbackQueueBoxName);
+
+    feedbackBox.put(isoTimestamp, status);
+    print("💾 Feedback saved locally for later sync: $status");
+  }
+
+  Future<void> clearSyncedFeedback(List<dynamic> keys) async {
+    final feedbackBox = Hive.box(_feedbackQueueBoxName);
+    await feedbackBox.deleteAll(keys);
+  }
+
+  Map<dynamic, dynamic> getPendingFeedbacks() {
+    final feedbackBox = Hive.box(_feedbackQueueBoxName);
+    return feedbackBox.toMap();
+  }
 }
 
 // import 'package:hive_flutter/hive_flutter.dart';
