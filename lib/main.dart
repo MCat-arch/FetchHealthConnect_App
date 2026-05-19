@@ -38,7 +38,6 @@ void main() async {
       print('All permission granted');
     }
 
-    // Deklarasikan semua service yang perlu diakses Provider di luar main()
     // final bleService = BLEService();
     final settingsService = SettingsService();
     final notificationService = NotificationService();

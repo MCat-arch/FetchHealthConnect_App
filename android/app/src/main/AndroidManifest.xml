@@ -89,6 +89,7 @@
         android:value="high_importance_channel" />
 
         <service android:name="com.pravera.flutter_foreground_task.service.ForegroundService"
+            android:foregroundServiceType="connectedDevice|dataSync|health"
             android:exported="false" />
     </application>
     <!-- Required to query activities that can process text, see:

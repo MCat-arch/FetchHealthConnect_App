@@ -8,26 +8,13 @@ part 'spatio.model.g.dart';
 // @HiveType(typeId: 1)
 @JsonSerializable(explicitToJson: true)
 class SpatioTemporal {
-  // --- RAW INPUT FIELDS (From Phone APIs) ---
-  // @HiveField(0)
+
   final String rawActivityStatus;
-
-  // @HiveField(1)
   final String time;
-
-  // @HiveField(2)
   final double? noiseLeveldB;
-
-  // @HiveField(3)
   final bool isWalking;
-
-  // @HiveField(4)
   final bool isRunning;
-
-  // @HiveField(5)
   final bool isStill;
-
-  // @HiveField(6)
   final String timeOfDayCategory;
 
   // -----------------------------------------------------------
