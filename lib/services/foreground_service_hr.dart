@@ -37,7 +37,7 @@ class ForegroundMonitorService {
         channelId: 'health_monitoring',
         channelName: 'Health Monitoring Service',
         channelDescription: 'Monitoring heart rate and sensors in background',
-        channelImportance: NotificationChannelImportance.LOW,
+        channelImportance: NotificationChannelImportance.NONE,
         priority: NotificationPriority.LOW,
         // icon: const DrawableResourceAndroidIcon('mipmap/ic_launcher'),
         onlyAlertOnce: true,
@@ -435,7 +435,7 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       );
 
       final prediction = await _mlService!.predictPanicAttack(hrData);
-      if (prediction.isPanic && prediction.confidence > 0.5) {
+      if (prediction.trigger) {
         _handlePanicDetection(prediction, hrData);
       }
 
@@ -481,7 +481,7 @@ class HealthMonitoringTaskHandler extends TaskHandler {
         await _cacheDataForSync(hrDataFinal);
       }
 
-      if (prediction.isPanic && prediction.confidence > 0.5) {
+      if (prediction.trigger) {
         _debugLog('🚨 Panic detected. Triggering User Validation...');
 
         // Panggil handler notifikasi
@@ -681,10 +681,10 @@ class HealthMonitoringTaskHandler extends TaskHandler {
 
       final prediction = await _mlService!.predictPanicAttack(recentData.last);
       _debugLog(
-        '🧠 ML Prediction: panic=${prediction.isPanic}, confidence=${(prediction.confidence * 100).toStringAsFixed(1)}%',
+        '🧠 ML Prediction: panic=${prediction.trigger}, p_panic=${((prediction.pPanic ?? 0.0) * 100).toStringAsFixed(1)}%',
       );
 
-      if (prediction.isPanic) {
+      if (prediction.trigger) {
         _panicDetections++;
         _handlePanicDetection(prediction, recentData.last);
       }
@@ -700,7 +700,7 @@ class HealthMonitoringTaskHandler extends TaskHandler {
     HeartRateData? hrData,
   ) {
     _debugLog(
-      '🚨🚨🚨 PANIC DETECTED! Confidence: ${(prediction.confidence * 100).toStringAsFixed(1)}% (Total detections: $_panicDetections)',
+      '🚨🚨🚨 PANIC DETECTED! p_panic: ${((prediction.pPanic ?? 0.0) * 100).toStringAsFixed(1)}% (Total detections: $_panicDetections)',
       type: 'ALERT',
     );
 
@@ -734,8 +734,8 @@ class HealthMonitoringTaskHandler extends TaskHandler {
 
       final eventData = {
         'timestamp': DateTime.now().millisecondsSinceEpoch,
-        'confidence': prediction.confidence,
-        'features': prediction.features,
+        'p_panic': prediction.pPanic,
+        'status': prediction.status,
         'heart_rate': hrData?.bpm,
         'hrv': hrData?.HRV60s?.rmssd,
         'activity': hrData?.phoneSensor.rawActivityStatus,

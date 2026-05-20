@@ -131,9 +131,13 @@ class _BreathingGuidePageState extends State<BreathingGuidePage>
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
-        title: Center(child: const Text('Breathing Guide')),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Breathing Guide', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
+        elevation: 0,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -165,7 +169,7 @@ class _BreathingGuidePageState extends State<BreathingGuidePage>
                 const Text(
                   '4-7-8 Technique\nInhale (4s) - Hold (7s) - Exhale (8s)',
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.grey, fontSize: 16),
+                  style: TextStyle(color: Colors.black54, fontSize: 16),
                 ),
 
               const SizedBox(height: 40),
@@ -248,9 +252,14 @@ class _BreathingGuidePageState extends State<BreathingGuidePage>
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: ChoiceChip(
-                  label: Text('$minutes min'),
+                  label: Text('$minutes min', style: TextStyle(color: isSelected ? Colors.white : Colors.black87)),
                   selected: isSelected,
-                  selectedColor: Color(0xFF1F71B4),
+                  selectedColor: Colors.blueAccent,
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    side: BorderSide(color: isSelected ? Colors.blueAccent : Colors.grey.shade300),
+                  ),
                   onSelected: (selected) {
                     if (selected) _onDurationSelected(minutes);
                   },

@@ -40,10 +40,12 @@ class DummyDataHelper {
       68.0, // RHR
       sensor,
       PanicPrediction(
-        isPanic: false,
-        confidence: 0.1,
-        features: {'bpm': 72, 'hrv': 42.0},
-        timestamp: now,
+        pPanic: 0.1,
+        trigger: false,
+        status: '✅ Normal',
+        bpm: 72,
+        sdnn: 50.5,
+        timestamp: DateTime.now(),
       ),
     );
   }

@@ -38,7 +38,7 @@ class FirestoreService {
       jsonData['synced_at'] = FieldValue.serverTimestamp();
 
       // If there is a prediction, we might want to flag this document for easier querying
-      if (data.prediction != null && data.prediction!.isPanic) {
+      if (data.prediction != null && data.prediction!.trigger) {
         jsonData['has_panic_alert'] = true;
       }
 

@@ -7,17 +7,32 @@ class Navbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, -5),
+          ),
+        ],
+      ),
+      child: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: onTap,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.grey.shade400,
+        showUnselectedLabels: true,
+        type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.wind_power_outlined), label: "Breath"),
-          // BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Setting"),
-      ]
-      //home,
-        //breath
-        //setting
+          BottomNavigationBarItem(icon: Icon(Icons.settings), label: "Setting"),
+        ],
+      ),
     );
   }
 }

@@ -132,7 +132,7 @@ class BLEProvider extends ChangeNotifier {
       }
       
       // C. Terima Panic Prediction
-      else if (map.containsKey('isPanic')) {
+      else if (map.containsKey('trigger') || map.containsKey('p_panic')) {
          // Handle panic UI
       }
     }

@@ -52,12 +52,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   bool _shouldShowPanicAlert(PanicPrediction prediction) {
-    if (!prediction.isPanic) return false;
+    if (!prediction.trigger) return false;
     if (_lastShownPanic == null) return true;
 
     // Show alert jika confidence berbeda signifikan (> 5%) atau panic status berubah
-    return (prediction.confidence - _lastShownPanic!.confidence).abs() > 0.05 ||
-        prediction.isPanic != _lastShownPanic!.isPanic;
+    return ((prediction.pPanic ?? 0.0) - (_lastShownPanic!.pPanic ?? 0.0))
+                .abs() >
+            0.05 ||
+        prediction.trigger != _lastShownPanic!.trigger;
   }
 
   Future<void> _showPanicAlert(PanicPrediction prediction) async {
@@ -76,7 +78,7 @@ class _HomePageState extends State<HomePage> {
         ),
         content: Text(
           'High probability of panic attack detected '
-          '(${(prediction.confidence * 100).toStringAsFixed(1)}% confidence).\n\n'
+          '(${((prediction.pPanic ?? 0.0) * 100).toStringAsFixed(1)}% confidence).\n\n'
           'Please take deep breaths, and recognize the feeling',
         ),
         actions: [
@@ -160,7 +162,13 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Card(
-      elevation: 4,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: Colors.grey.shade200),
+      ),
+      color: Colors.white,
+      clipBehavior: Clip.antiAlias,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -175,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey,
+                      color: Colors.black54,
                     ),
                   ),
                   Row(
@@ -218,7 +226,7 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(width: 4),
                   Text(
                     'BPM',
-                    style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                    style: TextStyle(fontSize: 14, color: Colors.black54),
                   ),
                 ],
               ),
@@ -282,7 +290,7 @@ class _HomePageState extends State<HomePage> {
             "Last Update: ${hr.phoneSensor.time}",
             style: const TextStyle(
               fontSize: 10,
-              color: Colors.grey,
+              color: Colors.black54,
               fontStyle: FontStyle.italic,
             ),
           ),
@@ -326,11 +334,11 @@ class _HomePageState extends State<HomePage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+        Text(label, style: const TextStyle(fontSize: 12, color: Colors.black54)),
         const SizedBox(height: 4),
         Text(
           value,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.black87),
         ),
       ],
     );
@@ -555,8 +563,14 @@ class _HomePageState extends State<HomePage> {
   // Widget Tombol Action (Sesuai request Anda)
   Widget _buildActionButtons(BLEProvider ble) {
     return Card(
-      elevation: 2,
-      margin: const EdgeInsets.all(12),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: Colors.grey.shade200),
+      ),
+      color: Colors.white,
+      clipBehavior: Clip.antiAlias,
+      margin: const EdgeInsets.symmetric(vertical: 8),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Row(
@@ -626,9 +640,9 @@ class _HomePageState extends State<HomePage> {
             const Icon(Icons.favorite, color: Colors.red, size: 64),
             Text(
               "${ble.heartRate?.bpm ?? '--'} BPM",
-              style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 48, fontWeight: FontWeight.bold, color: Colors.black87),
             ),
-            Text("Status: ${ble.status}"),
+            Text("Status: ${ble.status}", style: const TextStyle(color: Colors.black54)),
           ],
         ),
       );
@@ -645,16 +659,42 @@ class _HomePageState extends State<HomePage> {
             ? result.device.platformName
             : "Unknown Device (${result.device.remoteId})";
 
-        return ListTile(
-          title: Text(name),
-          subtitle: Text(result.device.remoteId.str),
-          trailing: ElevatedButton(
-            child: const Text("Connect"),
-            onPressed: () {
-              // INI KUNCINYA: Panggil connectTo di Provider
-              // Provider akan mengirim perintah ke Background Task
-              ble.connectTo(result);
-            },
+        return Card(
+          elevation: 0,
+          margin: const EdgeInsets.symmetric(vertical: 4),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+            side: BorderSide(color: Colors.grey.shade200),
+          ),
+          color: Colors.white,
+          child: ListTile(
+            title: Text(
+              name,
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.black87,
+              ),
+            ),
+            subtitle: Text(
+              result.device.remoteId.str,
+              style: TextStyle(color: Colors.grey.shade600),
+            ),
+            trailing: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueAccent,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                elevation: 0,
+              ),
+              child: const Text("Connect"),
+              onPressed: () {
+                // INI KUNCINYA: Panggil connectTo di Provider
+                // Provider akan mengirim perintah ke Background Task
+                ble.connectTo(result);
+              },
+            ),
           ),
         );
       },
@@ -668,12 +708,18 @@ class _HomePageState extends State<HomePage> {
     Color color = Colors.grey,
   }) {
     return Card(
-      elevation: 2,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: Colors.grey.shade200),
+      ),
+      color: Colors.white,
+      clipBehavior: Clip.antiAlias,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Icon(icon, size: 48, color: color.withOpacity(0.6)),
+            Icon(icon, size: 48, color: color.withOpacity(0.8)),
             const SizedBox(height: 8),
             Text(
               title,
@@ -686,7 +732,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 4),
             Text(
               subtitle,
-              style: TextStyle(color: color.withOpacity(0.8)),
+              style: const TextStyle(color: Colors.black54),
               textAlign: TextAlign.center,
             ),
           ],
@@ -745,7 +791,13 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildStatisticsSection(BLEProvider ble) {
     return Card(
-      elevation: 4,
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(color: Colors.grey.shade200),
+      ),
+      color: Colors.white,
+      clipBehavior: Clip.antiAlias,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -756,7 +808,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                 const Text(
                   'Health Statistics',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
                 ),
                 // TextButton(
                 //   onPressed: () => Navigator.push(
@@ -785,7 +837,7 @@ class _HomePageState extends State<HomePage> {
         child: Text(
           'Connect device to see statistics',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.grey),
+          style: TextStyle(color: Colors.black54),
         ),
       );
     }
@@ -857,9 +909,16 @@ class _HomePageState extends State<HomePage> {
     final ble = context.watch<BLEProvider>();
 
     return Scaffold(
+      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
-        title: const Text('AURA Health Monitor'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text(
+          'AURA',
+          style: TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.2),
+        ),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black87,
+        elevation: 0,
+        centerTitle: false,
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
