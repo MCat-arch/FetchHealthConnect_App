@@ -1,7 +1,7 @@
 name: aura_bluetooth
-description: "A new Flutter project."
+description: "This is an app to detect panic attack"
 publish_to: 'none'
-version: 0.1.0
+version: 1.3.0+1
 
 environment:
   sdk: ^3.8.1

@@ -703,7 +703,7 @@ class _SettingPageState extends State<SettingPage> {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),
-            Text('Version: 1.2.0'),
+            Text('Version: 1.3.0'),
             Text('Build: 2026.05.01'),
             SizedBox(height: 12),
             Text('Panic attack detection and health monitoring app.'),

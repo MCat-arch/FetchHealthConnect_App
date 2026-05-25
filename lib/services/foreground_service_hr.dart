@@ -193,9 +193,13 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       }
 
       // 4. Start Bluetooth
-      _debugLog('🎧 Starting BLE Scan & Listen...');
-      _startListeningToBLE(); // Setup listener dulu
-      await _bleService!.startScan(); // Baru start scan
+      if (!_isChargingMode) {
+        _debugLog('🎧 Starting BLE Scan & Listen...');
+        _startListeningToBLE(); // Setup listener dulu
+        await _bleService!.startScan(); // Baru start scan
+      } else {
+        _debugLog('⚡ In charging mode. Skipping BLE scan on startup.');
+      }
 
       _debugLog("init notifikasi");
       await _notificationService!.initNotification();
@@ -245,6 +249,18 @@ class HealthMonitoringTaskHandler extends TaskHandler {
   // HealthMonitoringTaskHandler
 
   @override
+  bool get _isChargingMode {
+    if (!Hive.isBoxOpen('app_settings')) return false;
+    return Hive.box('app_settings').get('is_charging_mode', defaultValue: false);
+  }
+
+  Future<void> _setChargingMode(bool value) async {
+    if (Hive.isBoxOpen('app_settings')) {
+      await Hive.box('app_settings').put('is_charging_mode', value);
+    }
+  }
+
+  @override
   void onReceiveData(Object data) {
     _debugLog('📨 Command received from UI: $data');
 
@@ -256,6 +272,10 @@ class HealthMonitoringTaskHandler extends TaskHandler {
         _handleUiConnectionRequest(deviceId);
       } else if (action == 'disconnect') {
         _handleUiDisconnectRequest();
+      } else if (action == 'start_charging') {
+        _handleUiStartChargingRequest();
+      } else if (action == 'stop_charging') {
+        _handleUiStopChargingRequest();
       }
     }
   }
@@ -295,6 +315,21 @@ class HealthMonitoringTaskHandler extends TaskHandler {
     FlutterForegroundTask.sendDataToMain({'status': 'disconnected'});
   }
 
+  Future<void> _handleUiStartChargingRequest() async {
+    _debugLog('⚡ UI requested Start Charging');
+    await _setChargingMode(true);
+    await _bleService!.disconnect();
+    FlutterForegroundTask.sendDataToMain({'status': 'charging'});
+    _updateNotification();
+  }
+
+  Future<void> _handleUiStopChargingRequest() async {
+    _debugLog('⚡ UI requested Stop Charging (Finish)');
+    await _setChargingMode(false);
+    FlutterForegroundTask.sendDataToMain({'status': 'disconnected'});
+    _updateNotification();
+  }
+
   void _startMaintenanceTimers() {
     _watchdogTimer?.cancel();
 
@@ -303,6 +338,12 @@ class HealthMonitoringTaskHandler extends TaskHandler {
       if (_bleService == null) return;
 
       final time = DateTime.now();
+
+      // Jika dalam mode charging, lewati semua pengecekan watchdog
+      if (_isChargingMode) {
+        _debugLog('⚡ Watchdog: Charging mode active. Skipping disconnect alerts.');
+        return;
+      }
 
       final connectedDevices = await FlutterBluePlus.connectedDevices;
       final bool isConnect = connectedDevices.isNotEmpty;
@@ -753,6 +794,9 @@ class HealthMonitoringTaskHandler extends TaskHandler {
   void _updateNotification() {
     final minutesActive = _monitoringCount ~/ 2;
     String conStatus = isHardwareConnected ? 'Connected' : 'Disconnected';
+    if (_isChargingMode) {
+      conStatus = 'Charging';
+    }
     FlutterForegroundTask.updateService(
       notificationTitle: 'AURA',
       notificationText: 'Armband connection : $conStatus',

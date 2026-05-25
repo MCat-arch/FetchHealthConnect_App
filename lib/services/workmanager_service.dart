@@ -143,7 +143,7 @@ class WorkmanagerService {
   Future<void> initialize() async {
     await _workmanager.initialize(
       callbackDispatcher,
-      isInDebugMode: true, // Ubah ke false saat rilis production
+      isInDebugMode: false, // Ubah ke false saat rilis production
     );
   }
 

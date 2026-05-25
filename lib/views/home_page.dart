@@ -576,8 +576,18 @@ class _HomePageState extends State<HomePage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            // Tombol Scan (Hanya muncul jika belum connect)
-            if (!ble.statusConnect) ...[
+            if (ble.isCharging) ...[
+              ElevatedButton.icon(
+                onPressed: () => ble.stopCharging(),
+                icon: const Icon(Icons.check_circle),
+                label: const Text('Selesai Charging'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white,
+                ),
+              ),
+            ] else if (!ble.statusConnect) ...[
+              // Tombol Scan (Hanya muncul jika belum connect)
               ElevatedButton.icon(
                 onPressed: ble.isScanning ? ble.stopScan : ble.startScan,
                 icon: Icon(ble.isScanning ? Icons.stop : Icons.search),
@@ -586,6 +596,12 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: ble.isScanning ? Colors.orange : Colors.blue,
                   foregroundColor: Colors.white,
                 ),
+              ),
+              // Tombol Refresh (Rescan)
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: ble.startScan,
+                tooltip: 'Rescan Devices',
               ),
             ] else ...[
               // Tombol Disconnect (Muncul jika connected)
@@ -598,15 +614,16 @@ class _HomePageState extends State<HomePage> {
                   foregroundColor: Colors.white,
                 ),
               ),
-            ],
-
-            // Tombol Refresh (Rescan)
-            if (!ble.statusConnect)
-              IconButton(
-                icon: const Icon(Icons.refresh),
-                onPressed: ble.startScan,
-                tooltip: 'Rescan Devices',
+              ElevatedButton.icon(
+                onPressed: () => ble.startCharging(),
+                icon: const Icon(Icons.bolt),
+                label: const Text('Charge'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.amber.shade700,
+                  foregroundColor: Colors.white,
+                ),
               ),
+            ],
 
             // Tombol Fitur Tambahan (Breathing)
             if (ble.statusConnect) ...[
@@ -631,6 +648,31 @@ class _HomePageState extends State<HomePage> {
 
   // Widget List Hasil Scan (WAJIB ADA untuk memilih device)
   Widget _buildScanResultList(BLEProvider ble) {
+    if (ble.isCharging) {
+      return Center(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.battery_charging_full, color: Colors.amber, size: 64),
+              const SizedBox(height: 12),
+              const Text(
+                "Armband Sedang Di-charge",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                "Notifikasi 'Please Connect' dimatikan sementara.",
+                style: TextStyle(color: Colors.grey.shade600),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
     if (ble.statusConnect) {
       // Tampilkan Data HR jika sudah connect
       return Center(

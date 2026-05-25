@@ -8,10 +8,8 @@ class BackendService {
   factory BackendService() => _instance;
   BackendService._internal();
 
-  // URL backend lokal - ganti dengan IP host yang sesuai jika di real device
-  // Emulator Android ke localhost host = 10.0.2.2
-  // static const String _baseUrl = 'http://10.0.2.2:8000';
-  static const String _baseUrl = 'http://10.205.77.205:8000';
+
+  static const String _baseUrl = 'https://khoerunnisautami-aura.hf.space';
 
   Future<PanicPrediction> sendPredictionRequest(HeartRateData data, String deviceId) async {
     final url = Uri.parse('$_baseUrl/predict');
@@ -28,7 +26,7 @@ class BackendService {
           'X-Device-Id': deviceId,
         },
         body: jsonEncode(data.toJson()),
-      ).timeout(const Duration(seconds: 5));
+      ).timeout(const Duration(seconds: 10));
 
       if (response.statusCode == 200) {
         print('✅ [BackendService] Sukses (200) - Data: ${response.body}');

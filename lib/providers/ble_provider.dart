@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
+import 'package:hive/hive.dart';
 import '../services/ble_service.dart';
 import '../models/heart_rate_model.dart';
 import '../services/ml_panic_service.dart';
@@ -19,6 +20,7 @@ class BLEProvider extends ChangeNotifier {
   bool statusConnect = false;
   HeartRateData? heartRate;
   PanicPrediction? panicPrediction;
+  bool isCharging = false;
 
   // Subscriptions
   StreamSubscription? _scanSub;
@@ -27,6 +29,11 @@ class BLEProvider extends ChangeNotifier {
   BLEProvider() {
     // 1. Init BLEService untuk UI Isolate
     _uiBleService = BLEService();
+    
+    // Load charging mode from Hive
+    if (Hive.isBoxOpen('app_settings')) {
+      isCharging = Hive.box('app_settings').get('is_charging_mode', defaultValue: false);
+    }
     
     // 2. Setup Listener komunikasi dengan Background
     _initBackgroundListener();
@@ -98,6 +105,26 @@ class BLEProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> startCharging() async {
+    print("📡 UI -> BG: Start Charging");
+    FlutterForegroundTask.sendDataToTask({
+      'action': 'start_charging',
+    });
+    isCharging = true;
+    statusConnect = false;
+    heartRate = null;
+    notifyListeners();
+  }
+
+  Future<void> stopCharging() async {
+    print("📡 UI -> BG: Stop Charging");
+    FlutterForegroundTask.sendDataToTask({
+      'action': 'stop_charging',
+    });
+    isCharging = false;
+    notifyListeners();
+  }
+
   // ----------------------------------------------------------------
   // BAGIAN 3: LISTENING (Data dari Background)
   // ----------------------------------------------------------------
@@ -115,6 +142,7 @@ class BLEProvider extends ChangeNotifier {
         try {
           heartRate = HeartRateData.fromJson(map);
           statusConnect = true; // Tandai Connected
+          isCharging = false;
           status = "Monitoring: ${heartRate!.bpm} BPM";
           notifyListeners();
         } catch (e) {
@@ -125,9 +153,17 @@ class BLEProvider extends ChangeNotifier {
       // B. Terima Status Koneksi (Opsional, jika BG kirim status update)
       else if (map.containsKey('status')) {
          final bgStatus = map['status'];
-         if (bgStatus == 'connected') statusConnect = true;
-         if (bgStatus == 'disconnected') statusConnect = false;
-         status = "BG Status: $bgStatus";
+         status = bgStatus;
+         if (bgStatus == 'connected') {
+           statusConnect = true;
+           isCharging = false;
+         } else if (bgStatus == 'charging') {
+           statusConnect = false;
+           isCharging = true;
+         } else if (bgStatus == 'disconnected') {
+           statusConnect = false;
+           isCharging = false;
+         }
          notifyListeners();
       }
       

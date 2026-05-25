@@ -207,10 +207,27 @@ class BLEService {
 
     // listen connection state
     _connSub?.cancel();
-    _connSub = _device!.connectionState.listen((state) {
+    _connSub = _device!.connectionState.listen((state) async {
       log('Connection state: $state');
       if (state == BluetoothConnectionState.disconnected) {
         log('Device disconnected');
+        
+        final box = Hive.isBoxOpen('app_settings') ? Hive.box('app_settings') : null;
+        final bool isCharging = box?.get('is_charging_mode', defaultValue: false) ?? false;
+        
+        if (!isCharging) {
+          log('⚠️ Auto-reconnecting in 5 seconds...');
+          await Future.delayed(const Duration(seconds: 5));
+          
+          final bool isChargingNow = box?.get('is_charging_mode', defaultValue: false) ?? false;
+          if (!isChargingNow && _device != null) {
+            final stateNow = await _device!.connectionState.first;
+            if (stateNow == BluetoothConnectionState.disconnected) {
+              log('🔄 Retrying connection to ${_device!.platformName} (${_device!.remoteId.str})...');
+              connectToDevice(null, device: _device);
+            }
+          }
+        }
       }
     });
     // Connect only if not already connected
