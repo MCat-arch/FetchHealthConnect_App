@@ -13,7 +13,6 @@ const String taskSyncData = "com.aura.syncHeartRate";
 @pragma('vm:entry-point')
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
-    print("👷 [Workmanager] Executing task: $task");
 
     if (task == taskSyncData) {
       try {
@@ -30,11 +29,10 @@ void callbackDispatcher() {
         final pendingData = storage.getUnsyncedData();
 
         if (pendingData.isEmpty) {
-          print("👷 [Workmanager] Queue empty. Nothing to sync.");
+   
           return Future.value(true);
         }
 
-        print("👷 [Workmanager] Found ${pendingData.length} items to sync...");
 
         final firestoreService = FirestoreService();
         final List<String> successKeys = []; // Tampung key yang berhasil
@@ -51,11 +49,9 @@ void callbackDispatcher() {
             final key = item.timestamp.millisecondsSinceEpoch.toString();
             successKeys.add(key);
 
-            print("👷 [Workmanager] Synced item: ${item.bpm} BPM");
+         
           } catch (e) {
-            print(
-              "👷 [Workmanager] Failed to sync item time=${item.timestamp}: $e",
-            );
+          
             // Jangan masukkan ke successKeys, biarkan di antrian untuk coba lagi nanti
           }
         }
@@ -63,17 +59,13 @@ void callbackDispatcher() {
         // 5. Hapus data yang berhasil terupload dari Sync Queue
         if (successKeys.isNotEmpty) {
           await storage.clearSyncedData(successKeys);
-          print(
-            "👷 [Workmanager] Cleared ${successKeys.length} items from sync queue.",
-          );
+         
         }
 
         final pendingFeedbackMap = storage.getPendingFeedbacks();
 
         if (pendingFeedbackMap.isNotEmpty) {
-          print(
-            "👷 [Workmanager] Phase 2: Found ${pendingFeedbackMap.length} feedbacks to sync...",
-          );
+         
 
           final List<dynamic> successFeedbackKeys = [];
 
@@ -120,11 +112,10 @@ void callbackDispatcher() {
           }
         }
 
-        print("👷 [Workmanager] Sync Job Done.");
+    
         return Future.value(true);
-      } catch (e, stack) {
-        print("👷 [Workmanager] Critical Error: $e");
-        print(stack);
+      } catch (e) {
+  
         return Future.value(
           false,
         ); // Return false agar Workmanager me-retry nanti
@@ -143,7 +134,6 @@ class WorkmanagerService {
   Future<void> initialize() async {
     await _workmanager.initialize(
       callbackDispatcher,
-      isInDebugMode: false, // Ubah ke false saat rilis production
     );
   }
 
@@ -170,6 +160,5 @@ class WorkmanagerService {
       taskSyncData,
       constraints: Constraints(networkType: NetworkType.connected),
     );
-    // print("👷 [WorkmanagerService] One-off Sync Triggered");
   }
 }

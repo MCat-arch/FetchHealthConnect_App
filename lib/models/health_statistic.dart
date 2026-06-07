@@ -18,7 +18,7 @@ class HealthStatistics {
     required this.period,
     required this.averageHR,
     required this.averageHRV,
-    required this.maxHR,
+    required this.maxHR,  
     required this.minHR,
     required this.hrvSDNN,
     required this.hrvRMSSD,
